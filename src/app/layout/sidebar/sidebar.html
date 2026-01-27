@@ -23,7 +23,7 @@
   [class.lg:w-20]="isCollapsed()"
   class="fixed top-0 left-0 z-40 h-screen transition-all duration-300 bg-[#ffffff] text-[#475586] flex flex-col w-64 border-r border-slate-300"
 >
-  <div class="p-6 flex items-center justify-between border-b border-slate-300">
+  <div class="px-6 py-4 flex items-center justify-between border-b border-slate-300">
     @if (!isCollapsed()) {
       <span class="text-l font-bold text-black text-nowrap">IMS</span>
     }
@@ -40,7 +40,8 @@
     @for (item of navItems; track item.path) {
       <a
         [routerLink]="item.path"
-        routerLinkActive="bg-[#eff6ff] text-[#1d4ed8]"
+        routerLinkActive="bg-[#eff6ff] text-[#1d4ed8] is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
         (click)="isMobileMenuOpen.set(false)"
         class="flex items-center p-3 rounded-lg transition-all duration-200 [&:not(.is-active)]:hover:bg-stone-50 group relative"
       >

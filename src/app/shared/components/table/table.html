@@ -1,0 +1,32 @@
+<div class="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+  <table class="w-full text-left text-sm">
+    <thead class="bg-slate-50 text-slate-600 uppercase text-xs font-semibold">
+      <tr>
+        @for (col of columns(); track col.key) {
+          <th class="px-6 py-4">{{ col.label }}</th>
+        }
+        <th class="px-6 py-4 text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-100">
+      @for (row of data(); track row) {
+        <tr class="hover:bg-slate-50/50 transition-colors">
+          @for (col of columns(); track col.key) {
+            <td class="px-6 py-4 text-slate-700">
+              {{ row[col.key] }}
+            </td>
+          }
+          <td class="px-6 py-4 text-right">
+            <button class="text-blue-600 hover:underline font-medium">Edit</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td [attr.colspan]="columns().length + 1" class="px-6 py-12 text-center text-slate-400">
+            No data found.
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
