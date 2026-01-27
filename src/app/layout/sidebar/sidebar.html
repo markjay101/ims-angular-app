@@ -1,0 +1,74 @@
+<button
+  (click)="toggleMobile()"
+  [style.left]="isMobileMenuOpen() ? '200px' : ''"
+  class="fixed top-4 left-4 z-50 p-2 transition-all duration-300 text-[#475586] rounded-md lg:hidden"
+>
+  @if (isMobileMenuOpen()) {
+    <lucide-icon name="x"></lucide-icon>
+  } @else {
+    <lucide-icon name="menu"></lucide-icon>
+  }
+</button>
+
+@if (isMobileMenuOpen()) {
+  <div
+    (click)="toggleMobile()"
+    class="fixed inset-0 bg-gray/50 z-40 lg:hidden backdrop-blur-sm"
+  ></div>
+}
+
+<aside
+  [class]="isMobileMenuOpen() ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+  [class.lg:w-64]="!isCollapsed()"
+  [class.lg:w-20]="isCollapsed()"
+  class="fixed top-0 left-0 z-40 h-screen transition-all duration-300 bg-[#ffffff] text-[#475586] flex flex-col w-64 border-r border-slate-300"
+>
+  <div class="p-6 flex items-center justify-between border-b border-slate-300">
+    @if (!isCollapsed()) {
+      <span class="text-l font-bold text-black text-nowrap">IMS</span>
+    }
+    <button (click)="toggleDesktop()" class="hidden lg:block text-[#94a3b8] hover:text-[#475586]">
+      @if (isCollapsed()) {
+        <lucide-icon name="chevron-right"></lucide-icon>
+      } @else {
+        <lucide-icon name="chevron-left"></lucide-icon>
+      }
+    </button>
+  </div>
+
+  <nav class="flex-1 mt-4 px-3 space-y-1">
+    @for (item of navItems; track item.path) {
+      <a
+        [routerLink]="item.path"
+        routerLinkActive="bg-[#eff6ff] text-[#1d4ed8]"
+        (click)="isMobileMenuOpen.set(false)"
+        class="flex items-center p-3 rounded-lg transition-all duration-200 [&:not(.is-active)]:hover:bg-stone-50 group relative"
+      >
+        <lucide-icon [name]="item.icon"></lucide-icon>
+
+        @if (!isCollapsed()) {
+          <span class="ml-4 font-medium whitespace-nowrap overflow-hidden text-ellipsis">{{
+            item.label
+          }}</span>
+        } @else {
+          <span
+            class="absolute left-16 px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none text-nowrap z-50"
+          >
+            {{ item.label }}
+          </span>
+        }
+      </a>
+    }
+  </nav>
+
+  <div class="p-4 border-t border-slate-300">
+    <button class="flex items-center px-3">
+      <lucide-icon name="log-out"></lucide-icon>
+      @if (!isCollapsed()) {
+        <div class="ml-3">
+          <p class="text-sm font-medium text-nowrap">Logout</p>
+        </div>
+      }
+    </button>
+  </div>
+</aside>

@@ -1,0 +1,29 @@
+import {
+  LayoutDashboard,
+  ShieldUser,
+  FileUser,
+  Users,
+  Wifi,
+  Router,
+  CreditCard,
+  X,
+  Menu,
+  ChevronRight,
+  ChevronLeft,
+  LogOut,
+} from 'lucide-angular';
+
+export const ICONS = {
+  LayoutDashboard,
+  ShieldUser,
+  FileUser,
+  Users,
+  Wifi,
+  Router,
+  CreditCard,
+  X,
+  Menu,
+  ChevronRight,
+  ChevronLeft,
+  LogOut,
+};
