@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
+import { UserService } from '../../core/services/user/user-service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,6 +10,9 @@ import { LucideAngularModule } from 'lucide-angular';
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
+  private userService = inject(UserService);
+  private router = inject(Router);
+
   isCollapsed = signal(false);
   isMobileMenuOpen = signal(false);
 
@@ -30,5 +34,10 @@ export class Sidebar {
   toggleMobile() {
     this.isMobileMenuOpen.set(!this.isMobileMenuOpen());
     this.isCollapsed.set(!this.isMobileMenuOpen());
+  }
+
+  clickedLogout() {
+    this.userService.logout();
+    this.router.navigate(['/login']);
   }
 }

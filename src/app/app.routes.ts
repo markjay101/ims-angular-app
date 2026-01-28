@@ -1,11 +1,32 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
   {
-    path: 'admin-management',
+    path: 'login',
     pathMatch: 'full',
-    loadComponent: () => {
-      return import('./features/admin-management/admin-management').then((m) => m.AdminManagement);
+    loadComponent: async () => {
+      const m = await import('./features/auth/login/login');
+      return m.Login;
     },
+  },
+
+  {
+    path: '',
+    async loadComponent() {
+      const m = await import('./layout/main-layout/main-layout');
+      return m.MainLayout;
+    },
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'admin-management',
+        pathMatch: 'full',
+        loadComponent: async () => {
+          const m = await import('./features/admin-management/admin-management');
+          return m.AdminManagement;
+        },
+      },
+    ],
   },
 ];

@@ -1,15 +1,1 @@
-<div class="flex min-h-screen">
-  <app-sidebar #sidebar />
-
-  <div
-    class="flex flex-col flex-1 transition-all duration-300"
-    [class.lg:ml-64]="!sidebar.isCollapsed()"
-    [class.lg:ml-20]="sidebar.isCollapsed()"
-  >
-    <app-header />
-
-    <main class="p-6 flex-1 bg-stone-50">
-      <router-outlet />
-    </main>
-  </div>
-</div>
+<router-outlet />

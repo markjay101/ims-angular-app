@@ -11,6 +11,7 @@ import {
   ChevronRight,
   ChevronLeft,
   LogOut,
+  LoaderCircle,
 } from 'lucide-angular';
 
 export const ICONS = {
@@ -26,4 +27,5 @@ export const ICONS = {
   ChevronRight,
   ChevronLeft,
   LogOut,
+  LoaderCircle,
 };
