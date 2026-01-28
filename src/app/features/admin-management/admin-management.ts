@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Table } from '../../shared/components/table/table';
-import { UserService } from '../../core/services/user/user.service';
+import { UserService } from '../../core/services/user/user-service';
 
 @Component({
   selector: 'app-admin-management',
