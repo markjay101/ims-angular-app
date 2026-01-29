@@ -1,1 +1,44 @@
-<app-table [data]="users()" [columns]="userColumns" />
+<app-table
+  [data]="pageAdmins()"
+  [columns]="adminColumns"
+  [isLoading]="isLoading()"
+  (pageChange)="onPageChanged($event)"
+  (searchChange)="onSearchChanged($event)"
+  [columnTemplates]="{ role: roleTemplate, createdAt: createdAtTemplate, actions: actionsTemplate }"
+/>
+
+<ng-template #roleTemplate let-value>
+  <span
+    class="px-2.5 py-0.5 rounded-full text-xs font-semibold border"
+    [class]="getRoleClass(value)"
+  >
+    {{ value }}
+  </span>
+</ng-template>
+
+<ng-template #createdAtTemplate let-value>
+  <div class="flex flex-col">
+    <span class="text-slate-700 font-medium">
+      {{ value + 'Z' | date: 'mediumDate' }}
+    </span>
+    <span class="text-slate-400 text-xs">
+      {{ value + 'Z' | date: 'shortTime' }}
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #actionsTemplate let-row="row" let-close="close">
+  <button
+    (click)="onEdit(row); close()"
+    class="text-sky-700 hover:bg-slate-50 rounded-md transition-colors"
+  >
+    <lucide-icon name="user-pen" [size]="16"></lucide-icon>
+  </button>
+
+  <button
+    (click)="onDelete(row); close()"
+    class="text-red-600 hover:bg-red-50 rounded-md transition-colors"
+  >
+    <lucide-icon name="trash-2" [size]="16"></lucide-icon>
+  </button>
+</ng-template>

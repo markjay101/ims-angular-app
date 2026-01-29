@@ -6,6 +6,7 @@ import { Observable, tap } from 'rxjs';
 import { STORAGE_KEYS } from '../../constants/storage';
 import { UserToken } from '../../../shared/models/user-token';
 import { ApiResponse } from '../../../shared/models/api-response';
+import { PaginatedList } from '../../../shared/models/paginated-list';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +15,7 @@ export class UserService {
   private http = inject(HttpClient);
   private readonly baseUrl = environment.apiUrl;
 
-  private usersSignal = signal<User[]>([]);
   readonly currentUser = signal<User | null>(this.getUserFromStorage());
-
-  getUsers() {
-    return this.usersSignal.asReadonly();
-  }
 
   login(credentials: { username: string; password: string }): Observable<ApiResponse<UserToken>> {
     return this.http
@@ -47,5 +43,15 @@ export class UserService {
   private getUserFromStorage(): User | null {
     const savedUser = localStorage.getItem(STORAGE_KEYS.USER_DATA);
     return savedUser ? JSON.parse(savedUser) : null;
+  }
+
+  getAdmins(
+    pageNumber: Number = 1,
+    pageSize: Number = 25,
+    searchTerm: string = '',
+  ): Observable<ApiResponse<PaginatedList<User>>> {
+    return this.http.get<ApiResponse<PaginatedList<User>>>(
+      `${this.baseUrl}/users/admins?pageNumber=${pageNumber}&pageSize=${pageSize}&searchTerm=${searchTerm}`,
+    );
   }
 }

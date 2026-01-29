@@ -12,6 +12,11 @@ import {
   ChevronLeft,
   LogOut,
   LoaderCircle,
+  Search,
+  EllipsisVertical,
+  UserPen,
+  Trash2,
+  Plus,
 } from 'lucide-angular';
 
 export const ICONS = {
@@ -28,4 +33,9 @@ export const ICONS = {
   ChevronLeft,
   LogOut,
   LoaderCircle,
+  Search,
+  EllipsisVertical,
+  UserPen,
+  Trash2,
+  Plus,
 };
