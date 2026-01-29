@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -10,4 +10,5 @@ import { Component, input } from '@angular/core';
 export class Table {
   data = input<any[]>([]);
   columns = input<{ key: string; label: string }[]>([]);
+  columnTemplates = input<Record<string, TemplateRef<any>>>({});
 }

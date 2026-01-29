@@ -13,7 +13,15 @@
         <tr class="hover:bg-slate-50/50 transition-colors">
           @for (col of columns(); track col.key) {
             <td class="px-6 py-4 text-slate-700">
-              {{ row[col.key] }}
+              @if (columnTemplates()[col.key]) {
+                <ng-container
+                  [ngTemplateOutlet]="columnTemplates()[col.key]"
+                  [ngTemplateOutletContext]="{ $implicit: row[col.key], row: row }"
+                >
+                </ng-container>
+              } @else {
+                {{ row[col.key] }}
+              }
             </td>
           }
           <td class="px-6 py-4 text-right">
