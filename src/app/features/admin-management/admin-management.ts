@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, effect } from '@angular/core';
 import { Table } from '../../shared/components/table/table';
 import { UserService } from '../../core/services/user/user-service';
 import { User } from '../../shared/models/user';
@@ -8,10 +8,12 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { AdminStats } from '../../shared/models/admin-stats';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AdminForm } from './components/admin-form/admin-form';
 
 @Component({
   selector: 'app-admin-management',
-  imports: [Table, DatePipe, LucideAngularModule, UpperCasePipe],
+  imports: [Table, DatePipe, LucideAngularModule, UpperCasePipe, AdminForm],
   templateUrl: './admin-management.html',
   styleUrl: './admin-management.css',
 })
@@ -25,16 +27,15 @@ export class AdminManagement implements OnInit {
     { key: 'actions', label: 'Actions' },
   ];
 
-  initialPaginatedState: PaginatedList<User> = {
+  pageAdmins = signal<PaginatedList<User>>({
     items: [],
     totalCount: 0,
     pageNumber: 0,
     totalPages: 0,
     hasPreviousPage: false,
     hasNextPage: false,
-  };
+  });
 
-  pageAdmins = signal<PaginatedList<User>>(this.initialPaginatedState);
   isLoading = signal(false);
 
   currentPage = 1;
@@ -43,6 +44,9 @@ export class AdminManagement implements OnInit {
   private searchSubject = new Subject<string>();
 
   adminStats = signal<AdminStats>({ totalAdmins: 6, totalSuperAdmins: 6 });
+
+  isDrawerOpen = signal(false);
+  selectedAdmin = signal<User | null>(null);
 
   ngOnInit() {
     this.loadAdminStats();
@@ -77,7 +81,6 @@ export class AdminManagement implements OnInit {
     this.userService.getAdminStats().subscribe({
       next: (response) => {
         if (response && response.data) this.adminStats.set(response.data);
-        console.log(this.adminStats());
       },
       error: (err) => {
         this.isLoading.set(false);
@@ -98,15 +101,37 @@ export class AdminManagement implements OnInit {
     this.searchSubject.next(text);
   }
 
-  activeRowId = signal<string | number | null>(null);
-
-  toggleMenu(id: string | number) {
-    this.activeRowId.update((current) => (current === id ? null : id));
+  openEditDrawer(user: User) {
+    this.selectedAdmin.set(user);
+    this.isDrawerOpen.set(true);
   }
 
-  onEdit(user: User) {
-    console.log('Editing:', user);
-    this.activeRowId.set(null);
+  openCreateDrawer() {
+    this.selectedAdmin.set(null);
+    this.isDrawerOpen.set(true);
+  }
+
+  handleSave(formData: any) {
+    this.isLoading.set(true);
+
+    const adminId = this.selectedAdmin()?.id;
+
+    // logic to choose Update vs Create
+    // const request$ = adminId
+    //   ? this.userService.updateAdmin(adminId, formData)
+    //   : this.userService.createAdmin(formData);
+
+    // request$.subscribe({
+    //   next: (response) => {
+    //     this.isLoading.set(false);
+    //     this.isDrawerOpen.set(false); // Close drawer
+    //     this.refreshData(); // Helper to reload table/stats
+    //   },
+    //   error: (err) => {
+    //     this.isLoading.set(false);
+    //     console.error('Save failed', err);
+    //   },
+    // });
   }
 
   getRoleClass(role: string): string {

@@ -18,6 +18,9 @@ import {
   Trash2,
   Plus,
   Shield,
+  ShieldCheck,
+  ChevronDown,
+  Check,
 } from 'lucide-angular';
 
 export const ICONS = {
@@ -40,4 +43,7 @@ export const ICONS = {
   Trash2,
   Plus,
   Shield,
+  ShieldCheck,
+  ChevronDown,
+  Check,
 };

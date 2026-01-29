@@ -34,12 +34,66 @@
 >
   <button
     headerButton
+    (click)="openCreateDrawer()"
     class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-md shadow-blue-200 transition-all active:scale-95"
   >
     <lucide-icon name="plus" [size]="18"></lucide-icon>
     <span>Add Admin</span>
   </button>
 </app-table>
+
+<div
+  class="fixed inset-0 bg-slate-900/30 backdrop-blur-[2px] z-40 transition-opacity duration-300"
+  [class.opacity-100]="isDrawerOpen()"
+  [class.pointer-events-auto]="isDrawerOpen()"
+  [class.opacity-0]="!isDrawerOpen()"
+  [class.pointer-events-none]="!isDrawerOpen()"
+  (click)="isDrawerOpen.set(false)"
+></div>
+
+<!-- Start of Admin Form -->
+
+<div
+  class="fixed inset-0 bg-slate-900/30 backdrop-blur-[2px] z-40 transition-opacity duration-300"
+  [class.opacity-100.pointer-events-auto]="isDrawerOpen()"
+  [class.opacity-0.pointer-events-none]="!isDrawerOpen()"
+  (click)="isDrawerOpen.set(false)"
+></div>
+
+<div
+  class="fixed inset-y-0 right-0 w-full sm:max-w-md bg-white shadow-2xl z-50 transition-transform duration-300 border-l border-slate-100"
+  [style.transform]="isDrawerOpen() ? 'translateX(0)' : 'translateX(100%)'"
+>
+  <div class="flex flex-col h-full">
+    <div
+      class="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50"
+    >
+      <div>
+        <h2 class="text-xl font-bold text-slate-800">
+          {{ selectedAdmin() ? 'Edit Admin' : 'Add New Admin' }}
+        </h2>
+        <p class="text-xs text-slate-500 font-medium">Please fill in the details below</p>
+      </div>
+      <button (click)="isDrawerOpen.set(false)" class="p-2">
+        <lucide-icon
+          name="x"
+          [size]="20"
+          class="text-slate-400 hover:text-black transition-colors"
+        ></lucide-icon>
+      </button>
+    </div>
+
+    <app-admin-form
+      class="flex-1 overflow-hidden"
+      [adminData]="selectedAdmin()"
+      (onSave)="handleSave($event)"
+      (onCancel)="isDrawerOpen.set(false)"
+    >
+    </app-admin-form>
+  </div>
+</div>
+
+<!-- End of Admin Form -->
 
 <ng-template #userProfileTemplate let-row="row">
   <div class="flex gap-2 items-center">
@@ -78,7 +132,10 @@
 </ng-template>
 
 <ng-template #actionsTemplate let-row="row">
-  <button (click)="onEdit(row)" class="text-sky-700 hover:bg-slate-50 rounded-md transition-colors">
+  <button
+    (click)="openEditDrawer(row)"
+    class="text-sky-700 hover:bg-slate-50 rounded-md transition-colors"
+  >
     <lucide-icon name="user-pen" [size]="16"></lucide-icon>
   </button>
 </ng-template>
