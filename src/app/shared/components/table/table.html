@@ -36,9 +36,7 @@
           <tr>
             <td [attr.colspan]="columns().length" class="px-6 py-12 text-slate-500 text-center">
               <div class="flex flex-col items-center gap-2">
-                <div
-                  class="w-5 h-5 border-2 border-slate-300 border-t-blue-600 rounded-full animate-spin"
-                ></div>
+                <lucide-icon name="loader-circle" class="animate-spin text-blue-600"></lucide-icon>
                 <span>Loading records...</span>
               </div>
             </td>
@@ -82,7 +80,7 @@
     >
       <p class="text-sm text-slate-500">
         Showing
-        <span class="font-semibold text-slate-800">{{ data().pageNumber }}</span> to
+        <span class="font-semibold text-slate-800">{{ data().items.length > 0 ? 1 : 0 }}</span> to
         <span class="font-semibold text-slate-800">{{ data().items.length }}</span> of
         <span class="font-semibold text-slate-800">{{ data().totalCount }}</span>
       </p>
