@@ -24,10 +24,6 @@ export class Table {
     this.openActionId.update((prev) => (prev === id ? null : id));
   }
 
-  closeActions = () => {
-    this.openActionId.set(null);
-  };
-
   onPageClick(newPage: number) {
     this.pageChange.emit(newPage);
   }

@@ -109,12 +109,6 @@ export class AdminManagement implements OnInit {
     this.activeRowId.set(null);
   }
 
-  onDelete(user: User) {
-    if (confirm(`Are you sure you want to delete ${user.userName}?`)) {
-    }
-    this.activeRowId.set(null);
-  }
-
   getRoleClass(role: string): string {
     switch (role) {
       case 'SuperAdmin':
