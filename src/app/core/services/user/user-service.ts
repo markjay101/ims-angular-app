@@ -7,6 +7,7 @@ import { STORAGE_KEYS } from '../../constants/storage';
 import { UserToken } from '../../../shared/models/user-token';
 import { ApiResponse } from '../../../shared/models/api-response';
 import { PaginatedList } from '../../../shared/models/paginated-list';
+import { AdminStats } from '../../../shared/models/admin-stats';
 
 @Injectable({
   providedIn: 'root',
@@ -53,5 +54,9 @@ export class UserService {
     return this.http.get<ApiResponse<PaginatedList<User>>>(
       `${this.baseUrl}/users/admins?pageNumber=${pageNumber}&pageSize=${pageSize}&searchTerm=${searchTerm}`,
     );
+  }
+
+  getAdminStats(): Observable<ApiResponse<AdminStats>> {
+    return this.http.get<ApiResponse<AdminStats>>(`${this.baseUrl}/users/admin/stats`);
   }
 }

@@ -17,6 +17,7 @@ import {
   UserPen,
   Trash2,
   Plus,
+  Shield,
 } from 'lucide-angular';
 
 export const ICONS = {
@@ -38,4 +39,5 @@ export const ICONS = {
   UserPen,
   Trash2,
   Plus,
+  Shield,
 };

@@ -1,11 +1,61 @@
+<div class="flex gap-3 mb-8">
+  <div class="rounded-lg flex gap-5 bg-white py-3 px-6 items-center w-full sm:w-90 shadow-sm">
+    <div class="w-14 h-14 flex items-center justify-center bg-[#fffbeb] text-[#d97706] rounded-lg">
+      <lucide-icon name="shield" [size]="35"></lucide-icon>
+    </div>
+    <div class="flex flex-col">
+      <span class="text-black text-[30px] font-bold">{{ adminStats().totalSuperAdmins }}</span>
+      <span class="text-slate-400 text-[12px] font-semibold">Super Admins</span>
+    </div>
+  </div>
+  <div class="rounded-lg flex gap-5 bg-white py-3 px-6 items-center w-full sm:w-90 shadow-sm">
+    <div class="w-14 h-14 flex items-center justify-center bg-[#faf5ff] text-[#9333ea] rounded-lg">
+      <lucide-icon name="shield" [size]="35"></lucide-icon>
+    </div>
+    <div class="flex flex-col">
+      <span class="text-black text-[30px] font-bold">{{ adminStats().totalAdmins }}</span>
+      <span class="text-slate-400 text-[12px] font-semibold">Admins</span>
+    </div>
+  </div>
+</div>
+
 <app-table
   [data]="pageAdmins()"
   [columns]="adminColumns"
   [isLoading]="isLoading()"
   (pageChange)="onPageChanged($event)"
   (searchChange)="onSearchChanged($event)"
-  [columnTemplates]="{ role: roleTemplate, createdAt: createdAtTemplate, actions: actionsTemplate }"
-/>
+  [columnTemplates]="{
+    userName: userProfileTemplate,
+    role: roleTemplate,
+    createdAt: createdAtTemplate,
+    actions: actionsTemplate,
+  }"
+>
+  <button
+    headerButton
+    class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-md shadow-blue-200 transition-all active:scale-95"
+  >
+    <lucide-icon name="plus" [size]="18"></lucide-icon>
+    <span>Add Admin</span>
+  </button>
+</app-table>
+
+<ng-template #userProfileTemplate let-row="row">
+  <div class="flex gap-2 items-center">
+    <div
+      class="rounded-lg h-10 w-10 flex items-center justify-center bg-linear-to-r from-blue-500 to-indigo-600"
+    >
+      <span class="text-white font-bold">
+        {{ row.firstName[0] | uppercase }}{{ row.lastName[0] | uppercase }}
+      </span>
+    </div>
+    <div class="flex flex-col">
+      <span class="font-medium text-slate-900"> {{ row.firstName }} {{ row.lastName }} </span>
+      <span class="text-xs text-slate-500"> {{ row.userName }} </span>
+    </div>
+  </div>
+</ng-template>
 
 <ng-template #roleTemplate let-value>
   <span
