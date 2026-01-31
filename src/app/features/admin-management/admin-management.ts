@@ -4,7 +4,7 @@ import { UserService } from '../../core/services/user-service';
 import { User } from '../../shared/models/user';
 import { ApiResponse } from '../../shared/models/api-response';
 import { PaginatedList } from '../../shared/models/paginated-list';
-import { debounceTime, distinctUntilChanged, Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { AdminStats } from '../../shared/models/admin-stats';
@@ -60,7 +60,7 @@ export class AdminManagement implements OnInit {
     });
   }
 
-  loadAdmins(pageNumber: Number, pageSize: Number, searchTerm: string) {
+  loadAdmins(pageNumber: number, pageSize: number, searchTerm: string) {
     this.isLoading.set(true);
     this.userService.getAdmins(pageNumber, pageSize, searchTerm).subscribe({
       next: (response) => {
