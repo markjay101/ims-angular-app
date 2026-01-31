@@ -18,7 +18,6 @@ export class Login {
   private route = inject(ActivatedRoute);
 
   isLoading = signal(false);
-  errorMessage = signal('');
 
   loginForm = inject(FormBuilder).nonNullable.group({
     username: ['', [Validators.required, Validators.email]],
@@ -29,19 +28,11 @@ export class Login {
     if (this.loginForm.invalid) return;
 
     this.isLoading.set(true);
-    this.errorMessage.set('');
 
     this.userService.login(this.loginForm.getRawValue()).subscribe({
       next: (response: ApiResponse<UserToken>) => {
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] ?? '/';
         this.router.navigateByUrl(returnUrl);
-      },
-      error: (err) => {
-        this.isLoading.set(false);
-        const apiError = err.error as ApiResponse<any>;
-
-        if (apiError?.errors?.length > 0) this.errorMessage.set(apiError.errors[0]);
-        else this.errorMessage.set('A connection error occurred. Please try again.');
       },
     });
   }

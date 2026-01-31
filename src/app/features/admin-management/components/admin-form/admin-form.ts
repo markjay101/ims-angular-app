@@ -1,4 +1,4 @@
-import { Component, computed, EventEmitter, inject, Input, Output, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, Input, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { User } from '../../../../shared/models/user';
@@ -12,22 +12,25 @@ import { User } from '../../../../shared/models/user';
 export class AdminForm {
   private fb = inject(FormBuilder);
 
-  @Input() set adminData(user: User | null) {
-    this._selectedAdmin.set(user);
-    if (user) {
-      this.adminForm.patchValue(user);
-      this.adminForm.get('userName')?.disable();
-    } else {
-      this.adminForm.reset({ role: 'Admin' });
-      this.adminForm.get('userName')?.enable();
-    }
+  adminData = input<User | null>(null);
+
+  constructor() {
+    effect(() => {
+      const user = this.adminData();
+
+      if (user) {
+        this.adminForm.patchValue(user);
+        this.adminForm.get('userName')?.disable();
+      } else {
+        this.adminForm.reset({ role: 'Admin' });
+        this.adminForm.get('userName')?.enable();
+      }
+    });
   }
 
-  @Output() onSave = new EventEmitter<any>();
-  @Output() onCancel = new EventEmitter<void>();
+  onSave = output<any>();
+  onCancel = output<void>();
 
-  private _selectedAdmin = signal<User | null>(null);
-  adminDataSignal = computed(() => this._selectedAdmin());
   isRoleMenuOpen = signal(false);
 
   roles = [

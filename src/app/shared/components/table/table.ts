@@ -18,12 +18,6 @@ export class Table {
   pageChange = output<number>();
   searchChange = output<string>();
 
-  openActionId = signal<any>(null);
-
-  toggleActions(id: any) {
-    this.openActionId.update((prev) => (prev === id ? null : id));
-  }
-
   onPageClick(newPage: number) {
     this.pageChange.emit(newPage);
   }

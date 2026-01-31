@@ -1,3 +1,5 @@
+<!-- TODO: make the table responsive -->
+
 <div class="flex flex-col gap-4">
   <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
     <div class="relative w-full sm:w-80">
@@ -16,8 +18,8 @@
     <ng-content select="[headerButton]"></ng-content>
   </div>
 
-  <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
-    <table class="w-full text-left text-sm">
+  <div class="w-full rounded-xl border border-slate-200 bg-white shadow-sm">
+    <table class="w-full sm:w-[150] text-left text-sm overflow-x-auto">
       <thead class="bg-slate-50 text-slate-600 uppercase text-[11px] font-bold tracking-wider">
         <tr>
           @for (col of columns(); track col.key) {
@@ -60,7 +62,7 @@
             </tr>
           } @empty {
             <tr>
-              <td [attr.colspan]="columns().length" class="px-6 py-12 text-slate-400 text-center">
+              <td [attr.colspan]="columns().length" class="p-6 text-slate-400 text-center">
                 No data found.
               </td>
             </tr>

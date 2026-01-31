@@ -20,6 +20,7 @@ import { AdminForm } from './components/admin-form/admin-form';
 export class AdminManagement implements OnInit {
   private userService = inject(UserService);
 
+  isLoading = signal(false);
   adminColumns = [
     { key: 'userName', label: 'Admin' },
     { key: 'role', label: 'Role' },
@@ -27,7 +28,7 @@ export class AdminManagement implements OnInit {
     { key: 'actions', label: 'Actions' },
   ];
 
-  pageAdmins = signal<PaginatedList<User>>({
+  paginatedAdmins = signal<PaginatedList<User>>({
     items: [],
     totalCount: 0,
     pageNumber: 0,
@@ -36,21 +37,19 @@ export class AdminManagement implements OnInit {
     hasNextPage: false,
   });
 
-  isLoading = signal(false);
+  adminStats = signal<AdminStats>({ totalAdmins: 0, totalSuperAdmins: 0 });
 
   currentPage = 1;
   pageSize = 25;
   searchTerm = '';
   private searchSubject = new Subject<string>();
 
-  adminStats = signal<AdminStats>({ totalAdmins: 6, totalSuperAdmins: 6 });
-
-  isDrawerOpen = signal(false);
+  isFormOpen = signal(false);
   selectedAdmin = signal<User | null>(null);
 
   ngOnInit() {
     this.loadAdminStats();
-    this.loadAdmins(this.currentPage, this.pageSize);
+    this.loadAdmins(this.currentPage, this.pageSize, this.searchTerm);
 
     this.searchSubject.pipe(debounceTime(400), distinctUntilChanged()).subscribe((searchTerm) => {
       this.searchTerm = searchTerm;
@@ -59,20 +58,13 @@ export class AdminManagement implements OnInit {
     });
   }
 
-  loadAdmins(pageNumber: Number = 1, pageSize: Number = 25, searchTerm: string = '') {
+  loadAdmins(pageNumber: Number, pageSize: Number, searchTerm: string) {
     this.isLoading.set(true);
     this.userService.getAdmins(pageNumber, pageSize, searchTerm).subscribe({
       next: (response) => {
-        if (response && response.data) this.pageAdmins.set(response.data);
+        if (response && response.data) this.paginatedAdmins.set(response.data);
 
         this.isLoading.set(false);
-      },
-      error: (err) => {
-        this.isLoading.set(false);
-        const apiError = err.error as ApiResponse<any>;
-
-        if (apiError?.errors?.length > 0) console.error(apiError.errors[0]);
-        else console.error('A connection error occurred. Please try again.');
       },
     });
   }
@@ -82,33 +74,26 @@ export class AdminManagement implements OnInit {
       next: (response) => {
         if (response && response.data) this.adminStats.set(response.data);
       },
-      error: (err) => {
-        this.isLoading.set(false);
-        const apiError = err.error as ApiResponse<any>;
-
-        if (apiError?.errors?.length > 0) console.error(apiError.errors[0]);
-        else console.error('A connection error occurred. Please try again.');
-      },
     });
   }
 
   onPageChanged(page: number) {
     this.currentPage = page;
-    this.loadAdmins(this.currentPage, this.pageSize);
+    this.loadAdmins(this.currentPage, this.pageSize, this.searchTerm);
   }
 
   onSearchChanged(text: string) {
     this.searchSubject.next(text);
   }
 
-  openEditDrawer(user: User) {
+  openEditForm(user: User) {
     this.selectedAdmin.set(user);
-    this.isDrawerOpen.set(true);
+    this.isFormOpen.set(true);
   }
 
-  openCreateDrawer() {
+  openAddForm() {
     this.selectedAdmin.set(null);
-    this.isDrawerOpen.set(true);
+    this.isFormOpen.set(true);
   }
 
   handleSave(formData: any) {

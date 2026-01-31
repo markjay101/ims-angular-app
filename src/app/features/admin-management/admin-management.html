@@ -1,26 +1,45 @@
-<div class="flex gap-3 mb-8">
-  <div class="rounded-lg flex gap-5 bg-white py-3 px-6 items-center w-full sm:w-90 shadow-sm">
-    <div class="w-14 h-14 flex items-center justify-center bg-[#fffbeb] text-[#d97706] rounded-lg">
-      <lucide-icon name="shield" [size]="35"></lucide-icon>
+<header class="mb-8">
+  <h1 class="text-[28px] font-bold">Admin Management</h1>
+  <p class="text-slate-400 font-semibold">Manage administrator accounts and permissions</p>
+</header>
+<div class="flex flex-wrap gap-4 mb-8">
+  <div
+    class="rounded-lg flex gap-5 bg-white py-4 px-6 items-center w-full md:w-80 shadow-sm border border-slate-50"
+  >
+    <div
+      class="w-14 h-14 shrink-0 flex items-center justify-center bg-[#fffbeb] text-[#d97706] rounded-xl"
+    >
+      <lucide-icon name="shield" [size]="30"></lucide-icon>
     </div>
-    <div class="flex flex-col">
-      <span class="text-black text-[30px] font-bold">{{ adminStats().totalSuperAdmins }}</span>
-      <span class="text-slate-400 text-[12px] font-semibold">Super Admins</span>
+    <div class="flex flex-col min-w-0">
+      <span class="text-black text-2xl md:text-[30px] font-bold leading-tight truncate">
+        {{ adminStats().totalSuperAdmins }}
+      </span>
+      <span class="text-slate-400 text-[12px] font-semibold uppercase tracking-wider"
+        >Super Admins</span
+      >
     </div>
   </div>
-  <div class="rounded-lg flex gap-5 bg-white py-3 px-6 items-center w-full sm:w-90 shadow-sm">
-    <div class="w-14 h-14 flex items-center justify-center bg-[#faf5ff] text-[#9333ea] rounded-lg">
-      <lucide-icon name="shield" [size]="35"></lucide-icon>
+
+  <div
+    class="rounded-lg flex gap-5 bg-white py-4 px-6 items-center w-full md:w-80 shadow-sm border border-slate-50"
+  >
+    <div
+      class="w-14 h-14 shrink-0 flex items-center justify-center bg-[#faf5ff] text-[#9333ea] rounded-xl"
+    >
+      <lucide-icon name="shield" [size]="30"></lucide-icon>
     </div>
-    <div class="flex flex-col">
-      <span class="text-black text-[30px] font-bold">{{ adminStats().totalAdmins }}</span>
-      <span class="text-slate-400 text-[12px] font-semibold">Admins</span>
+    <div class="flex flex-col min-w-0">
+      <span class="text-black text-2xl md:text-[30px] font-bold leading-tight truncate">
+        {{ adminStats().totalAdmins }}
+      </span>
+      <span class="text-slate-400 text-[12px] font-semibold uppercase tracking-wider">Admins</span>
     </div>
   </div>
 </div>
 
 <app-table
-  [data]="pageAdmins()"
+  [data]="paginatedAdmins()"
   [columns]="adminColumns"
   [isLoading]="isLoading()"
   (pageChange)="onPageChanged($event)"
@@ -34,8 +53,8 @@
 >
   <button
     headerButton
-    (click)="openCreateDrawer()"
-    class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-md shadow-blue-200 transition-all active:scale-95"
+    (click)="openAddForm()"
+    class="ml-auto flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-md shadow-blue-200 transition-all active:scale-95"
   >
     <lucide-icon name="plus" [size]="18"></lucide-icon>
     <span>Add Admin</span>
@@ -43,26 +62,18 @@
 </app-table>
 
 <div
-  class="fixed inset-0 bg-slate-900/30 backdrop-blur-[2px] z-40 transition-opacity duration-300"
-  [class.opacity-100]="isDrawerOpen()"
-  [class.pointer-events-auto]="isDrawerOpen()"
-  [class.opacity-0]="!isDrawerOpen()"
-  [class.pointer-events-none]="!isDrawerOpen()"
-  (click)="isDrawerOpen.set(false)"
-></div>
-
-<!-- Start of Admin Form -->
-
-<div
-  class="fixed inset-0 bg-slate-900/30 backdrop-blur-[2px] z-40 transition-opacity duration-300"
-  [class.opacity-100.pointer-events-auto]="isDrawerOpen()"
-  [class.opacity-0.pointer-events-none]="!isDrawerOpen()"
-  (click)="isDrawerOpen.set(false)"
+  class="fixed inset-0 bg-slate-900/30 backdrop-blur-[2px] z-40 transition-opacity duration-300 opacity-0 pointer-events-none"
+  [class.opacity-100]="isFormOpen()"
+  [class.pointer-events-auto]="isFormOpen()"
+  [class.opacity-0]="!isFormOpen()"
+  [class.pointer-events-none]="!isFormOpen()"
+  (click)="isFormOpen.set(false)"
 ></div>
 
 <div
-  class="fixed inset-y-0 right-0 w-full sm:max-w-md bg-white shadow-2xl z-50 transition-transform duration-300 border-l border-slate-100"
-  [style.transform]="isDrawerOpen() ? 'translateX(0)' : 'translateX(100%)'"
+  class="fixed inset-y-0 right-0 w-full sm:max-w-md bg-white shadow-2xl z-50 transition-transform duration-300 border-l border-slate-100 translate-x-full"
+  [class.translate-x-0]="isFormOpen()"
+  [class.translate-x-full]="!isFormOpen()"
 >
   <div class="flex flex-col h-full">
     <div
@@ -74,7 +85,7 @@
         </h2>
         <p class="text-xs text-slate-500 font-medium">Please fill in the details below</p>
       </div>
-      <button (click)="isDrawerOpen.set(false)" class="p-2">
+      <button (click)="isFormOpen.set(false)" class="p-2">
         <lucide-icon
           name="x"
           [size]="20"
@@ -87,45 +98,45 @@
       class="flex-1 overflow-hidden"
       [adminData]="selectedAdmin()"
       (onSave)="handleSave($event)"
-      (onCancel)="isDrawerOpen.set(false)"
+      (onCancel)="isFormOpen.set(false)"
     >
     </app-admin-form>
   </div>
 </div>
-
-<!-- End of Admin Form -->
 
 <ng-template #userProfileTemplate let-row="row">
   <div class="flex gap-2 items-center">
     <div
       class="rounded-lg h-10 w-10 flex items-center justify-center bg-linear-to-r from-blue-500 to-indigo-600"
     >
-      <span class="text-white font-bold">
+      <span class="text-white font-bold text-nowrap">
         {{ row.firstName[0] | uppercase }}{{ row.lastName[0] | uppercase }}
       </span>
     </div>
     <div class="flex flex-col">
-      <span class="font-medium text-slate-900"> {{ row.firstName }} {{ row.lastName }} </span>
-      <span class="text-xs text-slate-500"> {{ row.userName }} </span>
+      <span class="font-medium text-slate-900 text-nowrap">
+        {{ row.firstName }} {{ row.lastName }}
+      </span>
+      <span class="text-xs text-slate-500 text-nowrap"> {{ row.userName }} </span>
     </div>
   </div>
 </ng-template>
 
 <ng-template #roleTemplate let-value>
   <span
-    class="px-2.5 py-0.5 rounded-full text-xs font-semibold border"
+    class="px-2.5 py-0.5 rounded-full text-xs font-semibold border text-nowrap"
     [class]="getRoleClass(value)"
   >
-    {{ value }}
+    {{ value == 'SuperAdmin' ? 'Super Admin' : value }}
   </span>
 </ng-template>
 
 <ng-template #createdAtTemplate let-value>
   <div class="flex flex-col">
-    <span class="text-slate-700 font-medium">
+    <span class="text-slate-700 font-medium text-nowrap">
       {{ value + 'Z' | date: 'mediumDate' }}
     </span>
-    <span class="text-slate-400 text-xs">
+    <span class="text-slate-400 text-xs text-nowrap">
       {{ value + 'Z' | date: 'shortTime' }}
     </span>
   </div>
@@ -133,7 +144,7 @@
 
 <ng-template #actionsTemplate let-row="row">
   <button
-    (click)="openEditDrawer(row)"
+    (click)="openEditForm(row)"
     class="text-sky-700 hover:bg-slate-50 rounded-md transition-colors"
   >
     <lucide-icon name="user-pen" [size]="16"></lucide-icon>
