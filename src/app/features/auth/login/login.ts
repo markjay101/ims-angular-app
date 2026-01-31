@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
-import { UserService } from '../../../core/services/user-service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiResponse } from '../../../shared/models/api-response';
 import { UserToken } from '../../../shared/models/user-token';
 import { LucideAngularModule } from 'lucide-angular';
+import { AuthService } from '../../../core/services/auth-service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ import { LucideAngularModule } from 'lucide-angular';
   styleUrl: './login.css',
 })
 export class Login {
-  private userService = inject(UserService);
+  private authService = inject(AuthService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
@@ -31,7 +31,7 @@ export class Login {
     this.isLoading.set(true);
     this.errorMessage.set('');
 
-    this.userService.login(this.loginForm.getRawValue()).subscribe({
+    this.authService.login(this.loginForm.getRawValue()).subscribe({
       next: (response: ApiResponse<UserToken>) => {
         if (response.succeeded) {
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] ?? '/';
