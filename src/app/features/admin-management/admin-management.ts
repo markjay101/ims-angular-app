@@ -66,6 +66,9 @@ export class AdminManagement implements OnInit {
 
         this.isLoading.set(false);
       },
+      error: (err) => {
+        console.error(err);
+      },
     });
   }
 

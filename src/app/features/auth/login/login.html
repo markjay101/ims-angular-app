@@ -5,6 +5,14 @@
       <p class="text-slate-500 mt-2">Please sign in to your account</p>
     </div>
 
+    @if (errorMessage()) {
+      <div
+        class="p-3 rounded-lg bg-red-50 border border-red-200 text-red-600 text-sm animate-in fade-in slide-in-from-top-1"
+      >
+        <span>{{ errorMessage() }}</span>
+      </div>
+    }
+
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4 mb-3">
       <div>
         <label class="block text-sm font-medium text-slate-700 mb-1">Username</label>

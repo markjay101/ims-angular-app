@@ -15,8 +15,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         errorMessage = 'Cannot connect to server. Try again later.';
       }
 
-      console.error(errorMessage);
-
       return throwError(() => new Error(errorMessage));
     }),
   );
