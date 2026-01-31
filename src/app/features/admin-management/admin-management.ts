@@ -1,6 +1,6 @@
 import { Component, inject, signal, OnInit, effect } from '@angular/core';
 import { Table } from '../../shared/components/table/table';
-import { UserService } from '../../core/services/user/user-service';
+import { UserService } from '../../core/services/user-service';
 import { User } from '../../shared/models/user';
 import { ApiResponse } from '../../shared/models/api-response';
 import { PaginatedList } from '../../shared/models/paginated-list';

@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { UserService } from '../../../core/services/user/user-service';
+import { UserService } from '../../../core/services/user-service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiResponse } from '../../../shared/models/api-response';

@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
-import { UserService } from '../../core/services/user/user-service';
+import { UserService } from '../../core/services/user-service';
 
 @Component({
   selector: 'app-sidebar',
