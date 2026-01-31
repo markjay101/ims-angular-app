@@ -109,9 +109,14 @@
       type="button"
       (click)="submit()"
       [disabled]="adminForm.invalid"
-      class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-md shadow-blue-200 disabled:opacity-50 transition-all active:scale-95"
+      class="flex gap-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-md shadow-blue-200 disabled:opacity-50 transition-all active:scale-95"
     >
-      Save
+      @if (isSaving()) {
+        <lucide-icon name="loader-circle" class="animate-spin h-5 w-5 text-white"></lucide-icon>
+        Saving...
+      } @else {
+        Save
+      }
     </button>
   </div>
 </div>

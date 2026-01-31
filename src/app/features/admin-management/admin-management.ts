@@ -1,15 +1,17 @@
-import { Component, inject, signal, OnInit, effect } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { Table } from '../../shared/components/table/table';
 import { UserService } from '../../core/services/user-service';
 import { User } from '../../shared/models/user';
 import { ApiResponse } from '../../shared/models/api-response';
 import { PaginatedList } from '../../shared/models/paginated-list';
-import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Observable, Subject } from 'rxjs';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { AdminStats } from '../../shared/models/admin-stats';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdminForm } from './components/admin-form/admin-form';
+import { CreateAdminDto } from '../../shared/models/create-admin-dto';
+import { UpdateAdminDto } from '../../shared/models/update-admin-dto';
+import { RoleMap } from '../../core/constants/role';
 
 @Component({
   selector: 'app-admin-management',
@@ -46,10 +48,10 @@ export class AdminManagement implements OnInit {
 
   isFormOpen = signal(false);
   selectedAdmin = signal<User | null>(null);
+  isSaving = signal(false);
 
   ngOnInit() {
-    this.loadAdminStats();
-    this.loadAdmins(this.currentPage, this.pageSize, this.searchTerm);
+    this.loadData();
 
     this.searchSubject.pipe(debounceTime(400), distinctUntilChanged()).subscribe((searchTerm) => {
       this.searchTerm = searchTerm;
@@ -99,27 +101,33 @@ export class AdminManagement implements OnInit {
     this.isFormOpen.set(true);
   }
 
-  handleSave(formData: any) {
-    this.isLoading.set(true);
+  handleSaveAdmin(formData: any) {
+    this.isSaving.set(true);
 
     const adminId = this.selectedAdmin()?.id;
 
-    // logic to choose Update vs Create
-    // const request$ = adminId
-    //   ? this.userService.updateAdmin(adminId, formData)
-    //   : this.userService.createAdmin(formData);
+    const payload = {
+      ...formData,
+      role: RoleMap[formData.role],
+    };
 
-    // request$.subscribe({
-    //   next: (response) => {
-    //     this.isLoading.set(false);
-    //     this.isDrawerOpen.set(false); // Close drawer
-    //     this.refreshData(); // Helper to reload table/stats
-    //   },
-    //   error: (err) => {
-    //     this.isLoading.set(false);
-    //     console.error('Save failed', err);
-    //   },
-    // });
+    const request$ = adminId
+      ? this.userService.updateAdmin({ ...payload, id: adminId } as UpdateAdminDto)
+      : this.userService.createAdmin(payload as CreateAdminDto);
+
+    request$.subscribe({
+      next: (response: ApiResponse<any>) => {
+        this.isSaving.set(false);
+        this.isFormOpen.set(false);
+        this.loadData();
+
+        console.log(response.message);
+      },
+      error: (err) => {
+        this.isSaving.set(false);
+        console.error(err);
+      },
+    });
   }
 
   getRoleClass(role: string): string {
@@ -131,5 +139,10 @@ export class AdminManagement implements OnInit {
       default:
         return 'bg-slate-50 text-slate-500 border-slate-200';
     }
+  }
+
+  private loadData() {
+    this.loadAdminStats();
+    this.loadAdmins(this.currentPage, this.pageSize, this.searchTerm);
   }
 }

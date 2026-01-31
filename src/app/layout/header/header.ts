@@ -1,5 +1,5 @@
+import { AuthService } from './../../core/services/auth-service';
 import { Component, inject } from '@angular/core';
-import { UserService } from '../../core/services/user-service';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +8,6 @@ import { UserService } from '../../core/services/user-service';
   styleUrl: './header.css',
 })
 export class Header {
-  private userService = inject(UserService);
-  currentUser = this.userService.currentUser;
+  private authService = inject(AuthService);
+  currentUser = this.authService.currentUser;
 }

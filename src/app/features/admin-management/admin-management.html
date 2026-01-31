@@ -97,7 +97,8 @@
     <app-admin-form
       class="flex-1 overflow-hidden"
       [adminData]="selectedAdmin()"
-      (onSave)="handleSave($event)"
+      [isSaving]="isSaving()"
+      (onSave)="handleSaveAdmin($event)"
       (onCancel)="isFormOpen.set(false)"
     >
     </app-admin-form>

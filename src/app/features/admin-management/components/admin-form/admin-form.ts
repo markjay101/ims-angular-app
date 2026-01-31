@@ -1,7 +1,8 @@
-import { Component, computed, effect, inject, input, Input, output, signal } from '@angular/core';
+import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { User } from '../../../../shared/models/user';
+import { RoleMap, UserRole, UserRoleString } from '../../../../core/constants/role';
 
 @Component({
   selector: 'app-admin-form',
@@ -22,7 +23,7 @@ export class AdminForm {
         this.adminForm.patchValue(user);
         this.adminForm.get('userName')?.disable();
       } else {
-        this.adminForm.reset({ role: 'Admin' });
+        this.adminForm.reset({ role: UserRole.Admin });
         this.adminForm.get('userName')?.enable();
       }
     });
@@ -31,18 +32,20 @@ export class AdminForm {
   onSave = output<any>();
   onCancel = output<void>();
 
+  isSaving = input<boolean>(false);
+
   isRoleMenuOpen = signal(false);
 
   roles = [
-    { value: 'Admin', label: 'Administrator' },
-    { value: 'SuperAdmin', label: 'Super Administrator' },
+    { value: UserRoleString.Admin, label: 'Administrator' },
+    { value: UserRoleString.SuperAdmin, label: 'Super Administrator' },
   ];
 
   adminForm: FormGroup = this.fb.group({
     userName: ['', [Validators.required, Validators.minLength(3)]],
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    role: ['Admin', Validators.required],
+    role: [UserRoleString.Admin, Validators.required],
   });
 
   get selectedRoleLabel(): string {
@@ -50,7 +53,7 @@ export class AdminForm {
     return this.roles.find((r) => r.value === roleValue)?.label || 'Select Role';
   }
 
-  selectRole(value: string) {
+  selectRole(value: UserRoleString) {
     this.adminForm.get('role')?.setValue(value);
     this.isRoleMenuOpen.set(false);
   }

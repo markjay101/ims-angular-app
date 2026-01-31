@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
-import { UserService } from '../../core/services/user-service';
+import { AuthService } from '../../core/services/auth-service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,7 +10,7 @@ import { UserService } from '../../core/services/user-service';
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
-  private userService = inject(UserService);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
   isCollapsed = signal(false);
@@ -37,7 +37,7 @@ export class Sidebar {
   }
 
   clickedLogout() {
-    this.userService.logout();
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }

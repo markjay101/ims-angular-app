@@ -2,10 +2,12 @@ import { inject, Injectable } from '@angular/core';
 import { User } from '../../shared/models/user';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { ApiResponse } from '../../shared/models/api-response';
 import { PaginatedList } from '../../shared/models/paginated-list';
 import { AdminStats } from '../../shared/models/admin-stats';
+import { CreateAdminDto } from '../../shared/models/create-admin-dto';
+import { UpdateAdminDto } from '../../shared/models/update-admin-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -26,5 +28,25 @@ export class UserService {
 
   getAdminStats(): Observable<ApiResponse<AdminStats>> {
     return this.http.get<ApiResponse<AdminStats>>(`${this.baseUrl}/users/admin/stats`);
+  }
+
+  createAdmin(adminData: CreateAdminDto) {
+    return this.http.post<ApiResponse<any>>(`${this.baseUrl}/users/create-admin`, adminData).pipe(
+      tap((res) => {
+        if (res.succeeded) {
+          console.log(`New ${adminData.role} successfully created.`);
+        }
+      }),
+    );
+  }
+
+  updateAdmin(adminData: UpdateAdminDto) {
+    return this.http.post<ApiResponse<any>>(`${this.baseUrl}/users/update-admin`, adminData).pipe(
+      tap((res) => {
+        if (res.succeeded) {
+          console.log(res.message);
+        }
+      }),
+    );
   }
 }
