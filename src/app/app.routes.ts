@@ -27,6 +27,14 @@ export const routes: Routes = [
           return m.AdminManagement;
         },
       },
+      {
+        path: 'payment-methods',
+        pathMatch: 'full',
+        loadComponent: async () => {
+          const m = await import('./features/payment-methods/payment-methods');
+          return m.PaymentMethods;
+        },
+      },
     ],
   },
 ];

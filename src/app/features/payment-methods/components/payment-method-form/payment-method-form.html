@@ -1,0 +1,98 @@
+<div class="flex flex-col h-full">
+  <div class="flex-1 overflow-y-auto p-6">
+    <form [formGroup]="paymentMethodForm" class="space-y-6">
+      <div class="space-y-1 relative">
+        <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1"
+          >Payment Method</label
+        >
+        <div class="relative group">
+          <button
+            type="button"
+            (click)="isMethodMenuOpen.set(!isMethodMenuOpen())"
+            class="w-full flex items-center justify-between pl-10 pr-10 py-3 bg-slate-50 border border-slate-100 rounded-xl focus:bg-white focus:ring-2 focus:ring-green-100 focus:border-green-500 outline-none transition-all text-slate-700 font-medium text-left"
+          >
+            <span
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400 group-focus-within:text-green-500"
+            >
+              <lucide-icon name="credit-card" [size]="18"></lucide-icon>
+            </span>
+            <span>{{ selectedPaymentMethodLabel }}</span>
+            <span
+              class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400"
+            >
+              <lucide-icon
+                name="chevron-down"
+                [size]="18"
+                class="transition-transform duration-200"
+                [class.rotate-180]="isMethodMenuOpen()"
+              ></lucide-icon>
+            </span>
+          </button>
+
+          @if (isMethodMenuOpen()) {
+            <div
+              class="absolute z-60 w-full mt-2 bg-white border border-slate-200 rounded-xl shadow-xl py-1 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200"
+            >
+              @for (method of paymentMethodMenu; track method.value) {
+                <button
+                  type="button"
+                  (click)="selectPaymentMethod(method.value)"
+                  class="w-full px-4 py-3 text-sm text-left transition-colors flex items-center justify-between group"
+                >
+                  {{ method.label }}
+                  @if (paymentMethodForm.get('methodName')?.value === method.value) {
+                    <lucide-icon name="check" [size]="14" class="text-green-600"></lucide-icon>
+                  }
+                </button>
+              }
+            </div>
+            <div class="fixed inset-0 z-55" (click)="isMethodMenuOpen.set(false)"></div>
+          }
+        </div>
+      </div>
+      <div class="space-y-1">
+        <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1"
+          >Account Name</label
+        >
+        <input
+          formControlName="accountName"
+          type="text"
+          class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl focus:bg-white focus:ring-2 focus:ring-green-100 focus:border-green-500 outline-none transition-all"
+        />
+      </div>
+      <div class="space-y-1">
+        <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1"
+          >Account Number</label
+        >
+        <input
+          formControlName="accountNumber"
+          type="text"
+          class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl focus:bg-white focus:ring-2 focus:ring-green-100 focus:border-green-500 outline-none transition-all"
+        />
+      </div>
+    </form>
+  </div>
+
+  <div class="flex gap-3 justify-end pb-6 pr-6">
+    <button
+      type="button"
+      (click)="onCancel.emit()"
+      class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-sm font-semibold rounded-lg transition-all active:scale-95"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      (click)="submit()"
+      [disabled]="paymentMethodForm.invalid"
+      class="flex gap-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-lg shadow-md shadow-green-200 disabled:opacity-50 transition-all active:scale-95"
+    >
+      @if (isSaving()) {
+        <lucide-icon name="loader-circle" class="animate-spin h-5 w-5 text-white"></lucide-icon>
+        Saving...
+      } @else {
+        Save
+      }
+    </button>
+  </div>
+</div>
