@@ -21,8 +21,8 @@ import { RoleMap } from '../../core/constants/role';
 })
 export class AdminManagement implements OnInit {
   private userService = inject(UserService);
+  private searchSubject = new Subject<string>();
 
-  isLoading = signal(false);
   adminColumns = [
     { key: 'userName', label: 'Admin' },
     { key: 'role', label: 'Role' },
@@ -30,6 +30,8 @@ export class AdminManagement implements OnInit {
     { key: 'actions', label: 'Actions' },
   ];
 
+  adminStats = signal<AdminStats>({ totalAdmins: 0, totalSuperAdmins: 0 });
+  selectedAdmin = signal<User | null>(null);
   paginatedAdmins = signal<PaginatedList<User>>({
     items: [],
     totalCount: 0,
@@ -39,16 +41,13 @@ export class AdminManagement implements OnInit {
     hasNextPage: false,
   });
 
-  adminStats = signal<AdminStats>({ totalAdmins: 0, totalSuperAdmins: 0 });
+  isLoading = signal(false);
+  isFormOpen = signal(false);
+  isSaving = signal(false);
 
   currentPage = 1;
   pageSize = 25;
   searchTerm = '';
-  private searchSubject = new Subject<string>();
-
-  isFormOpen = signal(false);
-  selectedAdmin = signal<User | null>(null);
-  isSaving = signal(false);
 
   ngOnInit() {
     this.loadData();
@@ -69,6 +68,7 @@ export class AdminManagement implements OnInit {
         this.isLoading.set(false);
       },
       error: (err) => {
+        this.isLoading.set(false);
         console.error(err);
       },
     });
@@ -82,26 +82,26 @@ export class AdminManagement implements OnInit {
     });
   }
 
-  onPageChanged(page: number) {
+  handlePageChange(page: number) {
     this.currentPage = page;
     this.loadAdmins(this.currentPage, this.pageSize, this.searchTerm);
   }
 
-  onSearchChanged(text: string) {
+  handleSearch(text: string) {
     this.searchSubject.next(text);
   }
 
-  openEditForm(user: User) {
+  handleEdit(user: User) {
     this.selectedAdmin.set(user);
     this.isFormOpen.set(true);
   }
 
-  openAddForm() {
+  handleAdd() {
     this.selectedAdmin.set(null);
     this.isFormOpen.set(true);
   }
 
-  handleSaveAdmin(formData: any) {
+  handleSave(formData: any) {
     this.isSaving.set(true);
 
     const adminId = this.selectedAdmin()?.id;
@@ -130,7 +130,7 @@ export class AdminManagement implements OnInit {
     });
   }
 
-  getRoleClass(role: string): string {
+  protected getRoleClass(role: string): string {
     switch (role) {
       case 'SuperAdmin':
         return 'bg-[#fffbeb] text-[#d97706] border-[#d97706]';

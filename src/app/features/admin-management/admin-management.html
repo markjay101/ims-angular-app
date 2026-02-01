@@ -42,8 +42,8 @@
   [data]="paginatedAdmins()"
   [columns]="adminColumns"
   [isLoading]="isLoading()"
-  (pageChange)="onPageChanged($event)"
-  (searchChange)="onSearchChanged($event)"
+  (pageChange)="handlePageChange($event)"
+  (searchChange)="handleSearch($event)"
   [columnTemplates]="{
     userName: userProfileTemplate,
     role: roleTemplate,
@@ -53,7 +53,7 @@
 >
   <button
     headerButton
-    (click)="openAddForm()"
+    (click)="handleAdd()"
     class="ml-auto flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-md shadow-blue-200 transition-all active:scale-95"
   >
     <lucide-icon name="plus" [size]="18"></lucide-icon>
@@ -98,7 +98,7 @@
       class="flex-1 overflow-hidden"
       [adminData]="selectedAdmin()"
       [isSaving]="isSaving()"
-      (onSave)="handleSaveAdmin($event)"
+      (onSave)="handleSave($event)"
       (onCancel)="isFormOpen.set(false)"
     >
     </app-admin-form>
@@ -145,7 +145,7 @@
 
 <ng-template #actionsTemplate let-row="row">
   <button
-    (click)="openEditForm(row)"
+    (click)="handleEdit(row)"
     class="text-sky-700 hover:bg-slate-50 rounded-md transition-colors"
   >
     <lucide-icon name="user-pen" [size]="16"></lucide-icon>
