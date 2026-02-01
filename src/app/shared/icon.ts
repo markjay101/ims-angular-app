@@ -21,6 +21,7 @@ import {
   ShieldCheck,
   ChevronDown,
   Check,
+  Pencil,
 } from 'lucide-angular';
 
 export const ICONS = {
@@ -46,4 +47,5 @@ export const ICONS = {
   ShieldCheck,
   ChevronDown,
   Check,
+  Pencil,
 };
