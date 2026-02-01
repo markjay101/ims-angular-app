@@ -1,4 +1,4 @@
-<div class="flex min-h-screen">
+<div class="flex min-h-screen max-h-screen">
   <app-sidebar #sidebar />
 
   <div
@@ -8,7 +8,7 @@
   >
     <app-header />
 
-    <main class="p-6 flex-1 bg-stone-100">
+    <main class="p-6 flex-1 bg-stone-100 overflow-auto">
       <router-outlet />
     </main>
   </div>
