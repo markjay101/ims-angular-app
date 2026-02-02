@@ -21,7 +21,7 @@ export class PaymentMethodCard {
   paymentMethodImage = computed(() => {
     const method = this.paymentMethod().methodName;
     const mappedEnum = PaymentMethodMapEnum[method];
-    return PaymentMethodImageMap[mappedEnum] || 'assets/default-bank.png';
+    return PaymentMethodImageMap[mappedEnum] || '';
   });
 
   selectedPaymentMethod = output<PaymentMethod>();

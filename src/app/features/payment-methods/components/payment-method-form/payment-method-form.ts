@@ -29,7 +29,7 @@ export class PaymentMethodForm {
     { value: PaymentMethodString.BDO, label: 'BDO' },
   ];
 
-  isSaving = signal<boolean>(false);
+  isSaving = input<boolean>(false);
 
   onSave = output<any>();
   onCancel = output<void>();
@@ -38,8 +38,13 @@ export class PaymentMethodForm {
     effect(() => {
       const user = this.paymentMethodData();
 
-      if (user) this.paymentMethodForm.patchValue(user);
-      else this.paymentMethodForm.reset({ methodName: PaymentMethodString.Gcash });
+      if (user) {
+        this.paymentMethodForm.patchValue(user);
+        this.paymentMethodForm.get('methodName')?.disable();
+      } else {
+        this.paymentMethodForm.reset({ methodName: PaymentMethodString.Gcash });
+        this.paymentMethodForm.get('methodName')?.enable();
+      }
     });
   }
 
@@ -48,13 +53,17 @@ export class PaymentMethodForm {
     return this.paymentMethodMenu.find((m) => m.value === roleValue)?.label || 'Select Method';
   }
 
+  get isMethodDisabled(): boolean {
+    return this.paymentMethodForm.get('methodName')?.disabled ?? false;
+  }
+
   selectPaymentMethod(method: PaymentMethodString) {
     this.paymentMethodForm.get('methodName')?.setValue(method);
     this.isMethodMenuOpen.set(false);
   }
 
   submit() {
-    this.isSaving.set(true);
+    this.isSaving.apply(true);
     this.onSave.emit(this.paymentMethodForm.getRawValue());
   }
 }
