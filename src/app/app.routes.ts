@@ -35,6 +35,14 @@ export const routes: Routes = [
           return m.PaymentMethods;
         },
       },
+      {
+        path: 'internet-plans',
+        pathMatch: 'full',
+        loadComponent: async () => {
+          const m = await import('./features/internet-plans/internet-plans');
+          return m.InternetPlans;
+        },
+      },
     ],
   },
 ];

@@ -2,7 +2,6 @@ import { PaginatedList } from './../../shared/models/paginated-list';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { Observable } from 'rxjs';
 import { ApiResponse } from '../../shared/models/api-response';
 import { InternetPlan } from '../../shared/models/internet-plan';
 import { CreateInternetPlanDto } from '../../shared/models/create-internet-plan-dto';
@@ -20,11 +19,11 @@ export class InternetPlanService {
     );
   }
 
-  createInternetPlans(data: CreateInternetPlanDto) {
+  createInternetPlan(data: CreateInternetPlanDto) {
     return this.http.post<ApiResponse<any>>(`${this.baseUrl}/internet-plans/create`, data);
   }
 
-  updateInternetPlans(data: InternetPlan) {
-    return this.http.post<ApiResponse<any>>(`${this.baseUrl}/internet-plans/create`, data);
+  updateInternetPlan(data: InternetPlan) {
+    return this.http.post<ApiResponse<any>>(`${this.baseUrl}/internet-plans/update`, data);
   }
 }

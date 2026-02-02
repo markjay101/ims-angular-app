@@ -1,0 +1,54 @@
+<div
+  class="group relative bg-white rounded-xl border border-slate-200 shadow-sm hover:border-slate-300 hover:shadow-md transition-all duration-300 overflow-hidden cursor-pointer"
+>
+  <div class="h-28 bg-slate-900 p-5 relative overflow-hidden">
+    <div class="absolute -right-2 -bottom-4 w-24 h-24 bg-blue-600/20 rounded-full blur-2xl"></div>
+
+    <div class="relative z-10 flex justify-between items-center h-full">
+      <div class="max-w-[65%]">
+        <h3 class="text-white text-xl font-bold leading-tight">{{ internetPlanData().name }}</h3>
+        <span class="text-blue-400 text-[10px] font-bold uppercase tracking-widest"
+          >Internet Plan</span
+        >
+      </div>
+
+      <div class="flex flex-col items-end">
+        <span class="text-white text-3xl font-black italic leading-none">{{
+          internetPlanData().speedMbps
+        }}</span>
+        <span class="text-slate-400 text-[10px] uppercase font-bold">Mbps</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-5 space-y-4">
+    <div class="min-h-15">
+      <label class="text-[10px] text-slate-400 uppercase font-bold tracking-tight"
+        >Plan Details</label
+      >
+      <p class="text-slate-600 text-sm leading-relaxed line-clamp-2">
+        {{ internetPlanData().description }}
+      </p>
+    </div>
+
+    <div class="pt-4 border-t border-slate-50 flex items-end justify-between">
+      <div>
+        <label class="text-[10px] text-slate-400 uppercase font-bold block">Monthly Fee</label>
+        <span class="text-slate-900 font-black text-xl leading-none">{{
+          internetPlanData().price | currency: 'PHP' : 'symbol' : '1.2-2'
+        }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="absolute z-20 bottom-2 right-2 opacity-100 sm:inset-0 sm:flex sm:items-center sm:justify-center sm:opacity-0 sm:group-hover:opacity-100 sm:bg-slate-900/40 transition-all duration-300"
+  >
+    <button
+      (click)="handleEdit(internetPlanData())"
+      class="flex items-center justify-center text-dark lg:text-white sm:bg-transparent p-3 sm:shadow-none transition-transform active:scale-90"
+    >
+      <lucide-icon name="pencil" [size]="18" class="sm:scale-125"></lucide-icon>
+    </button>
+  </div>
+</div>
