@@ -112,8 +112,8 @@ export class AdminManagement implements OnInit {
     };
 
     const request$ = adminId
-      ? this.userService.updateAdmin({ ...payload, id: adminId } as UpdateAdminDto)
-      : this.userService.createAdmin(payload as CreateAdminDto);
+      ? this.userService.updateAdmin({ ...payload, id: adminId })
+      : this.userService.createAdmin(payload);
 
     request$.subscribe({
       next: (response: ApiResponse<any>) => {

@@ -72,8 +72,8 @@ export class PaymentMethods implements OnInit {
       ? this.paymentMethodService.updatePaymentMethod({
           ...formData,
           paymentMethodId: paymentMethodId,
-        } as UpdatePaymentMethodDto)
-      : this.paymentMethodService.createPaymentMethod(formData as CreatePaymentMethodDto);
+        })
+      : this.paymentMethodService.createPaymentMethod(formData);
 
     request$.subscribe({
       next: (response: ApiResponse<any>) => {
