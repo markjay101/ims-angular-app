@@ -13,11 +13,24 @@
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-  @for (method of paymentMethods(); track method.id) {
-    <app-payment-method-card
-      [paymentMethod]="method"
-      (selectedPaymentMethod)="handleEdit(method)"
-    />
+  @if (isLoading()) {
+    <div class="col-span-full flex flex-col items-center gap-2">
+      <lucide-icon name="loader-circle" class="animate-spin text-blue-600"></lucide-icon>
+      <span>Loading records...</span>
+    </div>
+  } @else {
+    @for (method of paymentMethods().items; track method.id) {
+      <app-payment-method-card
+        [paymentMethod]="method"
+        (selectedPaymentMethod)="handleEdit(method)"
+      />
+    } @empty {
+      <div
+        class="col-span-full flex flex-col items-center justify-center text-slate-400 border-2 border-dashed border-slate-100 rounded-xl"
+      >
+        <span>No data found.</span>
+      </div>
+    }
   }
 </div>
 
@@ -58,6 +71,8 @@
       class="flex-1"
       [paymentMethodData]="selectedPaymentMethod()"
       (onCancel)="isFormOpen.set(false)"
+      (onSave)="handleSave($event)"
+      [isSaving]="isSaving()"
     />
   </div>
 </div>
