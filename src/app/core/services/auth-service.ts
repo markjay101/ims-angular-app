@@ -2,10 +2,9 @@ import { inject, Injectable, signal } from '@angular/core';
 import { ApiResponse } from '../../shared/models/api-response';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
-import { UserToken } from '../../shared/models/user-token';
 import { Observable, tap } from 'rxjs';
 import { STORAGE_KEYS } from '../constants/storage';
-import { User } from '../../shared/models/user';
+import { User, UserToken } from '../../shared/models/user';
 
 @Injectable({
   providedIn: 'root',

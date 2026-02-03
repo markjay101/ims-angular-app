@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { ApiResponse } from '../../shared/models/api-response';
-import { InternetPlan } from '../../shared/models/internet-plan';
-import { CreateInternetPlanDto } from '../../shared/models/create-internet-plan-dto';
+import { CreateInternetPlanDto, InternetPlan } from '../../shared/models/internet-plan';
 
 @Injectable({
   providedIn: 'root',

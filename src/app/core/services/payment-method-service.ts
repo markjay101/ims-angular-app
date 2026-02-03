@@ -4,9 +4,11 @@ import { inject, Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { ApiResponse } from '../../shared/models/api-response';
-import { PaymentMethod } from '../../shared/models/payment-method';
-import { CreatePaymentMethodDto } from '../../shared/models/create-payment-method-dto';
-import { UpdatePaymentMethodDto } from '../../shared/models/update-payment-method-dto';
+import {
+  CreatePaymentMethodDto,
+  PaymentMethod,
+  UpdatePaymentMethodDto,
+} from '../../shared/models/payment-method';
 
 @Injectable({
   providedIn: 'root',

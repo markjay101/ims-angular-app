@@ -7,11 +7,11 @@ import { PaginatedList } from '../../shared/models/paginated-list';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
-import { AdminStats } from '../../shared/models/admin-stats';
 import { AdminForm } from './components/admin-form/admin-form';
 import { RoleMap } from '../../core/constants/role';
 import { Backdrop } from '../../shared/components/backdrop/backdrop';
 import { FormContainer } from '../../shared/components/form-container/form-container';
+import { AdminStats } from '../../shared/models/admin';
 
 @Component({
   selector: 'app-admin-management',

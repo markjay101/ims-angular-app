@@ -5,9 +5,7 @@ import { PaymentMethodCard } from './components/payment-method-card/payment-meth
 import { PaymentMethod } from '../../shared/models/payment-method';
 import { PaymentMethodForm } from './components/payment-method-form/payment-method-form';
 import { PaymentMethodService } from '../../core/services/payment-method-service';
-import { CreatePaymentMethodDto } from '../../shared/models/create-payment-method-dto';
 import { ApiResponse } from '../../shared/models/api-response';
-import { UpdatePaymentMethodDto } from '../../shared/models/update-payment-method-dto';
 import { Backdrop } from '../../shared/components/backdrop/backdrop';
 import { FormContainer } from '../../shared/components/form-container/form-container';
 

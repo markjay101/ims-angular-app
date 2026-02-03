@@ -5,9 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { ApiResponse } from '../../shared/models/api-response';
 import { PaginatedList } from '../../shared/models/paginated-list';
-import { AdminStats } from '../../shared/models/admin-stats';
-import { CreateAdminDto } from '../../shared/models/create-admin-dto';
-import { UpdateAdminDto } from '../../shared/models/update-admin-dto';
+import { AdminStats, CreateAdminDto, UpdateAdminDto } from '../../shared/models/admin';
 
 @Injectable({
   providedIn: 'root',

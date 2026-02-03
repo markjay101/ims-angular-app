@@ -9,3 +9,8 @@ export interface User {
   updatedBy?: string;
   updatedAt: Date | string;
 }
+
+export interface UserToken {
+  token: string;
+  user: User;
+}
