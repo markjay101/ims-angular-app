@@ -61,13 +61,13 @@
   </button>
 </app-table>
 
-<app-backdrop [showBackdrop]="isFormOpen()" (closeBackdrop)="isFormOpen.set($event)" />
+<app-backdrop [showBackdrop]="isFormOpen()" (closeBackdrop)="isFormOpen.set(false)" />
 
 <app-form-container
   [isFormOpen]="isFormOpen()"
   [formHeader]="selectedAdmin() ? 'Edit Admin' : 'Add New Admin'"
   [formSubHeader]="'Please fill in the details below'"
-  (closeForm)="isFormOpen.set($event)"
+  (closeForm)="isFormOpen.set(false)"
 >
   <app-admin-form
     inputs

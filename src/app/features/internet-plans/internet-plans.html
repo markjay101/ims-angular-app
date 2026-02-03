@@ -31,13 +31,13 @@
   }
 </div>
 
-<app-backdrop [showBackdrop]="isFormOpen()" (closeBackdrop)="isFormOpen.set($event)" />
+<app-backdrop [showBackdrop]="isFormOpen()" (closeBackdrop)="isFormOpen.set(false)" />
 
 <app-form-container
   [isFormOpen]="isFormOpen()"
   [formHeader]="selectedInternetPlan() ? 'Edit Internet Plan' : 'Add Internet Plan'"
   [formSubHeader]="'Please fill in the details below'"
-  (closeForm)="isFormOpen.set($event)"
+  (closeForm)="isFormOpen.set(false)"
 >
   <app-internet-plan-form
     inputs

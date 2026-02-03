@@ -4,5 +4,5 @@
   [class.pointer-events-auto]="showBackdrop()"
   [class.opacity-0]="!showBackdrop()"
   [class.pointer-events-none]="!showBackdrop()"
-  (click)="handleClose()"
+  (click)="closeBackdrop.emit()"
 ></div>

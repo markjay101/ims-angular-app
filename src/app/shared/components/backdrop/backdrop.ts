@@ -8,11 +8,5 @@ import { Component, input, output } from '@angular/core';
 })
 export class Backdrop {
   showBackdrop = input<boolean>(false);
-
-  closeBackdrop = output<boolean>();
-
-  handleClose() {
-    this.showBackdrop.apply(false);
-    this.closeBackdrop.emit(false);
-  }
+  closeBackdrop = output<void>();
 }

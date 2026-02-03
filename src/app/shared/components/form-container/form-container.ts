@@ -12,10 +12,5 @@ export class FormContainer {
   formHeader = input.required<string>();
   formSubHeader = input.required<string>();
 
-  closeForm = output<boolean>();
-
-  handleClose() {
-    this.isFormOpen.apply(false);
-    this.closeForm.emit(false);
-  }
+  closeForm = output<void>();
 }

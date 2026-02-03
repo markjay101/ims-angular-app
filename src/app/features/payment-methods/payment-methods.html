@@ -34,13 +34,13 @@
   }
 </div>
 
-<app-backdrop [showBackdrop]="isFormOpen()" (closeBackdrop)="isFormOpen.set($event)" />
+<app-backdrop [showBackdrop]="isFormOpen()" (closeBackdrop)="isFormOpen.set(false)" />
 
 <app-form-container
   [isFormOpen]="isFormOpen()"
   [formHeader]="selectedPaymentMethod() ? 'Edit Payment Method' : 'Add Payment Method'"
   [formSubHeader]="'Please fill in the details below'"
-  (closeForm)="isFormOpen.set($event)"
+  (closeForm)="isFormOpen.set(false)"
 >
   <app-payment-method-form
     inputs

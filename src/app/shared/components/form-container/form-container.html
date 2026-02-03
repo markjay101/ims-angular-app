@@ -13,7 +13,7 @@
         </h2>
         <p class="text-xs text-slate-500 font-medium">{{ formSubHeader() }}</p>
       </div>
-      <button (click)="handleClose()" class="p-2">
+      <button (click)="closeForm.emit()" class="p-2">
         <lucide-icon
           name="x"
           [size]="20"
