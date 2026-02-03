@@ -61,49 +61,23 @@
   </button>
 </app-table>
 
-<div
-  class="fixed inset-0 bg-slate-900/30 backdrop-blur-[2px] z-40 transition-opacity duration-300 opacity-0 pointer-events-none"
-  [class.opacity-100]="isFormOpen()"
-  [class.pointer-events-auto]="isFormOpen()"
-  [class.opacity-0]="!isFormOpen()"
-  [class.pointer-events-none]="!isFormOpen()"
-  (click)="isFormOpen.set(false)"
-></div>
+<app-backdrop [showBackdrop]="isFormOpen()" (closeBackdrop)="isFormOpen.set($event)" />
 
-<div
-  class="fixed inset-y-0 right-0 w-full sm:max-w-md bg-white shadow-2xl z-50 transition-transform duration-300 border-l border-slate-100 translate-x-full"
-  [class.translate-x-0]="isFormOpen()"
-  [class.translate-x-full]="!isFormOpen()"
+<app-form-container
+  [isFormOpen]="isFormOpen()"
+  [formHeader]="selectedAdmin() ? 'Edit Admin' : 'Add New Admin'"
+  [formSubHeader]="'Please fill in the details below'"
+  (closeForm)="isFormOpen.set($event)"
 >
-  <div class="flex flex-col h-full">
-    <div
-      class="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50"
-    >
-      <div>
-        <h2 class="text-xl font-bold text-slate-800">
-          {{ selectedAdmin() ? 'Edit Admin' : 'Add New Admin' }}
-        </h2>
-        <p class="text-xs text-slate-500 font-medium">Please fill in the details below</p>
-      </div>
-      <button (click)="isFormOpen.set(false)" class="p-2">
-        <lucide-icon
-          name="x"
-          [size]="20"
-          class="text-slate-400 hover:text-black transition-colors"
-        ></lucide-icon>
-      </button>
-    </div>
-
-    <app-admin-form
-      class="flex-1 overflow-hidden"
-      [adminData]="selectedAdmin()"
-      [isSaving]="isSaving()"
-      (onSave)="handleSave($event)"
-      (onCancel)="isFormOpen.set(false)"
-    >
-    </app-admin-form>
-  </div>
-</div>
+  <app-admin-form
+    inputs
+    class="flex-1 overflow-hidden"
+    [adminData]="selectedAdmin()"
+    [isSaving]="isSaving()"
+    (onSave)="handleSave($event)"
+    (onCancel)="isFormOpen.set(false)"
+  />
+</app-form-container>
 
 <ng-template #userProfileTemplate let-row="row">
   <div class="flex gap-2 items-center">

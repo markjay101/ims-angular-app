@@ -36,10 +36,10 @@ export class PaymentMethodForm {
 
   constructor() {
     effect(() => {
-      const user = this.paymentMethodData();
+      const method = this.paymentMethodData();
 
-      if (user) {
-        this.paymentMethodForm.patchValue(user);
+      if (method) {
+        this.paymentMethodForm.patchValue(method);
         this.paymentMethodForm.get('methodName')?.disable();
       } else {
         this.paymentMethodForm.reset({ methodName: PaymentMethodString.Gcash });

@@ -1,0 +1,8 @@
+<div
+  class="fixed inset-0 bg-slate-900/30 backdrop-blur-[2px] z-40 transition-opacity duration-300 opacity-0 pointer-events-none"
+  [class.opacity-100]="showBackdrop()"
+  [class.pointer-events-auto]="showBackdrop()"
+  [class.opacity-0]="!showBackdrop()"
+  [class.pointer-events-none]="!showBackdrop()"
+  (click)="handleClose()"
+></div>

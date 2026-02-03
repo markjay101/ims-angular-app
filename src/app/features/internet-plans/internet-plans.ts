@@ -4,10 +4,12 @@ import { InternetPlanCard } from './components/internet-plan-card/internet-plan-
 import { InternetPlanService } from '../../core/services/internet-plan-service';
 import { InternetPlan } from '../../shared/models/internet-plan';
 import { InternetPlanForm } from './components/internet-plan-form/internet-plan-form';
+import { Backdrop } from '../../shared/components/backdrop/backdrop';
+import { FormContainer } from '../../shared/components/form-container/form-container';
 
 @Component({
   selector: 'app-internet-plans',
-  imports: [LucideAngularModule, InternetPlanCard, InternetPlanForm],
+  imports: [LucideAngularModule, InternetPlanCard, InternetPlanForm, Backdrop, FormContainer],
   templateUrl: './internet-plans.html',
   styleUrl: './internet-plans.css',
 })

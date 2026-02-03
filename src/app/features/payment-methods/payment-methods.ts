@@ -8,10 +8,12 @@ import { PaymentMethodService } from '../../core/services/payment-method-service
 import { CreatePaymentMethodDto } from '../../shared/models/create-payment-method-dto';
 import { ApiResponse } from '../../shared/models/api-response';
 import { UpdatePaymentMethodDto } from '../../shared/models/update-payment-method-dto';
+import { Backdrop } from '../../shared/components/backdrop/backdrop';
+import { FormContainer } from '../../shared/components/form-container/form-container';
 
 @Component({
   selector: 'app-payment-methods',
-  imports: [LucideAngularModule, PaymentMethodCard, PaymentMethodForm],
+  imports: [LucideAngularModule, PaymentMethodCard, PaymentMethodForm, Backdrop, FormContainer],
   templateUrl: './payment-methods.html',
   styleUrl: './payment-methods.css',
 })
