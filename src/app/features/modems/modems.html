@@ -1,0 +1,20 @@
+<header class="mb-8">
+  <h1 class="text-[28px] font-bold">Modem Management</h1>
+  <p class="text-slate-400 font-semibold">Manage, track and assign network equipment</p>
+</header>
+
+<app-table
+  [data]="paginatedModems()"
+  [isLoading]="isLoading()"
+  [columns]="modemColumns"
+  (pageChange)="handlePageChange($event)"
+  (searchChange)="handleSearch($event)"
+>
+  <button
+    headerButton
+    class="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold rounded-lg shadow-md shadow-slate-400 active:scale-95"
+  >
+    <lucide-icon name="plus" [size]="18"></lucide-icon>
+    <span>Add Modem</span>
+  </button></app-table
+>

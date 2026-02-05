@@ -43,6 +43,14 @@ export const routes: Routes = [
           return m.InternetPlans;
         },
       },
+      {
+        path: 'modems',
+        pathMatch: 'full',
+        loadComponent: async () => {
+          const m = await import('./features/modems/modems');
+          return m.Modems;
+        },
+      },
     ],
   },
 ];
