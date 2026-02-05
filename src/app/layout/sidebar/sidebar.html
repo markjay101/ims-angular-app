@@ -1,7 +1,7 @@
 <button
   (click)="toggleMobile()"
   [style.left]="isMobileMenuOpen() ? '200px' : ''"
-  class="fixed top-4 left-4 z-50 transition-all duration-300 text-[#475586] rounded-md lg:hidden"
+  class="fixed top-4 left-4 z-20 transition-all duration-300 text-[#475586] rounded-md lg:hidden"
 >
   @if (isMobileMenuOpen()) {
     <lucide-icon name="x"></lucide-icon>
@@ -13,7 +13,7 @@
 @if (isMobileMenuOpen()) {
   <div
     (click)="toggleMobile()"
-    class="fixed inset-0 bg-gray/50 z-40 lg:hidden backdrop-blur-sm"
+    class="fixed inset-0 bg-gray/50 z-10 lg:hidden backdrop-blur-sm"
   ></div>
 }
 
@@ -21,7 +21,7 @@
   [class]="isMobileMenuOpen() ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
   [class.lg:w-64]="!isCollapsed()"
   [class.lg:w-20]="isCollapsed()"
-  class="fixed top-0 left-0 z-40 h-screen transition-all duration-300 bg-[#ffffff] text-[#475586] flex flex-col w-64 border-r border-slate-300"
+  class="fixed top-0 left-0 z-15 h-screen transition-all duration-300 bg-[#ffffff] text-[#475586] flex flex-col w-64 border-r border-slate-300"
 >
   <div class="px-6 py-4 flex items-center justify-between border-b border-slate-300">
     @if (!isCollapsed()) {
