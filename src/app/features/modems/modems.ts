@@ -2,13 +2,16 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { ModemsService } from '../../core/services/modems-service';
 import { PaginatedList } from '../../shared/models/paginated-list';
-import { Modem } from '../../shared/models/modem';
+import { CreateModemDto, Modem } from '../../shared/models/modem';
 import { Table } from '../../shared/components/table/table';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { FormContainer } from '../../shared/components/form-container/form-container';
+import { ModemForm } from './modem-form/modem-form';
+import { Backdrop } from '../../shared/components/backdrop/backdrop';
 
 @Component({
   selector: 'app-modems',
-  imports: [LucideAngularModule, Table],
+  imports: [LucideAngularModule, Table, FormContainer, ModemForm, Backdrop],
   templateUrl: './modems.html',
   styleUrl: './modems.css',
 })
@@ -26,9 +29,10 @@ export class Modems implements OnInit {
   });
 
   modemColumns = [
-    { key: 'mdoel', label: 'Model' },
+    { key: 'model', label: 'Model' },
     { key: 'serialNumber', label: 'Serial Number' },
     { key: 'macAddress', label: 'Mac Address' },
+    { key: 'assignedTo', label: 'Assigned To' },
     { key: 'actions', label: 'Actions' },
   ];
 
@@ -37,6 +41,9 @@ export class Modems implements OnInit {
   searchTerm = '';
 
   isLoading = signal<boolean>(false);
+  isSaving = signal<boolean>(false);
+
+  selectedModem = signal<Modem | null>(null);
   isFormOpen = signal<boolean>(false);
 
   ngOnInit(): void {
@@ -74,6 +81,37 @@ export class Modems implements OnInit {
   }
 
   handleAdd() {
+    this.selectedModem.set(null);
     this.isFormOpen.set(true);
+  }
+
+  handleEdit(data: Modem) {
+    this.selectedModem.set(data);
+    this.isFormOpen.set(true);
+  }
+
+  handleSave(formData: Modem | CreateModemDto) {
+    console.log(formData);
+    this.isSaving.set(true);
+
+    const id = this.selectedModem()?.id;
+
+    const request$ = id
+      ? this.modemService.updateModem({ ...formData, id })
+      : this.modemService.createModem(formData);
+
+    request$.subscribe({
+      next: (res) => {
+        this.isSaving.set(false);
+        this.isFormOpen.set(false);
+        this.loadModems(this.currentPage, this.pageSize, this.searchTerm);
+
+        console.log(res.message);
+      },
+      error: (err) => {
+        this.isSaving.set(false);
+        console.error(err);
+      },
+    });
   }
 }

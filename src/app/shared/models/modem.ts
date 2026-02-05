@@ -5,4 +5,4 @@ export interface Modem {
   macAddress: string;
 }
 
-export type CreateModem = Omit<Modem, 'id'>;
+export type CreateModemDto = Omit<Modem, 'id'>;

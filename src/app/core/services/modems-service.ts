@@ -1,7 +1,7 @@
 import { environment } from './../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { CreateModem, Modem } from '../../shared/models/modem';
+import { CreateModemDto, Modem } from '../../shared/models/modem';
 import { PaginatedList } from '../../shared/models/paginated-list';
 import { ApiResponse } from '../../shared/models/api-response';
 
@@ -18,7 +18,7 @@ export class ModemsService {
     );
   }
 
-  createModem(data: CreateModem) {
+  createModem(data: CreateModemDto) {
     return this.http.post<ApiResponse<string>>(`${this.baseUrl}/modems/create`, data);
   }
 
