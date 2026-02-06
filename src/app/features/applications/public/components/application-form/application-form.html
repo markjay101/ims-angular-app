@@ -1,0 +1,197 @@
+<div
+  class="flex flex-col h-full bg-white shadow-md rounded-2xl overflow-hidden border border-slate-200"
+>
+  <div
+    class="text-[18px] p-6 border-b border-b-slate-300 text-sm font-bold text-slate-800 bg-slate-50 flex items-center gap-2"
+  >
+    <lucide-icon name="file-text" [size]="22" class="m-0 text-blue-500"></lucide-icon>
+    Application Form
+  </div>
+  <p class="text-[12px] text-slate-500 ps-6 pt-2">Please complete all required fields (*).</p>
+  <div class="flex-1 overflow-y-auto p-6">
+    <form [formGroup]="applicationForm" class="space-y-6">
+      <div class="flex gap-2 items-center">
+        <lucide-icon name="user" [size]="20" class="m-0 text-blue-500"></lucide-icon>
+        <span class="text-[16px] font-semibold">Personal Information</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 pb-10">
+        <div class="group m-0">
+          <label
+            class="text-[11px] font-bold uppercase tracking-wider text-slate-600 ml-1 group-focus-within:text-blue-500"
+            >First Name*</label
+          >
+          <input
+            formControlName="firstName"
+            type="text"
+            class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all"
+          />
+        </div>
+        <div class="group m-0">
+          <label
+            class="text-[11px] font-bold uppercase tracking-wider text-slate-600 ml-1 group-focus-within:text-blue-500"
+            >Last Name*</label
+          >
+          <input
+            formControlName="lastName"
+            type="text"
+            class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all"
+          />
+        </div>
+        <div class="group">
+          <label
+            class="text-[11px] font-bold uppercase tracking-wider text-slate-600 ml-1 group-focus-within:text-blue-500"
+            >Email Address*</label
+          >
+          <input
+            formControlName="email"
+            type="text"
+            class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all"
+          />
+        </div>
+        <div class="group">
+          <label
+            class="text-[11px] font-bold uppercase tracking-wider text-slate-600 ml-1 group-focus-within:text-blue-500"
+            >Contact Number*</label
+          >
+          <input
+            formControlName="contactNumber"
+            type="text"
+            class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all"
+          />
+        </div>
+      </div>
+      <div class="flex gap-2 items-center">
+        <lucide-icon name="map-pin-house" [size]="20" class="m-0 text-blue-500"></lucide-icon>
+        <span class="text-[16px] font-semibold">Address</span>
+      </div>
+      <div class="group">
+        <label
+          class="text-[11px] font-bold uppercase tracking-wider text-slate-600 ml-1 group-focus-within:text-blue-500"
+          >Street Address*</label
+        >
+        <input
+          formControlName="address"
+          type="text"
+          class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all"
+        />
+      </div>
+      <div class="grid grid-cols-3 gap-4 pb-10">
+        <div class="group">
+          <label
+            class="text-[11px] font-bold uppercase tracking-wider text-slate-600 ml-1 group-focus-within:text-blue-500"
+            >City*</label
+          >
+          <input
+            formControlName="city"
+            type="text"
+            class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all"
+          />
+        </div>
+        <div class="group">
+          <label
+            class="text-[11px] font-bold uppercase tracking-wider text-slate-600 ml-1 group-focus-within:text-blue-500"
+            >Country*</label
+          >
+          <input
+            formControlName="country"
+            type="text"
+            class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all"
+          />
+        </div>
+        <div class="group">
+          <label
+            class="text-[11px] font-bold uppercase tracking-wider text-slate-600 ml-1 group-focus-within:text-blue-500"
+            >Postal Code*</label
+          >
+          <input
+            formControlName="postalCode"
+            type="text"
+            class="w-full px-4 py-3 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all"
+          />
+        </div>
+      </div>
+      <div class="flex gap-2 items-center">
+        <lucide-icon name="wifi" [size]="20" class="m-0 text-blue-500"></lucide-icon>
+        <span class="text-[16px] font-semibold">Choose your plan</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        @if (isLoading()) {
+          <div class="col-span-full flex flex-col items-center gap-2">
+            <lucide-icon name="loader-circle" class="animate-spin text-blue-600"></lucide-icon>
+            <span>Loading plans...</span>
+          </div>
+        } @else {
+          @for (plan of internetPlans(); track plan.id) {
+            <div
+              (click)="handleSelectPlan(plan.id)"
+              class="group relative bg-white rounded-xl border shadow-md transition-all duration-300 overflow-hidden cursor-pointer transform hover:scale-[1.02]"
+              [class]="selectedInternetPlanId() === plan.id ? 'scale-[1.02]' : ''"
+              [class.border-blue-500]="selectedInternetPlanId() === plan.id"
+              [class.border-slate-300]="selectedInternetPlanId() !== plan.id"
+              [class.shadow-blue-300]="selectedInternetPlanId() === plan.id"
+            >
+              <div class="h-28 bg-slate-900 p-5 relative overflow-hidden">
+                <div
+                  class="absolute -right-2 -bottom-4 w-24 h-24 bg-blue-600/20 rounded-full blur-2xl"
+                ></div>
+
+                <div class="relative z-10 flex justify-between items-center h-full">
+                  <div class="max-w-[65%]">
+                    <h3 class="text-white text-xl font-bold leading-tight">{{ plan.name }}</h3>
+                    <span class="text-blue-400 text-[10px] font-bold uppercase tracking-widest"
+                      >Internet Plan</span
+                    >
+                  </div>
+
+                  <div class="flex flex-col items-end">
+                    <span class="text-white text-3xl font-black italic leading-none">
+                      {{ plan.speedMbps }}</span
+                    >
+                    <span class="text-slate-400 text-[10px] uppercase font-bold">Mbps</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-5 space-y-4">
+                <div class="min-h-15">
+                  <label class="text-[10px] text-slate-400 uppercase font-bold tracking-tight"
+                    >Plan Details</label
+                  >
+                  <p class="text-slate-600 text-sm leading-relaxed line-clamp-2">
+                    {{ plan.description }}
+                  </p>
+                </div>
+
+                <div class="pt-4 border-t border-slate-50 flex items-end justify-between">
+                  <div>
+                    <label class="text-[10px] text-slate-400 uppercase font-bold block"
+                      >Monthly Fee</label
+                    >
+                    <span class="text-slate-900 font-black text-xl leading-none">{{
+                      plan.price | currency: 'PHP' : 'symbol' : '1.2-2'
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          } @empty {
+            <div class="col-span-full flex flex-col items-center justify-center text-slate-400">
+              <span>No plans found.</span>
+            </div>
+          }
+        }
+      </div>
+    </form>
+    <div class="flex w-full mt-10">
+      <button
+        (click)="handleSave()"
+        [disabled]="applicationForm.invalid"
+        type="button"
+        class="w-full px-4 py-2 bbg-blue-600 bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-md shadow-blue-200 disabled:opacity-50"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>

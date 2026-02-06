@@ -22,6 +22,11 @@ import {
   ChevronDown,
   Check,
   Pencil,
+  Cable,
+  User,
+  MapPinHouse,
+  FileText,
+  CircleCheckBig,
 } from 'lucide-angular';
 
 export const ICONS = {
@@ -48,4 +53,9 @@ export const ICONS = {
   ChevronDown,
   Check,
   Pencil,
+  Cable,
+  User,
+  MapPinHouse,
+  FileText,
+  CircleCheckBig,
 };

@@ -10,7 +10,14 @@ export const routes: Routes = [
       return m.Login;
     },
   },
-
+  {
+    path: 'apply',
+    pathMatch: 'full',
+    loadComponent: async () => {
+      const m = await import('./features/applications/public/application');
+      return m.Application;
+    },
+  },
   {
     path: '',
     async loadComponent() {
