@@ -1,0 +1,109 @@
+<header class="mb-8">
+  <h1 class="text-[28px] font-bold">Customer Applications</h1>
+  <p class="text-slate-400 font-semibold">Review and process new connection requests</p>
+</header>
+
+<app-table
+  [data]="paginatedApplications()"
+  [columns]="applicationColumns"
+  [isLoading]="isLoading()"
+  [columnTemplates]="{
+    applicant: applicantTemplate,
+    createdAt: createdAtTemplate,
+    status: statusTemplate,
+    actions: actionsTemplate,
+  }"
+>
+  <div headerButton class="flex w-fit rounded-xl overflow-hidden border border-slate-300 shadow-sm">
+    <button
+      class="px-4 py-1.5 text-sm border-e border-slate-300 transition-colors"
+      [class.bg-blue-600]="selectedStatus() === null"
+      [class.text-white]="selectedStatus() === null"
+      [class.text-slate-500]="selectedStatus() !== null"
+      [class.hover:bg-slate-200]="selectedStatus() !== null"
+      (click)="handleChangeStatus(null)"
+    >
+      All
+    </button>
+
+    <button
+      class="px-4 py-1.5 text-sm border-e border-slate-300 transition-colors"
+      [class.bg-blue-600]="selectedStatus() === 0"
+      [class.text-white]="selectedStatus() === 0"
+      [class.text-slate-500]="selectedStatus() !== 0"
+      [class.hover:bg-slate-200]="selectedStatus() !== 0"
+      (click)="handleChangeStatus(0)"
+    >
+      Pending
+    </button>
+
+    <button
+      class="px-4 py-1.5 text-sm border-e border-slate-300 transition-colors"
+      [class.bg-blue-600]="selectedStatus() === 1"
+      [class.text-white]="selectedStatus() === 1"
+      [class.text-slate-500]="selectedStatus() !== 1"
+      [class.hover:bg-slate-200]="selectedStatus() !== 1"
+      (click)="handleChangeStatus(1)"
+    >
+      Approved
+    </button>
+
+    <button
+      class="px-4 py-1.5 text-sm transition-colors"
+      [class.bg-blue-600]="selectedStatus() === 2"
+      [class.text-white]="selectedStatus() === 2"
+      [class.text-slate-500]="selectedStatus() !== 2"
+      [class.hover:bg-slate-200]="selectedStatus() !== 2"
+      (click)="handleChangeStatus(2)"
+    >
+      Rejected
+    </button>
+  </div>
+</app-table>
+
+<ng-template #applicantTemplate let-row="row">
+  <div class="flex gap-2 items-center">
+    <div
+      class="rounded-lg h-10 w-10 flex items-center justify-center bg-linear-to-r from-blue-500 to-indigo-600"
+    >
+      <span class="text-white font-bold text-nowrap">
+        {{ row.firstName[0] | uppercase }}{{ row.lastName[0] | uppercase }}
+      </span>
+    </div>
+    <div class="flex flex-col">
+      <span class="font-medium text-slate-900 text-nowrap">
+        {{ row.firstName }} {{ row.lastName }}
+      </span>
+      <span class="text-xs text-slate-500 text-nowrap"> {{ row.email }} </span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #createdAtTemplate let-value>
+  <div class="flex flex-col">
+    <span class="text-slate-700 font-medium text-nowrap">
+      {{ value + 'Z' | date: 'mediumDate' }}
+    </span>
+    <span class="text-slate-400 text-xs text-nowrap">
+      {{ value + 'Z' | date: 'shortTime' }}
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #actionsTemplate let-row="row">
+  <button
+    (click)="handleEdit(row)"
+    class="text-sky-700 hover:bg-slate-50 rounded-md transition-colors"
+  >
+    <lucide-icon name="eye" [size]="16"></lucide-icon>
+  </button>
+</ng-template>
+
+<ng-template #statusTemplate let-value>
+  <span
+    class="px-2.5 py-0.5 rounded-full text-xs font-semibold border text-nowrap"
+    [class]="getStatusClass(value)"
+  >
+    {{ getStatusString(value) }}
+  </span>
+</ng-template>

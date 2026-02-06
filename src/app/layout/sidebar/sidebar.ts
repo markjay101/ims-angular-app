@@ -23,7 +23,7 @@ export class Sidebar {
     { label: 'Internet Plans', icon: 'wifi', path: '/internet-plans' },
     { label: 'Modems', icon: 'router', path: '/modems' },
     { label: 'Customers', icon: 'users', path: '/customers' },
-    { label: 'Applications', icon: 'file-user', path: '/application' },
+    { label: 'Applications', icon: 'file-user', path: '/applications' },
   ];
 
   toggleDesktop() {

@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment.development';
 import { ApiResponse } from '../../shared/models/api-response';
 import { PaginatedList } from '../../shared/models/paginated-list';
 import { Application, CreateApplicationDto } from '../../shared/models/application';
+import { ApplicationStatus } from '../constants/application-status';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,17 @@ export class ApplicationService {
   private http = inject(HttpClient);
   private baseUrl = environment.apiUrl;
 
-  getApplications() {
-    return this.http.get<ApiResponse<PaginatedList<Application>>>(`${this.baseUrl}/applications`);
+  getApplications(
+    pageNumber: Number = 1,
+    pageSize: Number = 25,
+    searchTerm: string = '',
+    status: ApplicationStatus | null = null,
+  ) {
+    var url = `${this.baseUrl}/applications?pageNumber=${pageNumber}&pageSize=${pageSize}&searchTerm=${searchTerm}`;
+
+    if (status !== null) url += `&status=${status}`;
+
+    return this.http.get<ApiResponse<PaginatedList<Application>>>(url);
   }
 
   createpplication(data: CreateApplicationDto) {

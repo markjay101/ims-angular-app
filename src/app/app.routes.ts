@@ -58,6 +58,14 @@ export const routes: Routes = [
           return m.Modems;
         },
       },
+      {
+        path: 'applications',
+        pathMatch: 'full',
+        loadComponent: async () => {
+          const m = await import('./features/applications/private/applications');
+          return m.Applications;
+        },
+      },
     ],
   },
 ];

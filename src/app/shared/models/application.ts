@@ -10,6 +10,9 @@ export interface Application {
   postalCode: string;
   status: string;
   internetPlanId: string;
+  createdAt: Date | string;
+  updatedBy?: string;
+  updatedAt: Date | string;
 }
 
 export type CreateApplicationDto = Omit<Application, 'id' | 'status'>;

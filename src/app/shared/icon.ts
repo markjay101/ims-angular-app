@@ -27,6 +27,7 @@ import {
   MapPinHouse,
   FileText,
   CircleCheckBig,
+  Eye,
 } from 'lucide-angular';
 
 export const ICONS = {
@@ -58,4 +59,5 @@ export const ICONS = {
   MapPinHouse,
   FileText,
   CircleCheckBig,
+  Eye,
 };
