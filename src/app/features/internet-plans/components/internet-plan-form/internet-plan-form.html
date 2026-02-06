@@ -1,8 +1,9 @@
 <div class="flex flex-col h-full">
   <div class="flex-1 overflow-y-auto p-6">
     <form [formGroup]="internetPlanForm" class="space-y-6">
-      <div class="space-y-1">
-        <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1"
+      <div class="space-y-1 group">
+        <label
+          class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1 group-focus-within:text-blue-900"
           >Name</label
         >
         <input
@@ -12,8 +13,9 @@
           placeholder="e.q. Fiber Unli Plan 1699"
         />
       </div>
-      <div class="space-y-1">
-        <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1"
+      <div class="space-y-1 group">
+        <label
+          class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1 group-focus-within:text-blue-900"
           >Description</label
         >
         <textarea
@@ -24,8 +26,9 @@
         ></textarea>
       </div>
 
-      <div class="space-y-1">
-        <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400"
+      <div class="space-y-1 group">
+        <label
+          class="text-[11px] font-bold uppercase tracking-wider text-slate-400 group-focus-within:text-blue-900"
           >Speed (Mbps)</label
         >
         <input
@@ -42,8 +45,11 @@
           <span class="text-xs text-red-500 ml-1">Speed must be at least 1 Mbps</span>
         }
       </div>
-      <div class="space-y-1">
-        <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Price</label>
+      <div class="space-y-1 group">
+        <label
+          class="text-[11px] font-bold uppercase tracking-wider text-slate-400 group-focus-within:text-blue-900"
+          >Price</label
+        >
         <input
           type="number"
           formControlName="price"

@@ -1,11 +1,12 @@
 <div class="flex flex-col h-full">
   <div class="flex-1 overflow-y-auto p-6">
     <form [formGroup]="adminForm" class="space-y-6">
-      <div class="space-y-1">
-        <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1"
+      <div class="space-y-1 group">
+        <label
+          class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1 group-focus-within:text-blue-500"
           >Account Username</label
         >
-        <div class="relative group w-full">
+        <div class="relative w-full">
           <span
             class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none group-focus-within:text-blue-500 text-slate-400"
           >
@@ -20,8 +21,9 @@
       </div>
 
       <div class="grid grid-cols-2 gap-4">
-        <div class="space-y-1">
-          <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1"
+        <div class="space-y-1 group">
+          <label
+            class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1 group-focus-within:text-blue-500"
             >First Name</label
           >
           <input
@@ -30,8 +32,9 @@
             class="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all"
           />
         </div>
-        <div class="space-y-1">
-          <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1"
+        <div class="space-y-1 group">
+          <label
+            class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1 group-focus-within:text-blue-500"
             >Last Name</label
           >
           <input
@@ -42,8 +45,9 @@
         </div>
       </div>
 
-      <div class="space-y-1 relative">
-        <label class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1"
+      <div class="space-y-1 relative group">
+        <label
+          class="text-[11px] font-bold uppercase tracking-wider text-slate-400 ml-1 group-focus-within:text-blue-500"
           >Access Level</label
         >
         <div class="relative group">
