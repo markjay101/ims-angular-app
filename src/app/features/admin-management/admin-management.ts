@@ -1,3 +1,4 @@
+import { EMPTY_PAGINATED_LIST } from './../../shared/models/paginated-list';
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { Table } from '../../shared/components/table/table';
 import { UserService } from '../../core/services/user-service';
@@ -40,14 +41,7 @@ export class AdminManagement implements OnInit {
 
   adminStats = signal<AdminStats>({ totalAdmins: 0, totalSuperAdmins: 0 });
   selectedAdmin = signal<User | null>(null);
-  paginatedAdmins = signal<PaginatedList<User>>({
-    items: [],
-    totalCount: 0,
-    pageNumber: 0,
-    totalPages: 0,
-    hasPreviousPage: false,
-    hasNextPage: false,
-  });
+  paginatedAdmins = signal<PaginatedList<User>>(EMPTY_PAGINATED_LIST);
 
   isLoading = signal(false);
   isFormOpen = signal(false);
@@ -72,6 +66,7 @@ export class AdminManagement implements OnInit {
     this.userService.getAdmins(pageNumber, pageSize, searchTerm).subscribe({
       next: (response) => {
         if (response && response.data) this.paginatedAdmins.set(response.data);
+        else this.paginatedAdmins.set(EMPTY_PAGINATED_LIST);
 
         this.isLoading.set(false);
       },

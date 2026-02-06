@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ApplicationService } from '../../../core/services/application-service';
 import { Table } from '../../../shared/components/table/table';
 import { Application } from '../../../shared/models/application';
-import { PaginatedList } from '../../../shared/models/paginated-list';
+import { EMPTY_PAGINATED_LIST, PaginatedList } from '../../../shared/models/paginated-list';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import {
@@ -30,14 +30,7 @@ export class Applications implements OnInit {
     { key: 'actions', label: 'Actions' },
   ];
 
-  paginatedApplications = signal<PaginatedList<Application>>({
-    items: [],
-    totalCount: 0,
-    pageNumber: 0,
-    totalPages: 0,
-    hasPreviousPage: false,
-    hasNextPage: false,
-  });
+  paginatedApplications = signal<PaginatedList<Application>>(EMPTY_PAGINATED_LIST);
 
   isLoading = signal<boolean>(false);
 
@@ -56,15 +49,7 @@ export class Applications implements OnInit {
     this.applicationService.getApplications(pageNumber, pageSize, searchTerm, status).subscribe({
       next: (res) => {
         if (res && res.succeeded) this.paginatedApplications.set(res.data);
-        else
-          this.paginatedApplications.set({
-            items: [],
-            totalCount: 0,
-            pageNumber: 0,
-            totalPages: 0,
-            hasPreviousPage: false,
-            hasNextPage: false,
-          });
+        else this.paginatedApplications.set(EMPTY_PAGINATED_LIST);
 
         this.isLoading.set(false);
       },
