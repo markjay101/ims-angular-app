@@ -1,6 +1,6 @@
 <div class="fixed inset-0 z-50 flex items-center justify-center p-4">
   <div
-    class="modal-backdrop fixed inset-0 bg-slate-900/30 backdrop-blur-sm"
+    class="modal-backdrop fixed inset-0 bg-slate-900/30 backdrop-blur-[2px]"
     (click)="closeModal.emit()"
   ></div>
 
@@ -18,23 +18,12 @@
       </button>
     </div>
 
-    <div class="py-6 grid grid-cols-2 gap-y-6 gap-x-4">
+    <div class="py-6 grid grid-cols-3 gap-y-6 gap-x-4">
       <div class="flex flex-col col-span-2">
         <label class="text-[10px] font-bold text-slate-400 uppercase">Email Address</label>
-        <p class="text-sm font-medium text-slate-700">{{ applicant().email }}</p>
-      </div>
-      <div class="flex flex-col">
-        <label class="text-[10px] font-bold text-slate-400 uppercase">First Name</label>
-        <p class="text-sm font-medium text-slate-700">{{ applicant().firstName }}</p>
-      </div>
-      <div class="flex flex-col">
-        <label class="text-[10px] font-bold text-slate-400 uppercase">Last Name</label>
-        <p class="text-sm font-medium text-slate-700">{{ applicant().lastName }}</p>
-      </div>
-
-      <div class="flex flex-col">
-        <label class="text-[10px] font-bold text-slate-400 uppercase">Contact Number</label>
-        <p class="text-sm font-medium text-slate-700">{{ applicant().contactNumber }}</p>
+        <p class="text-sm font-medium text-slate-700 overflow-hidden text-ellipsis">
+          {{ applicant().email }}
+        </p>
       </div>
       <div class="flex flex-col">
         <label class="text-[10px] font-bold text-slate-400 uppercase">Status</label>
@@ -44,23 +33,50 @@
           >{{ applicationStatusStringMap[applicant().status] }}</span
         >
       </div>
+      <div class="flex flex-col">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">First Name</label>
+        <p class="text-sm font-medium text-slate-700 overflow-hidden text-ellipsis">
+          {{ applicant().firstName }}
+        </p>
+      </div>
+      <div class="flex flex-col">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">Last Name</label>
+        <p class="text-sm font-medium text-slate-700 overflow-hidden text-ellipsis">
+          {{ applicant().lastName }}
+        </p>
+      </div>
 
-      <div class="flex flex-col col-span-2 pt-2 border-t border-slate-50">
+      <div class="flex flex-col">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">Contact Number</label>
+        <p class="text-sm font-medium text-slate-700 overflow-hidden text-ellipsis">
+          {{ applicant().contactNumber }}
+        </p>
+      </div>
+
+      <div class="flex flex-col col-span-3 pt-2 border-t border-slate-50">
         <label class="text-[10px] font-bold text-slate-400 uppercase">Full Address</label>
-        <p class="text-sm font-medium text-slate-700">{{ applicant().address }}</p>
+        <p class="text-sm font-medium text-slate-700 overflow-hidden text-ellipsis">
+          {{ applicant().address }}
+        </p>
       </div>
 
       <div class="flex flex-col">
         <label class="text-[10px] font-bold text-slate-400 uppercase">City</label>
-        <p class="text-sm font-medium text-slate-700">{{ applicant().city }}</p>
+        <p class="text-sm font-medium text-slate-700 overflow-hidden text-ellipsis">
+          {{ applicant().city }}
+        </p>
       </div>
       <div class="flex flex-col">
         <label class="text-[10px] font-bold text-slate-400 uppercase">Country</label>
-        <p class="text-sm font-medium text-slate-700">{{ applicant().country }}</p>
+        <p class="text-sm font-medium text-slate-700 overflow-hidden text-ellipsis">
+          {{ applicant().country }}
+        </p>
       </div>
       <div class="flex flex-col">
         <label class="text-[10px] font-bold text-slate-400 uppercase">Postal Code</label>
-        <p class="text-sm font-medium text-slate-700">{{ applicant().postalCode }}</p>
+        <p class="text-sm font-medium text-slate-700 overflow-hidden text-ellipsis">
+          {{ applicant().postalCode }}
+        </p>
       </div>
     </div>
 
