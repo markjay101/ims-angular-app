@@ -14,7 +14,10 @@
     actions: actionsTemplate,
   }"
 >
-  <div headerButton class="flex w-fit rounded-xl overflow-hidden border border-slate-300 shadow-sm">
+  <div
+    tableActions
+    class="flex w-fit rounded-xl overflow-hidden border border-slate-300 bg-white shadow-sm"
+  >
     <button
       class="px-4 py-1.5 text-sm border-e border-slate-300 transition-colors"
       [class.bg-blue-600]="selectedStatus() === null"
