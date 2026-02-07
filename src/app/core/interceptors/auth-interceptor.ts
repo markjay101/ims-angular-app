@@ -23,9 +23,12 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
         localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
         localStorage.removeItem(STORAGE_KEYS.USER_DATA);
-        router.navigate(['/login'], {
-          queryParams: { returnUrl: currentUrl },
-        });
+
+        if (!currentUrl.includes('/login')) {
+          router.navigate(['/login'], { queryParams: { returnUrl: currentUrl } });
+        } else {
+          router.navigate(['/login']);
+        }
       }
       return throwError(() => error);
     }),
