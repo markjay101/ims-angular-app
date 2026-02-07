@@ -19,9 +19,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
+        const currentUrl = router.url;
+
         localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
         localStorage.removeItem(STORAGE_KEYS.USER_DATA);
-        router.navigate(['/login']);
+        router.navigate(['/login'], {
+          queryParams: { returnUrl: currentUrl },
+        });
       }
       return throwError(() => error);
     }),

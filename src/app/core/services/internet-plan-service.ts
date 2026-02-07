@@ -25,4 +25,8 @@ export class InternetPlanService {
   updateInternetPlan(data: InternetPlan) {
     return this.http.post<ApiResponse<any>>(`${this.baseUrl}/internet-plans/update`, data);
   }
+
+  getInternetPlanById(id: string) {
+    return this.http.get<ApiResponse<InternetPlan>>(`${this.baseUrl}/internet-plans/${id}`);
+  }
 }

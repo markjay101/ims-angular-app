@@ -9,10 +9,12 @@ import {
   ApplicationStatus,
   ApplicationStatusStringMap,
 } from '../../../core/constants/application-status';
+import { ApplicantModal } from './components/applicant-modal/applicant-modal';
+import { Backdrop } from '../../../shared/components/backdrop/backdrop';
 
 @Component({
   selector: 'app-applications',
-  imports: [Table, UpperCasePipe, DatePipe, LucideAngularModule],
+  imports: [Table, UpperCasePipe, DatePipe, LucideAngularModule, ApplicantModal],
   templateUrl: './applications.html',
   styleUrl: './applications.css',
 })
@@ -38,6 +40,9 @@ export class Applications implements OnInit {
   pageSize = 25;
   searchTerm = '';
   selectedStatus = signal<ApplicationStatus | null>(0);
+
+  selectedApplicant = signal<Application | null>(null);
+  isApplicantModalOpen = signal<boolean>(false);
 
   private loadApplications(
     pageNumber: Number = 1,
@@ -66,7 +71,8 @@ export class Applications implements OnInit {
   }
 
   handleEdit(data: Application) {
-    console.log(data);
+    this.isApplicantModalOpen.set(true);
+    this.selectedApplicant.set(data);
   }
 
   handleChangeStatus(status: ApplicationStatus | null) {
@@ -87,7 +93,7 @@ export class Applications implements OnInit {
     }
   }
 
-  protected getStatusString(status: ApplicationStatus): string {
+  getStatusString(status: ApplicationStatus): string {
     return ApplicationStatusStringMap[status];
   }
 }

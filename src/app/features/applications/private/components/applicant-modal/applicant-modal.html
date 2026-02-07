@@ -1,0 +1,127 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+  <div
+    class="modal-backdrop fixed inset-0 bg-slate-900/30 backdrop-blur-sm"
+    (click)="closeModal.emit()"
+  ></div>
+
+  <div class="modal-content relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b pb-4">
+      <div class="flex flex-col">
+        <h3 class="text-lg font-bold text-slate-800">Applicant Details</h3>
+      </div>
+      <button (click)="closeModal.emit()" class="p-2">
+        <lucide-icon
+          name="x"
+          [size]="20"
+          class="text-slate-400 hover:text-black transition-colors"
+        ></lucide-icon>
+      </button>
+    </div>
+
+    <div class="py-6 grid grid-cols-2 gap-y-6 gap-x-4">
+      <div class="flex flex-col col-span-2">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">Email Address</label>
+        <p class="text-sm font-medium text-slate-700">{{ applicant().email }}</p>
+      </div>
+      <div class="flex flex-col">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">First Name</label>
+        <p class="text-sm font-medium text-slate-700">{{ applicant().firstName }}</p>
+      </div>
+      <div class="flex flex-col">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">Last Name</label>
+        <p class="text-sm font-medium text-slate-700">{{ applicant().lastName }}</p>
+      </div>
+
+      <div class="flex flex-col">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">Contact Number</label>
+        <p class="text-sm font-medium text-slate-700">{{ applicant().contactNumber }}</p>
+      </div>
+      <div class="flex flex-col">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">Status</label>
+        <span
+          class="px-2.5 py-0.5 rounded-full text-xs font-semibold border text-nowrap w-fit"
+          [class]="getStatusClass(applicant().status)"
+          >{{ applicationStatusStringMap[applicant().status] }}</span
+        >
+      </div>
+
+      <div class="flex flex-col col-span-2 pt-2 border-t border-slate-50">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">Full Address</label>
+        <p class="text-sm font-medium text-slate-700">{{ applicant().address }}</p>
+      </div>
+
+      <div class="flex flex-col">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">City</label>
+        <p class="text-sm font-medium text-slate-700">{{ applicant().city }}</p>
+      </div>
+      <div class="flex flex-col">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">Country</label>
+        <p class="text-sm font-medium text-slate-700">{{ applicant().country }}</p>
+      </div>
+      <div class="flex flex-col">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">Postal Code</label>
+        <p class="text-sm font-medium text-slate-700">{{ applicant().postalCode }}</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col">
+      <h4 class="text-md font-bold text-slate-800 mb-3">Internet Plan</h4>
+      @if (isPlanLoading()) {
+        <div class="col-span-full flex flex-col items-center gap-2">
+          <lucide-icon name="loader-circle" class="animate-spin text-blue-600"></lucide-icon>
+          <span>Loading...</span>
+        </div>
+      } @else {
+        <div
+          class="group relative bg-white rounded-xl border border-slate-300 shadow-md overflow-hidden"
+        >
+          <div class="h-28 bg-slate-900 p-5 relative overflow-hidden">
+            <div
+              class="absolute -right-2 -bottom-4 w-24 h-24 bg-blue-600/20 rounded-full blur-2xl"
+            ></div>
+
+            <div class="relative z-10 flex justify-between items-center h-full">
+              <div class="max-w-[65%]">
+                <h3 class="text-white text-xl font-bold leading-tight">
+                  {{ applicantPlan()?.name }}
+                </h3>
+                <span class="text-blue-400 text-[10px] font-bold uppercase tracking-widest"
+                  >Internet Plan</span
+                >
+              </div>
+
+              <div class="flex flex-col items-end">
+                <span class="text-white text-3xl font-black italic leading-none">
+                  {{ applicantPlan()?.speedMbps }}</span
+                >
+                <span class="text-slate-400 text-[10px] uppercase font-bold">Mbps</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 space-y-4">
+            <div class="min-h-15">
+              <label class="text-[10px] text-slate-400 uppercase font-bold tracking-tight"
+                >Plan Details</label
+              >
+              <p class="text-slate-600 text-sm leading-relaxed line-clamp-2">
+                {{ applicantPlan()?.description }}
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-slate-50 flex items-end justify-between">
+              <div>
+                <label class="text-[10px] text-slate-400 uppercase font-bold block"
+                  >Monthly Fee</label
+                >
+                <span class="text-slate-900 font-black text-xl leading-none">{{
+                  applicantPlan()?.price | currency: 'PHP' : 'symbol' : '1.2-2'
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

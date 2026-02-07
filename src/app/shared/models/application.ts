@@ -1,3 +1,5 @@
+import { ApplicationStatus } from '../../core/constants/application-status';
+
 export interface Application {
   id: string;
   firstName: string;
@@ -8,7 +10,7 @@ export interface Application {
   city: string;
   country: string;
   postalCode: string;
-  status: string;
+  status: ApplicationStatus;
   internetPlanId: string;
   createdAt: Date | string;
   updatedBy?: string;

@@ -110,3 +110,10 @@
     {{ getStatusString(value) }}
   </span>
 </ng-template>
+
+@if (isApplicantModalOpen()) {
+  <app-applicant-modal
+    (closeModal)="isApplicantModalOpen.set(false)"
+    [applicant]="selectedApplicant()!"
+  />
+}
