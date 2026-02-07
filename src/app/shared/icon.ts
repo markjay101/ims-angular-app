@@ -28,6 +28,7 @@ import {
   FileText,
   CircleCheckBig,
   Eye,
+  Mail,
 } from 'lucide-angular';
 
 export const ICONS = {
@@ -60,4 +61,5 @@ export const ICONS = {
   FileText,
   CircleCheckBig,
   Eye,
+  Mail,
 };

@@ -32,7 +32,7 @@ export class ApplicationService {
 
   updateApplicationStatus(id: string, status: number) {
     return this.http.post<ApiResponse<any>>(`${this.baseUrl}/applications/update-status`, {
-      id,
+      applicationId: id,
       status,
     });
   }

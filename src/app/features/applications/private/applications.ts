@@ -96,4 +96,8 @@ export class Applications implements OnInit {
   getStatusString(status: ApplicationStatus): string {
     return ApplicationStatusStringMap[status];
   }
+
+  refreshApplications() {
+    this.loadApplications(this.currentPage, this.pageSize, this.searchTerm, this.selectedStatus());
+  }
 }
