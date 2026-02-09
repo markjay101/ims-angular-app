@@ -4,7 +4,6 @@ import { PaymentMethod } from '../../../../shared/models/payment-method';
 import {
   PaymentMethodEnum,
   PaymentMethodImageMap,
-  PaymentMethodMapEnum,
 } from '../../../../core/constants/payment-method';
 
 @Component({
@@ -14,14 +13,11 @@ import {
   styleUrl: './payment-method-card.css',
 })
 export class PaymentMethodCard {
-  protected readonly PaymentMethodEnum = PaymentMethodEnum;
-
   paymentMethod = input.required<PaymentMethod>();
 
   paymentMethodImage = computed(() => {
-    const method = this.paymentMethod().methodName;
-    const mappedEnum = PaymentMethodMapEnum[method];
-    return PaymentMethodImageMap[mappedEnum] || '';
+    const method = this.paymentMethod().methodName as PaymentMethodEnum;
+    return PaymentMethodImageMap[method] || '';
   });
 
   selectedPaymentMethod = output<PaymentMethod>();

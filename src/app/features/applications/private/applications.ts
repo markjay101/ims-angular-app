@@ -5,12 +5,8 @@ import { Application } from '../../../shared/models/application';
 import { EMPTY_PAGINATED_LIST, PaginatedList } from '../../../shared/models/paginated-list';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
-import {
-  ApplicationStatus,
-  ApplicationStatusStringMap,
-} from '../../../core/constants/application-status';
+import { ApplicationStatus } from '../../../core/constants/application-status';
 import { ApplicantModal } from './components/applicant-modal/applicant-modal';
-import { Backdrop } from '../../../shared/components/backdrop/backdrop';
 
 @Component({
   selector: 'app-applications',
@@ -39,7 +35,11 @@ export class Applications implements OnInit {
   currentPage = 1;
   pageSize = 25;
   searchTerm = '';
-  selectedStatus = signal<ApplicationStatus | null>(0);
+
+  protected applicationStatus = ApplicationStatus;
+  protected statusOptions = Object.values(ApplicationStatus);
+
+  selectedStatus = signal<ApplicationStatus | null>(ApplicationStatus.Pending);
 
   selectedApplicant = signal<Application | null>(null);
   isApplicantModalOpen = signal<boolean>(false);
@@ -91,10 +91,6 @@ export class Applications implements OnInit {
       default:
         return 'bg-slate-50 text-slate-500 border-slate-200';
     }
-  }
-
-  getStatusString(status: ApplicationStatus): string {
-    return ApplicationStatusStringMap[status];
   }
 
   refreshApplications() {

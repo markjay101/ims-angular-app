@@ -24,18 +24,10 @@ export class PaymentMethodService {
   }
 
   createPaymentMethod(data: CreatePaymentMethodDto) {
-    return this.http.post<ApiResponse<any>>(`${this.baseUrl}/payment-methods/create`, data).pipe(
-      tap((res) => {
-        if (res.succeeded) console.log(res.message);
-      }),
-    );
+    return this.http.post<ApiResponse<any>>(`${this.baseUrl}/payment-methods/create`, data);
   }
 
   updatePaymentMethod(data: UpdatePaymentMethodDto) {
-    return this.http.post<ApiResponse<any>>(`${this.baseUrl}/payment-methods/update`, data).pipe(
-      tap((res) => {
-        if (res.succeeded) console.log(res.message);
-      }),
-    );
+    return this.http.post<ApiResponse<any>>(`${this.baseUrl}/payment-methods/update`, data);
   }
 }

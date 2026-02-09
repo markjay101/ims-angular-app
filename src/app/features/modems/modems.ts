@@ -6,7 +6,7 @@ import { CreateModemDto, Modem } from '../../shared/models/modem';
 import { Table } from '../../shared/components/table/table';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { FormContainer } from '../../shared/components/form-container/form-container';
-import { ModemForm } from './modem-form/modem-form';
+import { ModemForm } from './components/modem-form/modem-form';
 import { Backdrop } from '../../shared/components/backdrop/backdrop';
 
 @Component({

@@ -53,7 +53,7 @@
         <div class="relative group">
           <button
             type="button"
-            (click)="isRoleMenuOpen.set(!isRoleMenuOpen())"
+            (click)="isRoleOptionsOpen.set(!isRoleOptionsOpen())"
             class="w-full flex items-center justify-between pl-10 pr-10 py-3 bg-slate-50 border border-slate-100 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all text-slate-700 font-medium text-left"
           >
             <span
@@ -69,16 +69,16 @@
                 name="chevron-down"
                 [size]="18"
                 class="transition-transform duration-200"
-                [class.rotate-180]="isRoleMenuOpen()"
+                [class.rotate-180]="isRoleOptionsOpen()"
               ></lucide-icon>
             </span>
           </button>
 
-          @if (isRoleMenuOpen()) {
+          @if (isRoleOptionsOpen()) {
             <div
               class="absolute z-60 w-full mt-2 bg-white border border-slate-200 rounded-xl shadow-xl py-1 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200"
             >
-              @for (role of roleMenu; track role.value) {
+              @for (role of roleOptions; track role.value) {
                 <button
                   type="button"
                   (click)="selectRole(role.value)"
@@ -94,7 +94,7 @@
                 </button>
               }
             </div>
-            <div class="fixed inset-0 z-55" (click)="isRoleMenuOpen.set(false)"></div>
+            <div class="fixed inset-0 z-55" (click)="isRoleOptionsOpen.set(false)"></div>
           }
         </div>
       </div>

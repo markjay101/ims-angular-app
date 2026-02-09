@@ -1,10 +1,8 @@
+import { ApplicationStatusNumberMap } from './../../../../../core/constants/application-status';
 import { Component, inject, model, OnInit, output, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { Application } from '../../../../../shared/models/application';
-import {
-  ApplicationStatus,
-  ApplicationStatusStringMap,
-} from '../../../../../core/constants/application-status';
+import { ApplicationStatus } from '../../../../../core/constants/application-status';
 import { CurrencyPipe, DatePipe, UpperCasePipe } from '@angular/common';
 import { InternetPlan } from '../../../../../shared/models/internet-plan';
 import { InternetPlanService } from '../../../../../core/services/internet-plan-service';
@@ -25,7 +23,6 @@ export class ApplicantModal implements OnInit {
   isPlanLoading = signal<boolean>(false);
   applicantPlan = signal<InternetPlan | null>(null);
 
-  applicationStatusStringMap = ApplicationStatusStringMap;
   applicationStatus = ApplicationStatus;
 
   statusChanged = output<void>();
@@ -35,7 +32,9 @@ export class ApplicantModal implements OnInit {
   }
 
   handleStatusChange(status: ApplicationStatus.Approved | ApplicationStatus.Rejected) {
-    this.applicationService.updateApplicationStatus(this.applicant().id, status).subscribe({
+    const statusNumber = ApplicationStatusNumberMap[status];
+
+    this.applicationService.updateApplicationStatus(this.applicant().id, statusNumber).subscribe({
       next: (res) => {
         if (res.succeeded) {
           this.applicant.update((curr) => ({ ...curr, status }));
@@ -62,8 +61,8 @@ export class ApplicantModal implements OnInit {
     });
   }
 
-  protected getStatusClass(status: ApplicationStatus): string {
-    switch (status) {
+  protected getStatusClass(status: string): string {
+    switch (status as ApplicationStatus) {
       case ApplicationStatus.Pending:
         return 'bg-[#fffbeb] text-[#d97706] border-[#d97706]';
       case ApplicationStatus.Approved:

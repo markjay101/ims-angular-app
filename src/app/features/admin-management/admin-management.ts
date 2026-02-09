@@ -9,10 +9,10 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { AdminForm } from './components/admin-form/admin-form';
-import { RoleMap } from '../../core/constants/role';
 import { Backdrop } from '../../shared/components/backdrop/backdrop';
 import { FormContainer } from '../../shared/components/form-container/form-container';
 import { AdminStats } from '../../shared/models/admin';
+import { UserRole, UserRoleNumberMap } from '../../core/constants/role';
 
 @Component({
   selector: 'app-admin-management',
@@ -111,7 +111,7 @@ export class AdminManagement implements OnInit {
 
     const payload = {
       ...formData,
-      role: RoleMap[formData.role],
+      role: UserRoleNumberMap[formData.role as UserRole],
     };
 
     const request$ = adminId

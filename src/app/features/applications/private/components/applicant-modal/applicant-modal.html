@@ -21,8 +21,8 @@
       <div class="flex flex-col">
         <label class="text-[8px] font-semibold text-slate-400 uppercase">Applied on</label>
         <p class="text-[10px] font-medium text-slate-700 overflow-hidden text-ellipsis">
-          {{ applicant().createdAt | date: 'mediumDate' }}
-          {{ applicant().createdAt | date: 'shortTime' }}
+          {{ applicant().createdAt + 'Z' | date: 'mediumDate' }}
+          {{ applicant().createdAt + 'Z' | date: 'shortTime' }}
         </p>
       </div>
       @if (applicant().status === applicationStatus.Pending) {
@@ -57,7 +57,7 @@
           <span
             class="px-2.5 py-0.5 rounded-full text-xs font-semibold border text-nowrap w-fit"
             [class]="getStatusClass(applicant().status)"
-            >{{ applicationStatusStringMap[applicant().status] }}</span
+            >{{ applicant().status }}</span
           >
         </div>
       </div>

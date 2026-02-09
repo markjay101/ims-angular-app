@@ -28,39 +28,18 @@
     >
       All
     </button>
-
-    <button
-      class="px-4 py-1.5 text-sm border-e border-slate-300 transition-colors"
-      [class.bg-blue-600]="selectedStatus() === 0"
-      [class.text-white]="selectedStatus() === 0"
-      [class.text-slate-500]="selectedStatus() !== 0"
-      [class.hover:bg-slate-200]="selectedStatus() !== 0"
-      (click)="handleChangeStatus(0)"
-    >
-      Pending
-    </button>
-
-    <button
-      class="px-4 py-1.5 text-sm border-e border-slate-300 transition-colors"
-      [class.bg-blue-600]="selectedStatus() === 1"
-      [class.text-white]="selectedStatus() === 1"
-      [class.text-slate-500]="selectedStatus() !== 1"
-      [class.hover:bg-slate-200]="selectedStatus() !== 1"
-      (click)="handleChangeStatus(1)"
-    >
-      Approved
-    </button>
-
-    <button
-      class="px-4 py-1.5 text-sm transition-colors"
-      [class.bg-blue-600]="selectedStatus() === 2"
-      [class.text-white]="selectedStatus() === 2"
-      [class.text-slate-500]="selectedStatus() !== 2"
-      [class.hover:bg-slate-200]="selectedStatus() !== 2"
-      (click)="handleChangeStatus(2)"
-    >
-      Rejected
-    </button>
+    @for (status of statusOptions; track status) {
+      <button
+        class="px-4 py-1.5 text-sm border-e border-slate-300 transition-colors"
+        [class.bg-blue-600]="selectedStatus() === status"
+        [class.text-white]="selectedStatus() === status"
+        [class.text-slate-500]="selectedStatus() !== status"
+        [class.hover:bg-slate-200]="selectedStatus() !== status"
+        (click)="handleChangeStatus(status)"
+      >
+        {{ status }}
+      </button>
+    }
   </div>
 </app-table>
 
@@ -107,7 +86,7 @@
     class="px-2.5 py-0.5 rounded-full text-xs font-semibold border text-nowrap"
     [class]="getStatusClass(value)"
   >
-    {{ getStatusString(value) }}
+    {{ value }}
   </span>
 </ng-template>
 

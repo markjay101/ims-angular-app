@@ -10,7 +10,7 @@ export interface Application {
   city: string;
   country: string;
   postalCode: string;
-  status: ApplicationStatus;
+  status: string;
   internetPlanId: string;
   createdAt: Date | string;
   updatedBy?: string;
