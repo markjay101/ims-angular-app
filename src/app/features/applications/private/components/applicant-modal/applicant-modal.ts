@@ -7,6 +7,7 @@ import { CurrencyPipe, DatePipe, UpperCasePipe } from '@angular/common';
 import { InternetPlan } from '../../../../../shared/models/internet-plan';
 import { InternetPlanService } from '../../../../../core/services/internet-plan-service';
 import { ApplicationService } from '../../../../../core/services/application-service';
+import { ToastService } from '../../../../../core/services/toast-service';
 
 @Component({
   selector: 'app-applicant-modal',
@@ -17,6 +18,7 @@ import { ApplicationService } from '../../../../../core/services/application-ser
 export class ApplicantModal implements OnInit {
   private interPlanService = inject(InternetPlanService);
   private applicationService = inject(ApplicationService);
+  private toast = inject(ToastService);
 
   closeModal = output<void>();
   applicant = model.required<Application>();
@@ -40,6 +42,8 @@ export class ApplicantModal implements OnInit {
           this.applicant.update((curr) => ({ ...curr, status }));
           this.statusChanged.emit();
         }
+
+        this.toast.show(res.message, 'success');
       },
       error: (err) => {
         console.error(err);

@@ -3,9 +3,11 @@ import { catchError, throwError } from 'rxjs';
 import { ApiResponse } from '../../shared/models/api-response';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastService } from '../services/toast-service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
+  const toast = inject(ToastService);
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
@@ -23,6 +25,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       } else if (error.status === 0) {
         errorMessage = 'Cannot connect to server. Try again later.';
       }
+
+      toast.show(errorMessage, 'error');
 
       return throwError(() => new Error(errorMessage));
     }),

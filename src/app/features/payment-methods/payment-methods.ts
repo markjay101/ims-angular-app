@@ -8,6 +8,7 @@ import { PaymentMethodService } from '../../core/services/payment-method-service
 import { ApiResponse } from '../../shared/models/api-response';
 import { Backdrop } from '../../shared/components/backdrop/backdrop';
 import { FormContainer } from '../../shared/components/form-container/form-container';
+import { ToastService } from '../../core/services/toast-service';
 
 @Component({
   selector: 'app-payment-methods',
@@ -21,6 +22,7 @@ export class PaymentMethods implements OnInit {
   }
 
   private paymentMethodService = inject(PaymentMethodService);
+  private toast = inject(ToastService);
 
   paymentMethods = signal<PaginatedList<PaymentMethod>>({
     items: [],
@@ -81,7 +83,7 @@ export class PaymentMethods implements OnInit {
         this.isFormOpen.set(false);
         this.loadPaymentMethods();
 
-        console.log(response.message);
+        this.toast.show(response.message, 'success');
       },
       error: (err) => {
         this.isSaving.set(false);

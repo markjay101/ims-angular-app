@@ -6,6 +6,7 @@ import { InternetPlan } from '../../shared/models/internet-plan';
 import { InternetPlanForm } from './components/internet-plan-form/internet-plan-form';
 import { Backdrop } from '../../shared/components/backdrop/backdrop';
 import { FormContainer } from '../../shared/components/form-container/form-container';
+import { ToastService } from '../../core/services/toast-service';
 
 @Component({
   selector: 'app-internet-plans',
@@ -15,6 +16,7 @@ import { FormContainer } from '../../shared/components/form-container/form-conta
 })
 export class InternetPlans implements OnInit {
   private internetPlanService = inject(InternetPlanService);
+  private toast = inject(ToastService);
 
   internetPlans = signal<InternetPlan[]>([]);
   isLoading = signal<boolean>(false);
@@ -66,7 +68,7 @@ export class InternetPlans implements OnInit {
         this.isFormOpen.set(false);
         this.loadInternetPlans();
 
-        console.log(res.message);
+        this.toast.show(res.message, 'success');
       },
       error: (err) => {
         this.isSaving.set(false);

@@ -13,6 +13,7 @@ import { Backdrop } from '../../shared/components/backdrop/backdrop';
 import { FormContainer } from '../../shared/components/form-container/form-container';
 import { AdminStats } from '../../shared/models/admin';
 import { UserRole, UserRoleNumberMap } from '../../core/constants/role';
+import { ToastService } from '../../core/services/toast-service';
 
 @Component({
   selector: 'app-admin-management',
@@ -31,6 +32,7 @@ import { UserRole, UserRoleNumberMap } from '../../core/constants/role';
 export class AdminManagement implements OnInit {
   private userService = inject(UserService);
   private searchSubject = new Subject<string>();
+  private toast = inject(ToastService);
 
   adminColumns = [
     { key: 'userName', label: 'Admin' },
@@ -124,7 +126,7 @@ export class AdminManagement implements OnInit {
         this.isFormOpen.set(false);
         this.loadData();
 
-        console.log(response.message);
+        this.toast.show(response.message, 'success');
       },
       error: (err) => {
         this.isSaving.set(false);

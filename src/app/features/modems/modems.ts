@@ -8,6 +8,7 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { FormContainer } from '../../shared/components/form-container/form-container';
 import { ModemForm } from './components/modem-form/modem-form';
 import { Backdrop } from '../../shared/components/backdrop/backdrop';
+import { ToastService } from '../../core/services/toast-service';
 
 @Component({
   selector: 'app-modems',
@@ -18,6 +19,7 @@ import { Backdrop } from '../../shared/components/backdrop/backdrop';
 export class Modems implements OnInit {
   private modemService = inject(ModemsService);
   private searchSubject = new Subject<string>();
+  private toast = inject(ToastService);
 
   paginatedModems = signal<PaginatedList<Modem>>({
     items: [],
@@ -106,7 +108,7 @@ export class Modems implements OnInit {
         this.isFormOpen.set(false);
         this.loadModems(this.currentPage, this.pageSize, this.searchTerm);
 
-        console.log(res.message);
+        this.toast.show(res.message, 'success');
       },
       error: (err) => {
         this.isSaving.set(false);

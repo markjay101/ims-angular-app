@@ -15,7 +15,7 @@ export class AdminForm {
 
   private fb = inject(FormBuilder);
   adminForm: FormGroup = this.fb.group({
-    userName: ['', [Validators.required, Validators.minLength(3)]],
+    userName: ['', [Validators.required, Validators.minLength(3), Validators.email]],
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     role: [UserRole.Admin, Validators.required],
