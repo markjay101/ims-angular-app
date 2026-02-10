@@ -7,6 +7,7 @@ import { UpperCasePipe } from '@angular/common';
 import { CustomerStatus } from '../../core/constants/customer-status';
 import { LucideAngularModule } from 'lucide-angular';
 import { CustomerModal } from './components/customer-modal/customer-modal';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-customers',
@@ -16,9 +17,16 @@ import { CustomerModal } from './components/customer-modal/customer-modal';
 })
 export class Customers implements OnInit {
   ngOnInit(): void {
-    this.loadCustomers(this.currentPage, this.pageSize, this.searchTerm);
+    this.loadCustomers(this.currentPage, this.pageSize, this.searchTerm, this.selectedStatus());
+
+    this.searchSubject.pipe(debounceTime(400), distinctUntilChanged()).subscribe((searchTerm) => {
+      this.searchTerm = searchTerm;
+      this.currentPage = 1;
+      this.loadCustomers(this.currentPage, this.pageSize, this.searchTerm, this.selectedStatus());
+    });
   }
   private customersService = inject(CustomersService);
+  private searchSubject = new Subject<string>();
 
   paginatedCustomers = signal<PaginatedList<Customer>>(EMPTY_PAGINATED_LIST);
 
@@ -41,11 +49,17 @@ export class Customers implements OnInit {
   isCustomerModalOpen = signal<boolean>(false);
   selectedCustomer = signal<Customer | null>(null);
 
-  loadCustomers(pageNumber: number, pageSize: number, searchTerm: string) {
+  loadCustomers(
+    pageNumber: number,
+    pageSize: number,
+    searchTerm: string,
+    status: CustomerStatus | null,
+  ) {
     this.isLoading.set(true);
-    this.customersService.getCustomers(pageNumber, pageSize, searchTerm).subscribe({
+    this.customersService.getCustomers(pageNumber, pageSize, searchTerm, status).subscribe({
       next: (res) => {
         if (res && res.succeeded) this.paginatedCustomers.set(res.data);
+        else this.paginatedCustomers.set(EMPTY_PAGINATED_LIST);
 
         this.isLoading.set(false);
       },
@@ -58,11 +72,21 @@ export class Customers implements OnInit {
 
   handleChangeStatus(status: CustomerStatus | null) {
     this.selectedStatus.set(status);
+    this.loadCustomers(this.currentPage, this.pageSize, this.searchTerm, this.selectedStatus());
   }
 
   handleView(data: Customer) {
     this.isCustomerModalOpen.set(true);
     this.selectedCustomer.set(data);
+  }
+
+  handlePageChange(page: number) {
+    this.currentPage = page;
+    this.loadCustomers(this.currentPage, this.pageSize, this.searchTerm, this.selectedStatus());
+  }
+
+  handleSearch(text: string) {
+    this.searchSubject.next(text);
   }
 
   protected getStatusClass(status: CustomerStatus): string {

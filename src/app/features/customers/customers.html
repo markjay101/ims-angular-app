@@ -6,6 +6,8 @@
 <app-table
   [data]="paginatedCustomers()"
   [columns]="customerColumns"
+  (pageChange)="handlePageChange($event)"
+  (searchChange)="handleSearch($event)"
   [columnTemplates]="{
     customer: customerTemplate,
     contact: contactTemplate,

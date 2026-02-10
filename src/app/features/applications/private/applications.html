@@ -7,6 +7,8 @@
   [data]="paginatedApplications()"
   [columns]="applicationColumns"
   [isLoading]="isLoading()"
+  (pageChange)="handlePageChange($event)"
+  (searchChange)="handleSearch($event)"
   [columnTemplates]="{
     applicant: applicantTemplate,
     createdAt: createdAtTemplate,

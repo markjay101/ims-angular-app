@@ -7,6 +7,7 @@ import { DatePipe, UpperCasePipe } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { ApplicationStatus } from '../../../core/constants/application-status';
 import { ApplicantModal } from './components/applicant-modal/applicant-modal';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-applications',
@@ -17,8 +18,20 @@ import { ApplicantModal } from './components/applicant-modal/applicant-modal';
 export class Applications implements OnInit {
   ngOnInit(): void {
     this.loadApplications(this.currentPage, this.pageSize, this.searchTerm, this.selectedStatus());
+
+    this.searchSubject.pipe(debounceTime(400), distinctUntilChanged()).subscribe((searchTerm) => {
+      this.searchTerm = searchTerm;
+      this.currentPage = 1;
+      this.loadApplications(
+        this.currentPage,
+        this.pageSize,
+        this.searchTerm,
+        this.selectedStatus(),
+      );
+    });
   }
   private applicationService = inject(ApplicationService);
+  private searchSubject = new Subject<string>();
 
   applicationColumns = [
     { key: 'applicant', label: 'Applicant' },
@@ -78,6 +91,10 @@ export class Applications implements OnInit {
   handleChangeStatus(status: ApplicationStatus | null) {
     this.selectedStatus.set(status);
     this.loadApplications(this.currentPage, this.pageSize, this.searchTerm, this.selectedStatus());
+  }
+
+  handleSearch(text: string) {
+    this.searchSubject.next(text);
   }
 
   protected getStatusClass(status: ApplicationStatus): string {
