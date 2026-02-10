@@ -1,0 +1,144 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+  <div
+    class="modal-backdrop fixed inset-0 bg-slate-900/30 backdrop-blur-[2px]"
+    (click)="closeModal.emit()"
+  ></div>
+
+  <div class="modal-content relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl">
+    <div class="flex items-center justify-between border-b pb-4">
+      <div class="flex flex-col">
+        <h3 class="text-lg font-bold text-slate-800">Customer Details</h3>
+      </div>
+      <button (click)="closeModal.emit()" class="p-2">
+        <lucide-icon
+          name="x"
+          [size]="20"
+          class="text-slate-400 hover:text-black transition-colors"
+        ></lucide-icon>
+      </button>
+    </div>
+    <!-- <div class="flex justify-between pt-4">
+      <div class="flex flex-col">
+        <label class="text-[8px] font-semibold text-slate-400 uppercase">Applied on</label>
+        <p class="text-[10px] font-medium text-slate-700 overflow-hidden text-ellipsis">
+          {{ customer().createdAt + 'Z' | date: 'mediumDate' }}
+          {{ customer().createdAt + 'Z' | date: 'shortTime' }}
+        </p>
+      </div>
+      @if (customer().status === applicationStatus.Pending) {
+        <div class="flex items-center gap-2">
+          <button
+            (click)="handleStatusChange(applicationStatus.Approved)"
+            class="text-emerald-700 border border-emerald-400 bg-emerald-200 px-2 py-1 text-[12px] rounded-sm shadow-md shadow-emerald-200 transition-all active:scale-95"
+          >
+            Approve</button
+          ><button
+            (click)="handleStatusChange(applicationStatus.Rejected)"
+            class="text-red-700 border border-red-400 bg-red-200 px-2 py-1 text-[12px] rounded-sm shadow-md shadow-red-200 transition-all active:scale-95"
+          >
+            Reject
+          </button>
+        </div>
+      }
+    </div> -->
+    <div class="py-6 grid grid-cols-2 gap-y-6 gap-x-4">
+      <div class="flex gap-2 items-center col-span-2">
+        <div
+          class="rounded-lg h-14 w-14 flex items-center justify-center bg-linear-to-r from-blue-500 to-indigo-600"
+        >
+          <span class="text-white font-bold text-nowrap text-xl overflow-hidden text-ellipsis">
+            {{ customer().firstName[0] | uppercase }}{{ customer().lastName[0] | uppercase }}
+          </span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-medium text-slate-900 text-nowrap text-md">
+            {{ customer().firstName }} {{ customer().lastName }}
+          </span>
+          <span
+            class="px-2.5 py-0.5 rounded-full text-xs font-semibold border text-nowrap w-fit"
+            [class]="getStatusClass(customer().status)"
+            >{{ customer().status }}</span
+          >
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">Email Address</label>
+        <p class="text-sm font-medium text-slate-700 overflow-hidden text-ellipsis">
+          {{ customer().email }}
+        </p>
+      </div>
+
+      <div class="flex flex-col">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">Contact Number</label>
+        <p class="text-sm font-medium text-slate-700 overflow-hidden text-ellipsis">
+          {{ customer().contactNumber }}
+        </p>
+      </div>
+
+      <div class="flex flex-col col-span-2 pt-2 border-t border-slate-50">
+        <label class="text-[10px] font-bold text-slate-400 uppercase">Address</label>
+        <p class="text-sm font-medium text-slate-700 overflow-hidden text-ellipsis">
+          {{ customer().address }}, {{ customer().city }}, {{ customer().country }},
+          {{ customer().postalCode }}
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col">
+      <h4 class="text-sm font-bold text-slate-400 mb-1">Internet Plan</h4>
+      @if (customer().plan !== null) {
+        <div
+          class="group relative bg-white rounded-xl border border-slate-300 shadow-md overflow-hidden"
+        >
+          <div class="h-28 bg-slate-900 p-5 relative overflow-hidden">
+            <div
+              class="absolute -right-2 -bottom-4 w-24 h-24 bg-blue-600/20 rounded-full blur-2xl"
+            ></div>
+
+            <div class="relative z-10 flex justify-between items-center h-full">
+              <div class="max-w-[65%]">
+                <h3 class="text-white text-xl font-bold leading-tight">
+                  {{ customer().plan.name }}
+                </h3>
+                <span class="text-blue-400 text-[10px] font-bold uppercase tracking-widest"
+                  >Internet Plan</span
+                >
+              </div>
+
+              <div class="flex flex-col items-end">
+                <span class="text-white text-3xl font-black italic leading-none">
+                  {{ customer().plan.speedMbps }}</span
+                >
+                <span class="text-slate-400 text-[10px] uppercase font-bold">Mbps</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 space-y-4">
+            <div class="min-h-15">
+              <label class="text-[10px] text-slate-400 uppercase font-bold tracking-tight"
+                >Plan Details</label
+              >
+              <p class="text-slate-600 text-sm leading-relaxed line-clamp-2">
+                {{ customer().plan.description }}
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-slate-50 flex items-end justify-between">
+              <div>
+                <label class="text-[10px] text-slate-400 uppercase font-bold block"
+                  >Monthly Fee</label
+                >
+                <span class="text-slate-900 font-black text-xl leading-none">{{
+                  customer().plan.price | currency: 'PHP' : 'symbol' : '1.2-2'
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      } @else {
+        <span class="text-md text-slate-500 text-bold">-</span>
+      }
+    </div>
+  </div>
+</div>

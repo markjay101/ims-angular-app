@@ -16,7 +16,9 @@ export interface Customer {
 
 interface CustomerPlan {
   name: string;
-  speedMbps: string;
+  speedMbps: number;
+  description: string;
+  price: number;
   startDate: Date | null;
   NextDueDate: Date | null;
 }

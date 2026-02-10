@@ -6,17 +6,15 @@ import { CustomersService } from '../../core/services/customers-service';
 import { UpperCasePipe } from '@angular/common';
 import { CustomerStatus } from '../../core/constants/customer-status';
 import { LucideAngularModule } from 'lucide-angular';
+import { CustomerModal } from './components/customer-modal/customer-modal';
 
 @Component({
   selector: 'app-customers',
-  imports: [Table, UpperCasePipe, LucideAngularModule],
+  imports: [Table, UpperCasePipe, LucideAngularModule, CustomerModal],
   templateUrl: './customers.html',
   styleUrl: './customers.css',
 })
 export class Customers implements OnInit {
-  handleView(_t21: any) {
-    throw new Error('Method not implemented.');
-  }
   ngOnInit(): void {
     this.loadCustomers(this.currentPage, this.pageSize, this.searchTerm);
   }
@@ -40,6 +38,8 @@ export class Customers implements OnInit {
   searchTerm = '';
 
   isLoading = signal<boolean>(false);
+  isCustomerModalOpen = signal<boolean>(false);
+  selectedCustomer = signal<Customer | null>(null);
 
   loadCustomers(pageNumber: number, pageSize: number, searchTerm: string) {
     this.isLoading.set(true);
@@ -58,6 +58,11 @@ export class Customers implements OnInit {
 
   handleChangeStatus(status: CustomerStatus | null) {
     this.selectedStatus.set(status);
+  }
+
+  handleView(data: Customer) {
+    this.isCustomerModalOpen.set(true);
+    this.selectedCustomer.set(data);
   }
 
   protected getStatusClass(status: CustomerStatus): string {

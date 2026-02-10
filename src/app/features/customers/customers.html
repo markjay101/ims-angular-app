@@ -104,3 +104,10 @@
     <span class="text-md text-slate-500 text-bold">-</span>
   }
 </ng-template>
+
+@if (isCustomerModalOpen()) {
+  <app-customer-modal
+    (closeModal)="isCustomerModalOpen.set(false)"
+    [customer]="selectedCustomer()!"
+  />
+}
