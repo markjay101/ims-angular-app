@@ -66,6 +66,14 @@ export const routes: Routes = [
           return m.Applications;
         },
       },
+      {
+        path: 'customers',
+        pathMatch: 'full',
+        loadComponent: async () => {
+          const m = await import('./features/customers/customers');
+          return m.Customers;
+        },
+      },
     ],
   },
 ];

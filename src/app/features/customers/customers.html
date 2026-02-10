@@ -1,0 +1,106 @@
+<header class="mb-8">
+  <h1 class="text-[28px] font-bold">Customers</h1>
+  <p class="text-slate-400 font-semibold">Manage all customer accounts</p>
+</header>
+
+<app-table
+  [data]="paginatedCustomers()"
+  [columns]="customerColumns"
+  [columnTemplates]="{
+    customer: customerTemplate,
+    contact: contactTemplate,
+    status: statusTemplate,
+    actions: actionsTemplate,
+    plan: internetPlanTemplate,
+    modem: modemTemplate,
+  }"
+>
+  <div
+    tableActions
+    class="flex w-fit rounded-xl overflow-hidden border border-slate-300 bg-white shadow-sm"
+  >
+    <button
+      class="px-4 py-1.5 text-sm border-e border-slate-300 transition-colors"
+      [class.bg-blue-600]="selectedStatus() === null"
+      [class.text-white]="selectedStatus() === null"
+      [class.text-slate-500]="selectedStatus() !== null"
+      [class.hover:bg-slate-200]="selectedStatus() !== null"
+      (click)="handleChangeStatus(null)"
+    >
+      All
+    </button>
+    @for (status of statusOptions; track status) {
+      <button
+        class="px-4 py-1.5 text-sm border-e border-slate-300 transition-colors"
+        [class.bg-blue-600]="selectedStatus() === status"
+        [class.text-white]="selectedStatus() === status"
+        [class.text-slate-500]="selectedStatus() !== status"
+        [class.hover:bg-slate-200]="selectedStatus() !== status"
+        (click)="handleChangeStatus(status)"
+      >
+        {{ status }}
+      </button>
+    }
+  </div>
+</app-table>
+
+<ng-template #customerTemplate let-row="row">
+  <div class="flex gap-2 items-center">
+    <div
+      class="rounded-lg h-10 w-10 flex items-center justify-center bg-linear-to-r from-blue-500 to-indigo-600"
+    >
+      <span class="text-white font-bold text-nowrap"
+        >{{ row.firstName[0] | uppercase }}{{ row.lastName[0] | uppercase }}</span
+      >
+    </div>
+    <span class="font-medium text-slate-900 text-nowrap"
+      >{{ row.firstName }} {{ row.lastName }}</span
+    >
+  </div>
+</ng-template>
+
+<ng-template #contactTemplate let-row="row">
+  <div class="flex flex-col text-slate-500 font-medium">
+    <span class="text-nowrap">{{ row.email }}</span>
+    <span class="text-nowrap">{{ row.contactNumber }}</span>
+  </div>
+</ng-template>
+
+<ng-template #statusTemplate let-value>
+  <span
+    class="px-2.5 py-0.5 rounded-full text-xs font-semibold border text-nowrap"
+    [class]="getStatusClass(value)"
+    >{{ value }}
+  </span>
+</ng-template>
+
+<ng-template #actionsTemplate let-row="row">
+  <button
+    (click)="handleView(row)"
+    class="text-sky-700 hover:bg-slate-50 rounded-md transition-colors"
+  >
+    <lucide-icon name="eye" [size]="16"></lucide-icon>
+  </button>
+</ng-template>
+
+<ng-template #internetPlanTemplate let-value>
+  @if (value !== null) {
+    <div class="flex flex-col">
+      <span class="font-medium text-slate-900 text-nowrap">{{ value?.name }}</span>
+      <span class="text-xs text-slate-500 text-nowrap">{{ value?.speedMbps }} Mbps</span>
+    </div>
+  } @else {
+    <span class="text-md text-slate-500 text-bold">-</span>
+  }
+</ng-template>
+
+<ng-template #modemTemplate let-value>
+  @if (value !== null) {
+    <div class="flex flex-col">
+      <span class="font-medium text-slate-900 text-nowrap">{{ value?.model }}</span>
+      <span class="text-xs text-slate-500 text-nowrap">{{ value?.serialNumber }}</span>
+    </div>
+  } @else {
+    <span class="text-md text-slate-500 text-bold">-</span>
+  }
+</ng-template>
