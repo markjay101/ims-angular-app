@@ -36,4 +36,8 @@ export class ApplicationService {
       status,
     });
   }
+
+  getApplicationById(id: string) {
+    return this.http.get<ApiResponse<Application>>(`${this.baseUrl}/applications/${id}`);
+  }
 }

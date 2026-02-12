@@ -25,4 +25,8 @@ export class CustomersService {
 
     return this.http.get<ApiResponse<PaginatedList<Customer>>>(url);
   }
+
+  getCustomerById(id: string) {
+    return this.http.get<ApiResponse<Customer>>(`${this.baseUrl}/customers/${id}`);
+  }
 }
