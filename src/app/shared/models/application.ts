@@ -1,5 +1,3 @@
-import { ApplicationStatus } from '../../core/constants/application-status';
-
 export interface Application {
   id: string;
   firstName: string;
