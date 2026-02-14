@@ -1,5 +1,5 @@
 import { environment } from '@environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { CreateModemDto, Modem } from '@shared/models/modem';
 import { PaginatedList } from '@shared/models/paginated-list';
@@ -24,5 +24,21 @@ export class ModemsService {
 
   updateModem(data: Modem) {
     return this.http.post<ApiResponse<any>>(`${this.baseUrl}/modems/update`, data);
+  }
+
+  getAvailableModems(assignedModemId: string | null = null, searchTerm: string | null = null) {
+    const url = `${this.baseUrl}/modems/available`;
+
+    let params = new HttpParams();
+
+    if (assignedModemId?.trim()) {
+      params = params.set('assignedModemId', assignedModemId);
+    }
+
+    if (searchTerm?.trim()) {
+      params = params.set('searchTerm', searchTerm);
+    }
+
+    return this.http.get<ApiResponse<Modem[]>>(url, { params });
   }
 }

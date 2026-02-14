@@ -61,10 +61,10 @@ export class CustomerModal implements OnInit {
 
   loadModems() {
     this.isModemsLoading.set(true);
-    this.modemsService.getModems(1, 1000, this.searchTerm()).subscribe({
+    this.modemsService.getAvailableModems(this.customer().modem?.id, this.searchTerm()).subscribe({
       next: (res) => {
-        if (res && res.succeeded) this.modems.set(res.data.items);
-        else this.modems.set(EMPTY_PAGINATED_LIST.items);
+        if (res && res.succeeded) this.modems.set(res.data);
+        else this.modems.set([]);
 
         this.isModemsLoading.set(false);
       },
