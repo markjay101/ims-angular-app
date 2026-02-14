@@ -34,7 +34,7 @@ export class Modems implements OnInit {
     { key: 'model', label: 'Model' },
     { key: 'serialNumber', label: 'Serial Number' },
     { key: 'macAddress', label: 'Mac Address' },
-    { key: 'assignedTo', label: 'Assigned To' },
+    { key: 'customer', label: 'Assigned To' },
     { key: 'actions', label: 'Actions' },
   ];
 
