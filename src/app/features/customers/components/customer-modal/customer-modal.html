@@ -83,7 +83,26 @@
         </p>
       </div>
     </div>
-
+    <div class="flex flex-col mb-4">
+      <h4 class="text-sm font-bold text-slate-400 mb-1">Modem</h4>
+      <app-dropdown-select
+        placeholder="Select a modem"
+        iconName="router"
+        displayKey="model"
+        [selectedItem]="selectedModem()"
+        [options]="modems()"
+        [isSearchable]="true"
+        [isLoading]="isModemsLoading()"
+        (searchChanged)="handleModemSearch($event)"
+        (selectedChanged)="handleModemSelect($event)"
+        ><ng-template #itemTemplate let-modem>
+          <div class="flex flex-col">
+            <span class="font-semibold text-slate-700">{{ modem.model }}</span>
+            <span class="text-xs text-slate-400">{{ modem.serialNumber }}</span>
+          </div>
+        </ng-template></app-dropdown-select
+      >
+    </div>
     <div class="flex flex-col">
       <h4 class="text-sm font-bold text-slate-400 mb-1">Internet Plan</h4>
       @if (customer().plan !== null) {

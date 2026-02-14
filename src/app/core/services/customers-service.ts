@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environment.development';
 import { ApiResponse } from '@shared/models/api-response';
-import { Customer } from '@shared/models/customer';
+import { Customer, AssignCustomerModem } from '@shared/models/customer';
 import { PaginatedList } from '@shared/models/paginated-list';
 import { CustomerStatus } from '@constants/customer-status';
 
@@ -28,5 +28,9 @@ export class CustomersService {
 
   getCustomerById(id: string) {
     return this.http.get<ApiResponse<Customer>>(`${this.baseUrl}/customers/${id}`);
+  }
+
+  assignCustomerModem(data: AssignCustomerModem) {
+    return this.http.post<ApiResponse<Customer>>(`${this.baseUrl}/customers/assign-modem`, data);
   }
 }

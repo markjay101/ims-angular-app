@@ -29,6 +29,7 @@ import {
   CircleCheckBig,
   Eye,
   Mail,
+  Dot,
 } from 'lucide-angular';
 
 export const ICONS = {
@@ -62,4 +63,5 @@ export const ICONS = {
   CircleCheckBig,
   Eye,
   Mail,
+  Dot,
 };

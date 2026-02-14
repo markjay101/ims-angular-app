@@ -1,3 +1,5 @@
+import { Modem } from './modem';
+
 export interface Customer {
   id: string;
   userId: string | null;
@@ -12,6 +14,7 @@ export interface Customer {
   postalCode: string;
   status: string;
   plan: CustomerPlan;
+  modem: Modem | null;
 }
 
 interface CustomerPlan {
@@ -22,3 +25,8 @@ interface CustomerPlan {
   startDate: Date | null;
   NextDueDate: Date | null;
 }
+
+export type AssignCustomerModem = {
+  customerId: string;
+  modemId: string;
+};
