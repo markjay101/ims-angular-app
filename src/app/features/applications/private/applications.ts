@@ -1,11 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ApplicationService } from '../../../core/services/application-service';
-import { Table } from '../../../shared/components/table/table';
-import { Application } from '../../../shared/models/application';
-import { EMPTY_PAGINATED_LIST, PaginatedList } from '../../../shared/models/paginated-list';
+import { ApplicationService } from '@services/application-service';
+import { Table } from '@shared/components/table/table';
+import { Application } from '@shared/models/application';
+import { EMPTY_PAGINATED_LIST, PaginatedList } from '@shared/models/paginated-list';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
-import { ApplicationStatus } from '../../../core/constants/application-status';
+import { ApplicationStatus } from '@constants/application-status';
 import { ApplicantModal } from './components/applicant-modal/applicant-modal';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 

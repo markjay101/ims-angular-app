@@ -1,14 +1,14 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
-import { ModemsService } from '../../core/services/modems-service';
-import { PaginatedList } from '../../shared/models/paginated-list';
-import { CreateModemDto, Modem } from '../../shared/models/modem';
-import { Table } from '../../shared/components/table/table';
+import { ModemsService } from '@services/modems-service';
+import { PaginatedList } from '@shared/models/paginated-list';
+import { CreateModemDto, Modem } from '@shared/models/modem';
+import { Table } from '@shared/components/table/table';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
-import { FormContainer } from '../../shared/components/form-container/form-container';
+import { FormContainer } from '@shared/components/form-container/form-container';
 import { ModemForm } from './components/modem-form/modem-form';
-import { Backdrop } from '../../shared/components/backdrop/backdrop';
-import { ToastService } from '../../core/services/toast-service';
+import { Backdrop } from '@shared/components/backdrop/backdrop';
+import { ToastService } from '@services/toast-service';
 
 @Component({
   selector: 'app-modems',

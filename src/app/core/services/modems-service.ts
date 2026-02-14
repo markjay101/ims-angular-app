@@ -1,9 +1,9 @@
-import { environment } from './../../../environments/environment.development';
+import { environment } from '@environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { CreateModemDto, Modem } from '../../shared/models/modem';
-import { PaginatedList } from '../../shared/models/paginated-list';
-import { ApiResponse } from '../../shared/models/api-response';
+import { CreateModemDto, Modem } from '@shared/models/modem';
+import { PaginatedList } from '@shared/models/paginated-list';
+import { ApiResponse } from '@shared/models/api-response';
 
 @Injectable({
   providedIn: 'root',

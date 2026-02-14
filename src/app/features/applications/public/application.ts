@@ -2,10 +2,10 @@ import { Component, inject, signal } from '@angular/core';
 import { ApplicationForm } from './components/application-form/application-form';
 import { LucideAngularModule } from 'lucide-angular';
 import { StepsGuide } from './components/steps-guide/steps-guide';
-import { CreateApplicationDto } from '../../../shared/models/application';
-import { ApplicationService } from '../../../core/services/application-service';
-import { ToastService } from '../../../core/services/toast-service';
-import { Toast } from '../../../shared/components/toast/toast';
+import { CreateApplicationDto } from '@shared/models/application';
+import { ApplicationService } from '@services/application-service';
+import { ToastService } from '@services/toast-service';
+import { Toast } from '@shared/components/toast/toast';
 
 @Component({
   selector: 'app-application',

@@ -1,11 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { User } from '../../shared/models/user';
-import { environment } from '../../../environments/environment.development';
+import { User } from '@shared/models/user';
+import { environment } from '@environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { ApiResponse } from '../../shared/models/api-response';
-import { PaginatedList } from '../../shared/models/paginated-list';
-import { AdminStats, CreateAdminDto, UpdateAdminDto } from '../../shared/models/admin';
+import { ApiResponse } from '@shared/models/api-response';
+import { PaginatedList } from '@shared/models/paginated-list';
+import { AdminStats, CreateAdminDto, UpdateAdminDto } from '@shared/models/admin';
 
 @Injectable({
   providedIn: 'root',

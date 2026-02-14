@@ -1,9 +1,9 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
-import { ApiResponse } from '../../shared/models/api-response';
+import { ApiResponse } from '@shared/models/api-response';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastService } from '../services/toast-service';
+import { ToastService } from '@services/toast-service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);

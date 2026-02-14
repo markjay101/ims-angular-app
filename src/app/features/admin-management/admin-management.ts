@@ -1,19 +1,19 @@
-import { EMPTY_PAGINATED_LIST } from './../../shared/models/paginated-list';
+import { EMPTY_PAGINATED_LIST } from '@shared/models/paginated-list';
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { Table } from '../../shared/components/table/table';
-import { UserService } from '../../core/services/user-service';
-import { User } from '../../shared/models/user';
-import { ApiResponse } from '../../shared/models/api-response';
-import { PaginatedList } from '../../shared/models/paginated-list';
+import { Table } from '@shared/components/table/table';
+import { UserService } from '@services/user-service';
+import { User } from '@shared/models/user';
+import { ApiResponse } from '@shared/models/api-response';
+import { PaginatedList } from '@shared/models/paginated-list';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { AdminForm } from './components/admin-form/admin-form';
-import { Backdrop } from '../../shared/components/backdrop/backdrop';
-import { FormContainer } from '../../shared/components/form-container/form-container';
-import { AdminStats } from '../../shared/models/admin';
-import { UserRole, UserRoleNumberMap } from '../../core/constants/role';
-import { ToastService } from '../../core/services/toast-service';
+import { Backdrop } from '@shared/components/backdrop/backdrop';
+import { FormContainer } from '@shared/components/form-container/form-container';
+import { AdminStats } from '@shared/models/admin';
+import { UserRole, UserRoleNumberMap } from '@constants/role';
+import { ToastService } from '@services/toast-service';
 
 @Component({
   selector: 'app-admin-management',

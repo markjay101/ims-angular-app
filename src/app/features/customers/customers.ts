@@ -1,10 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { Table } from '../../shared/components/table/table';
-import { EMPTY_PAGINATED_LIST, PaginatedList } from '../../shared/models/paginated-list';
-import { Customer } from '../../shared/models/customer';
-import { CustomersService } from '../../core/services/customers-service';
+import { Table } from '@shared/components/table/table';
+import { EMPTY_PAGINATED_LIST, PaginatedList } from '@shared/models/paginated-list';
+import { Customer } from '@shared/models/customer';
+import { CustomersService } from '@services/customers-service';
 import { UpperCasePipe } from '@angular/common';
-import { CustomerStatus } from '../../core/constants/customer-status';
+import { CustomerStatus } from '@constants/customer-status';
 import { LucideAngularModule } from 'lucide-angular';
 import { CustomerModal } from './components/customer-modal/customer-modal';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';

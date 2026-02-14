@@ -1,8 +1,8 @@
 import { Component, model, output } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
-import { Customer } from '../../../../shared/models/customer';
+import { Customer } from '@shared/models/customer';
 import { CurrencyPipe, UpperCasePipe } from '@angular/common';
-import { CustomerStatus } from '../../../../core/constants/customer-status';
+import { CustomerStatus } from '@constants/customer-status';
 
 @Component({
   selector: 'app-customer-modal',

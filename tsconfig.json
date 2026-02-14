@@ -3,6 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -13,7 +14,25 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "paths": {
+      "@root/*": ["src/*"],
+      "@environment/*": ["src/environments/*"],
+      "@app/*": ["src/app/*"],
+      "@constants/*": ["src/app/core/constants/*"],
+      "@guards/*": ["src/app/core/guards/*"],
+      "@interceptors/*": ["src/app/core/interceptors/*"],
+      "@services/*": ["src/app/core/services/*"],
+      "@admin-management/*": ["src/app/features/admin-management/*"],
+      "@applications/*": ["src/app/features/applications/*"],
+      "@auth/*": ["src/app/features/auth/*"],
+      "@customers/*": ["src/app/features/customers/*"],
+      "@internet-plans/*": ["src/app/features/internet-plans/*"],
+      "@modems/*": ["src/app/features/modems/*"],
+      "@payment-methods/*": ["src/app/features/payment-methods/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@environments/*": ["src/environments/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

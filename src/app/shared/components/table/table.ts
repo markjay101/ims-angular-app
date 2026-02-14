@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, output, signal, TemplateRef } from '@angular/core';
-import { PaginatedList } from '../../models/paginated-list';
+import { PaginatedList } from '@shared/models/paginated-list';
 import { LucideAngularModule } from 'lucide-angular';
 
 @Component({

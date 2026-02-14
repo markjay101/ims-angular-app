@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiResponse } from '../../../shared/models/api-response';
+import { ApiResponse } from '@shared/models/api-response';
 import { LucideAngularModule } from 'lucide-angular';
-import { AuthService } from '../../../core/services/auth-service';
-import { UserToken } from '../../../shared/models/user';
+import { AuthService } from '@services/auth-service';
+import { UserToken } from '@shared/models/user';
 
 @Component({
   selector: 'app-login',

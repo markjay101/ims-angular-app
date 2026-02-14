@@ -1,13 +1,12 @@
-import { ApplicationStatusNumberMap } from './../../../../../core/constants/application-status';
+import { ApplicationStatusNumberMap, ApplicationStatus } from '@constants/application-status';
 import { Component, inject, model, OnInit, output, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
-import { Application } from '../../../../../shared/models/application';
-import { ApplicationStatus } from '../../../../../core/constants/application-status';
+import { Application } from '@shared/models/application';
 import { CurrencyPipe, DatePipe, UpperCasePipe } from '@angular/common';
-import { InternetPlan } from '../../../../../shared/models/internet-plan';
-import { InternetPlanService } from '../../../../../core/services/internet-plan-service';
-import { ApplicationService } from '../../../../../core/services/application-service';
-import { ToastService } from '../../../../../core/services/toast-service';
+import { InternetPlan } from '@shared/models/internet-plan';
+import { InternetPlanService } from '@services/internet-plan-service';
+import { ApplicationService } from '@services/application-service';
+import { ToastService } from '@services/toast-service';
 
 @Component({
   selector: 'app-applicant-modal',

@@ -1,14 +1,14 @@
-import { PaginatedList } from './../../shared/models/paginated-list';
+import { PaginatedList } from '@shared/models/paginated-list';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
-import { ApiResponse } from '../../shared/models/api-response';
+import { environment } from '@environments/environment.development';
+import { ApiResponse } from '@shared/models/api-response';
 import {
   CreatePaymentMethodDto,
   PaymentMethod,
   UpdatePaymentMethodDto,
-} from '../../shared/models/payment-method';
+} from '@shared/models/payment-method';
 
 @Injectable({
   providedIn: 'root',

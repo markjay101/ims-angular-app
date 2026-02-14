@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
-import { InternetPlan } from '../../../../shared/models/internet-plan';
+import { InternetPlan } from '@shared/models/internet-plan';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({

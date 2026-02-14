@@ -1,5 +1,5 @@
 import { Component, effect, inject, input, output } from '@angular/core';
-import { InternetPlan } from '../../../../shared/models/internet-plan';
+import { InternetPlan } from '@shared/models/internet-plan';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 

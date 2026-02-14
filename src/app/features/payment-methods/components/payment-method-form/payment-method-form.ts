@@ -1,11 +1,8 @@
 import { LucideAngularModule } from 'lucide-angular';
 import { Component, effect, inject, input, output, signal } from '@angular/core';
-import { PaymentMethod } from '../../../../shared/models/payment-method';
+import { PaymentMethod } from '@shared/models/payment-method';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import {
-  PaymentMethodEnum,
-  PaymentMethodNumberMap,
-} from '../../../../core/constants/payment-method';
+import { PaymentMethodEnum, PaymentMethodNumberMap } from '@constants/payment-method';
 
 @Component({
   selector: 'app-payment-method-form',

@@ -1,10 +1,7 @@
 import { Component, computed, input, output, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
-import { PaymentMethod } from '../../../../shared/models/payment-method';
-import {
-  PaymentMethodEnum,
-  PaymentMethodImageMap,
-} from '../../../../core/constants/payment-method';
+import { PaymentMethod } from '@shared/models/payment-method';
+import { PaymentMethodEnum, PaymentMethodImageMap } from '@constants/payment-method';
 
 @Component({
   selector: 'app-payment-method-card',

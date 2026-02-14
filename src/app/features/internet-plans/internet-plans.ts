@@ -1,12 +1,12 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { InternetPlanCard } from './components/internet-plan-card/internet-plan-card';
-import { InternetPlanService } from '../../core/services/internet-plan-service';
-import { InternetPlan } from '../../shared/models/internet-plan';
+import { InternetPlanService } from '@services/internet-plan-service';
+import { InternetPlan } from '@shared/models/internet-plan';
 import { InternetPlanForm } from './components/internet-plan-form/internet-plan-form';
-import { Backdrop } from '../../shared/components/backdrop/backdrop';
-import { FormContainer } from '../../shared/components/form-container/form-container';
-import { ToastService } from '../../core/services/toast-service';
+import { Backdrop } from '@shared/components/backdrop/backdrop';
+import { FormContainer } from '@shared/components/form-container/form-container';
+import { ToastService } from '@services/toast-service';
 
 @Component({
   selector: 'app-internet-plans',

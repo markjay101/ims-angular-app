@@ -1,7 +1,7 @@
 import { Component, effect, inject, input, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
-import { Modem } from '../../../../shared/models/modem';
+import { Modem } from '@shared/models/modem';
 
 @Component({
   selector: 'app-modem-form',

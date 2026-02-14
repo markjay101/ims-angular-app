@@ -1,9 +1,9 @@
-import { PaginatedList } from './../../shared/models/paginated-list';
+import { PaginatedList } from '@shared/models/paginated-list';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment.development';
-import { ApiResponse } from '../../shared/models/api-response';
-import { CreateInternetPlanDto, InternetPlan } from '../../shared/models/internet-plan';
+import { environment } from '@environments/environment.development';
+import { ApiResponse } from '@shared/models/api-response';
+import { CreateInternetPlanDto, InternetPlan } from '@shared/models/internet-plan';
 
 @Injectable({
   providedIn: 'root',

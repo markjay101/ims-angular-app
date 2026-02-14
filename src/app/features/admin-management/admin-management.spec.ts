@@ -1,7 +1,7 @@
-import { ICONS } from './../../shared/icon';
+import { ICONS } from '@shared/icon';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdminManagement } from './admin-management';
-import { UserService } from '../../core/services/user-service';
+import { UserService } from '@services/user-service';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { LucideAngularModule } from 'lucide-angular';

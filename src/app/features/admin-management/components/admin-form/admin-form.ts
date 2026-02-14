@@ -1,8 +1,8 @@
 import { Component, effect, inject, input, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
-import { User } from '../../../../shared/models/user';
-import { UserRole } from '../../../../core/constants/role';
+import { User } from '@shared/models/user';
+import { UserRole } from '@constants/role';
 
 @Component({
   selector: 'app-admin-form',

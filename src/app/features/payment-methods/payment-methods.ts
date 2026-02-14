@@ -1,14 +1,14 @@
-import { PaginatedList } from './../../shared/models/paginated-list';
+import { PaginatedList } from '@shared/models/paginated-list';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { PaymentMethodCard } from './components/payment-method-card/payment-method-card';
-import { PaymentMethod } from '../../shared/models/payment-method';
+import { PaymentMethod } from '@shared/models/payment-method';
 import { PaymentMethodForm } from './components/payment-method-form/payment-method-form';
-import { PaymentMethodService } from '../../core/services/payment-method-service';
-import { ApiResponse } from '../../shared/models/api-response';
-import { Backdrop } from '../../shared/components/backdrop/backdrop';
-import { FormContainer } from '../../shared/components/form-container/form-container';
-import { ToastService } from '../../core/services/toast-service';
+import { PaymentMethodService } from '@services/payment-method-service';
+import { ApiResponse } from '@shared/models/api-response';
+import { Backdrop } from '@shared/components/backdrop/backdrop';
+import { FormContainer } from '@shared/components/form-container/form-container';
+import { ToastService } from '@services/toast-service';
 
 @Component({
   selector: 'app-payment-methods',
