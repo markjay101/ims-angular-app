@@ -27,6 +27,14 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
+        path: '',
+        pathMatch: 'full',
+        loadComponent: async () => {
+          const m = await import('./features/dashboard/dashboard');
+          return m.Dashboard;
+        },
+      },
+      {
         path: 'admin-management',
         pathMatch: 'full',
         loadComponent: async () => {

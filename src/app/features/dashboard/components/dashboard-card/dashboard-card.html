@@ -1,0 +1,21 @@
+<div
+  class="rounded-lg flex gap-5 bg-white py-4 px-6 items-center w-full h-full shadow-sm border border-slate-50"
+>
+  <div class="flex flex-col min-w-0">
+    <span class="text-slate-400 text-[12px] font-semibold uppercase tracking-wider">{{
+      header()
+    }}</span>
+    <span class="text-black text-2xl md:text-[30px] font-bold leading-tight truncate mb-4">
+      {{ value() }}
+    </span>
+    <span class="text-slate-400 text-[10px] font-semibold uppercase tracking-wider">{{
+      subHeader()
+    }}</span>
+  </div>
+  <div
+    class="ms-auto mb-auto w-10 h-10 shrink-0 flex items-center justify-center rounded-xl"
+    [class]="iconColorClass()"
+  >
+    <lucide-icon [name]="iconName()" [size]="20"></lucide-icon>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<header class="mb-8">
+  <h1 class="text-[28px] font-bold">
+    {{ currentUser()?.role === 'Admin' ? 'Admin Dashboard' : 'Dashboard' }}
+  </h1>
+  <p class="text-slate-400 font-semibold">
+    {{
+      currentUser()?.role === 'Admin'
+        ? 'Manage customers and network equipment'
+        : "Welcome back! Here's what's happening with your network."
+    }}
+  </p>
+</header>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+  @if (currentUser()?.role === 'SuperAdmin') {
+    <app-dashboard-card
+      header="Total Earnings"
+      [value]="'₱' + superAdminDashboardSummary()?.earnings"
+      subHeader="All time revenue"
+      iconName="philippine-peso"
+      iconColorClass="bg-green-100 text-green-500"
+    />
+    <app-dashboard-card
+      header="Admin Accounts"
+      [value]="superAdminDashboardSummary()?.adminAccounts!.toString()"
+      subHeader=""
+      iconName="shield"
+      iconColorClass="bg-[#faf5ff] text-[#9333ea]"
+    />
+    <app-dashboard-card
+      header="Unpaid Invoice"
+      [value]="'₱' + superAdminDashboardSummary()?.unpaidInvoicesTotalAmount!.toString()"
+      subHeader="Total Amount"
+      iconName="receipt-text"
+      iconColorClass="bg-red-100 text-red-500"
+    />
+  }
+  @if (currentUser()?.role === 'Admin') {
+    <app-dashboard-card
+      header="Unpaid Invoice"
+      [value]="dashboardSummary()?.unpaidInvoicesCount!.toString()"
+      subHeader="Count"
+      iconName="receipt-text"
+      iconColorClass="bg-red-100 text-red-500"
+    />
+  }
+  <app-dashboard-card
+    header="Pending Applications"
+    [value]="dashboardSummary()?.pendingApplications!.toString()"
+    subHeader="Awaiting for approval"
+    iconName="file-user"
+    iconColorClass="bg-[#fffbeb] text-[#d97706]"
+  />
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+  <div
+    class="rounded-lg flex flex-col gap-3 bg-white py-4 px-6 w-full h-full shadow-sm border border-slate-50"
+  >
+    <h3 class="font-semibold text-[18px]">Customer Overview</h3>
+    <div class="rounded-lg flex py-4 px-6 w-full bg-green-100 text-green-500">
+      <h3 class="font-semibold text-[15px]">Active</h3>
+      <span class="ms-auto font-bold">{{ dashboardSummary()?.activeCustomers }}</span>
+    </div>
+    <div class="rounded-lg flex py-4 px-6 w-full bg-[#f8fafc] text-[#475577]">
+      <h3 class="font-semibold text-[15px]">Inactive</h3>
+      <span class="ms-auto font-bold">{{ dashboardSummary()?.inactiveCustomers }}</span>
+    </div>
+    <div class="rounded-lg flex py-4 px-6 w-full bg-[#fffbeb] text-[#d97706]">
+      <h3 class="font-semibold text-[15px]">Pending</h3>
+      <span class="ms-auto font-bold">{{ dashboardSummary()?.pendingCustomers }}</span>
+    </div>
+  </div>
+  <div
+    class="rounded-lg flex flex-col gap-3 bg-white py-4 px-6 w-full shadow-sm border border-slate-50"
+  >
+    <h3 class="font-semibold text-[18px]">Modem Inventory</h3>
+    <div class="rounded-lg flex py-4 px-6 w-full bg-green-100 text-green-500">
+      <h3 class="font-semibold text-[15px]">Available</h3>
+      <span class="ms-auto font-bold">{{ dashboardSummary()?.availableModems }}</span>
+    </div>
+    <div class="rounded-lg flex py-4 px-6 w-full bg-blue-100 text-blue-500">
+      <h3 class="font-semibold text-[15px]">Assigned</h3>
+      <span class="ms-auto font-bold">{{ dashboardSummary()?.assignedModems }}</span>
+    </div>
+  </div>
+</div>

@@ -30,6 +30,8 @@ import {
   Eye,
   Mail,
   Dot,
+  PhilippinePeso,
+  ReceiptText,
 } from 'lucide-angular';
 
 export const ICONS = {
@@ -64,4 +66,6 @@ export const ICONS = {
   Eye,
   Mail,
   Dot,
+  PhilippinePeso,
+  ReceiptText,
 };
