@@ -38,19 +38,21 @@
 
   <nav class="flex-1 mt-4 px-3 space-y-1">
     @for (item of navItems; track item.path) {
-      <a
-        [routerLink]="item.path"
-        routerLinkActive="bg-[#eff6ff] text-[#1d4ed8] is-active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        (click)="isMobileMenuOpen.set(false)"
-        class="flex items-center p-3 rounded-lg transition-all duration-200 [&:not(.is-active)]:hover:bg-stone-50 group relative"
-      >
-        <lucide-icon [name]="item.icon"></lucide-icon>
+      @if (item.userRoleAccess.includes(currentUserRole)) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="bg-[#eff6ff] text-[#1d4ed8] is-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="isMobileMenuOpen.set(false)"
+          class="flex items-center p-3 rounded-lg transition-all duration-200 [&:not(.is-active)]:hover:bg-stone-50 group relative"
+        >
+          <lucide-icon [name]="item.icon"></lucide-icon>
 
-        @if (!isCollapsed()) {
-          <span class="ml-4 font-medium whitespace-nowrap overflow-hidden">{{ item.label }}</span>
-        }
-      </a>
+          @if (!isCollapsed()) {
+            <span class="ml-4 font-medium whitespace-nowrap overflow-hidden">{{ item.label }}</span>
+          }
+        </a>
+      }
     }
   </nav>
 

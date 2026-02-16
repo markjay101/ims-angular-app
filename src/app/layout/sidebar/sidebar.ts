@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { AuthService } from '@services/auth-service';
+import { UserRole } from '@constants/role';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,19 +12,56 @@ import { AuthService } from '@services/auth-service';
 })
 export class Sidebar {
   private authService = inject(AuthService);
+  currentUser = this.authService.currentUser;
+  currentUserRole = this.currentUser()?.role as UserRole;
   private router = inject(Router);
 
   isCollapsed = signal(false);
   isMobileMenuOpen = signal(false);
 
   navItems = [
-    { label: 'Dashboard', icon: 'layout-dashboard', path: '/' },
-    { label: 'Admin Management', icon: 'shield-user', path: '/admin-management' },
-    { label: 'Payment Methods', icon: 'credit-card', path: '/payment-methods' },
-    { label: 'Internet Plans', icon: 'wifi', path: '/internet-plans' },
-    { label: 'Modems', icon: 'router', path: '/modems' },
-    { label: 'Customers', icon: 'users', path: '/customers' },
-    { label: 'Applications', icon: 'file-user', path: '/applications' },
+    {
+      label: 'Dashboard',
+      icon: 'layout-dashboard',
+      path: '/',
+      userRoleAccess: [UserRole.Admin, UserRole.SuperAdmin],
+    },
+    {
+      label: 'Admin Management',
+      icon: 'shield-user',
+      path: '/admin-management',
+      userRoleAccess: [UserRole.SuperAdmin],
+    },
+    {
+      label: 'Payment Methods',
+      icon: 'credit-card',
+      path: '/payment-methods',
+      userRoleAccess: [UserRole.SuperAdmin],
+    },
+    {
+      label: 'Internet Plans',
+      icon: 'wifi',
+      path: '/internet-plans',
+      userRoleAccess: [UserRole.Admin, UserRole.SuperAdmin],
+    },
+    {
+      label: 'Modems',
+      icon: 'router',
+      path: '/modems',
+      userRoleAccess: [UserRole.Admin, UserRole.SuperAdmin],
+    },
+    {
+      label: 'Customers',
+      icon: 'users',
+      path: '/customers',
+      userRoleAccess: [UserRole.Admin, UserRole.SuperAdmin],
+    },
+    {
+      label: 'Applications',
+      icon: 'file-user',
+      path: '/applications',
+      userRoleAccess: [UserRole.Admin, UserRole.SuperAdmin],
+    },
   ];
 
   toggleDesktop() {
