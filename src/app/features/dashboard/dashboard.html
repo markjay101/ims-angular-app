@@ -52,7 +52,9 @@
     iconColorClass="bg-[#fffbeb] text-[#d97706]"
   />
 </div>
-<app-earnings-chart [monthlyEarnings]="[21000, 36000]" />
+@if (currentUser()?.role === 'SuperAdmin') {
+  <app-earnings-chart [monthlyEarnings]="[21000, 36000]" />
+}
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
   <div
     class="rounded-lg flex flex-col gap-3 bg-white py-4 px-6 w-full h-full shadow-sm border border-slate-50"
