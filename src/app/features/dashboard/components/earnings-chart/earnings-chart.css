@@ -1,0 +1,5 @@
+::ng-deep .highcharts-container,
+::ng-deep .highcharts-container svg {
+  width: 100% !important;
+  height: 100% !important;
+}

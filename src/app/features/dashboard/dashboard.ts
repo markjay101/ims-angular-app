@@ -3,12 +3,12 @@ import { AuthService } from '@services/auth-service';
 import { DashboardCard } from './components/dashboard-card/dashboard-card';
 import { DashboardService } from '@services/dashboard-service';
 import { DashboardSummary, SuperAdminDashboardSummary } from '@shared/models/dashboard-summary';
-import { UserRole } from '@constants/role';
 import { LucideAngularModule } from 'lucide-angular';
+import { EarningsChart } from './components/earnings-chart/earnings-chart';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [DashboardCard, LucideAngularModule],
+  imports: [DashboardCard, LucideAngularModule, EarningsChart],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
