@@ -55,7 +55,7 @@ export class PaymentMethodForm {
   }
 
   submit() {
-    if (this.isSaving()) return;
+    if (this.isSaving() || this.paymentMethodForm.invalid) return;
 
     const data = this.paymentMethodForm.getRawValue() as PaymentMethod;
     this.onSave.emit({
