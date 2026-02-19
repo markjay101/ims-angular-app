@@ -101,4 +101,8 @@ export class Customers implements OnInit {
         return 'bg-slate-50 text-slate-500 border-slate-200';
     }
   }
+
+  protected refreshCustomers() {
+    this.loadCustomers(this.currentPage, this.pageSize, this.searchTerm, this.selectedStatus());
+  }
 }

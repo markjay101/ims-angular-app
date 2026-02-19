@@ -111,5 +111,6 @@
   <app-customer-modal
     (closeModal)="isCustomerModalOpen.set(false)"
     [customer]="selectedCustomer()!"
+    (modemChanged)="refreshCustomers()"
   />
 }

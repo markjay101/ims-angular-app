@@ -25,6 +25,7 @@ export class DropdownSelect {
   iconName = input<string>('dot');
   isSearchable = input<boolean>(false);
   isLoading = input<boolean>(false);
+  isProcessingSelection = input<boolean>(false);
   displayKey = input<string>('name');
   placeholder = input<string>('Select an option');
   disabled = input<boolean>(false);

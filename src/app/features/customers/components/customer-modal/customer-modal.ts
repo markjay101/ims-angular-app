@@ -28,9 +28,10 @@ export class CustomerModal implements OnInit {
   isModemsLoading = signal<boolean>(false);
   selectedModem = signal<Modem | null>(null);
 
-  disabledModemSelect = signal<boolean>(false);
+  isProcessingModemSelect = signal<boolean>(false);
 
   closeModal = output<void>();
+  modemChanged = output<void>();
   customer = model.required<Customer>();
 
   ngOnInit(): void {
@@ -80,22 +81,22 @@ export class CustomerModal implements OnInit {
   }
 
   handleModemSelect(item: Modem) {
-    this.disabledModemSelect.set(true);
+    this.isProcessingModemSelect.set(true);
     this.customersService
       .assignCustomerModem({ customerId: this.customer().id, modemId: item.id })
       .subscribe({
         next: (res) => {
-          this.disabledModemSelect.set(false);
+          this.isProcessingModemSelect.set(false);
 
           if (res.succeeded) {
-            this.customer().modem = item;
-            this.customer().status = res.data.status;
+            this.customer.update((curr) => ({ ...curr, modem: item, status: res.data.status }));
             this.selectedModem.set(item);
             this.toast.show('Modem successfully assigned.', 'success');
+            this.modemChanged.emit();
           }
         },
         error: (err) => {
-          this.disabledModemSelect.set(false);
+          this.isProcessingModemSelect.set(false);
           this.toast.show(err, 'error');
         },
       });
