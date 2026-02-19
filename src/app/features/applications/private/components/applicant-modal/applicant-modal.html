@@ -28,14 +28,22 @@
       @if (applicant().status === applicationStatus.Pending) {
         <div class="flex items-center gap-2">
           <button
+            [disabled]="isStatusBtnClicked()"
             (click)="handleStatusChange(applicationStatus.Approved)"
-            class="text-emerald-700 border border-emerald-400 bg-emerald-200 px-2 py-1 text-[12px] rounded-sm shadow-md shadow-emerald-200 transition-all active:scale-95"
+            class="flex items-center gap-1 text-emerald-700 border border-emerald-400 bg-emerald-200 px-2 py-1 text-[12px] rounded-sm shadow-md shadow-emerald-200 transition-all active:scale-95"
           >
+            @if (isApproveClicked()) {
+              <lucide-icon name="loader-circle" [size]="12" class="animate-spin"></lucide-icon>
+            }
             Approve</button
           ><button
+            [disabled]="isStatusBtnClicked()"
             (click)="handleStatusChange(applicationStatus.Rejected)"
-            class="text-red-700 border border-red-400 bg-red-200 px-2 py-1 text-[12px] rounded-sm shadow-md shadow-red-200 transition-all active:scale-95"
+            class="flex items-center gap-1 text-red-700 border border-red-400 bg-red-200 px-2 py-1 text-[12px] rounded-sm shadow-md shadow-red-200 transition-all active:scale-95"
           >
+            @if (isRejectClicked()) {
+              <lucide-icon name="loader-circle" [size]="12" class="animate-spin"></lucide-icon>
+            }
             Reject
           </button>
         </div>

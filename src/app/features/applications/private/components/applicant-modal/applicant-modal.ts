@@ -27,12 +27,22 @@ export class ApplicantModal implements OnInit {
   applicationStatus = ApplicationStatus;
 
   statusChanged = output<void>();
+  isStatusBtnClicked = signal<boolean>(false);
+  isApproveClicked = signal<boolean>(false);
+  isRejectClicked = signal<boolean>(false);
 
   ngOnInit(): void {
     this.loadApplicantPlan();
   }
 
   handleStatusChange(status: ApplicationStatus.Approved | ApplicationStatus.Rejected) {
+    if (this.isStatusBtnClicked()) return;
+
+    this.isStatusBtnClicked.set(true);
+
+    if (status === ApplicationStatus.Approved) this.isApproveClicked.set(true);
+    else if (status === ApplicationStatus.Rejected) this.isRejectClicked.set(true);
+
     const statusNumber = ApplicationStatusNumberMap[status];
 
     this.applicationService.updateApplicationStatus(this.applicant().id, statusNumber).subscribe({
@@ -41,11 +51,12 @@ export class ApplicantModal implements OnInit {
           this.applicant.update((curr) => ({ ...curr, status }));
           this.statusChanged.emit();
         }
-
+        this.resetStatusBtns();
         this.toast.show(res.message, 'success');
       },
       error: (err) => {
         console.error(err);
+        this.resetStatusBtns();
       },
     });
   }
@@ -75,5 +86,11 @@ export class ApplicantModal implements OnInit {
       default:
         return 'bg-slate-50 text-slate-500 border-slate-200';
     }
+  }
+
+  private resetStatusBtns() {
+    this.isStatusBtnClicked.set(false);
+    this.isApproveClicked.set(false);
+    this.isRejectClicked.set(false);
   }
 }
