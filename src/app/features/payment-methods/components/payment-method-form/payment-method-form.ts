@@ -55,8 +55,9 @@ export class PaymentMethodForm {
   }
 
   submit() {
+    if (this.isSaving()) return;
+
     const data = this.paymentMethodForm.getRawValue() as PaymentMethod;
-    this.isSaving.apply(true);
     this.onSave.emit({
       ...data,
       methodName: PaymentMethodNumberMap[data.methodName as PaymentMethodEnum],

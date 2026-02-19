@@ -66,6 +66,8 @@ export class PaymentMethods implements OnInit {
   }
 
   handleSave(formData: any) {
+    if (this.isSaving()) return;
+
     this.isSaving.set(true);
 
     const paymentMethodId = this.selectedPaymentMethod()?.id;

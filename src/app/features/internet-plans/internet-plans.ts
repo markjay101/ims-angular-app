@@ -54,6 +54,8 @@ export class InternetPlans implements OnInit {
   }
 
   handleSave(formData: any) {
+    if (this.isSaving()) return;
+
     this.isSaving.set(true);
 
     const id = this.selectedInternetPlan()?.id;

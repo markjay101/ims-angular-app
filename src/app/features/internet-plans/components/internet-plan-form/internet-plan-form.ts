@@ -35,6 +35,8 @@ export class InternetPlanForm {
   }
 
   submit() {
+    if (this.isSaving() || this.internetPlanForm.invalid) return;
+
     this.onSave.emit(this.internetPlanForm.getRawValue());
   }
 }

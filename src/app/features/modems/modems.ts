@@ -93,7 +93,8 @@ export class Modems implements OnInit {
   }
 
   handleSave(formData: Modem | CreateModemDto) {
-    console.log(formData);
+    if (this.isSaving()) return;
+
     this.isSaving.set(true);
 
     const id = this.selectedModem()?.id;

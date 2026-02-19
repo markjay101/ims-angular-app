@@ -33,6 +33,8 @@ export class ModemForm {
   }
 
   submit() {
+    if (this.isSaving()) return;
+
     if (this.modemForm.valid) {
       this.onSave.emit(this.modemForm.getRawValue());
     } else {

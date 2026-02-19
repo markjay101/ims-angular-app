@@ -59,7 +59,7 @@ export class ApplicationForm implements OnInit {
   }
 
   handleSave() {
-    if (this.isSaving()) return;
+    if (this.isSaving() || this.applicationForm.invalid) return;
 
     this.onSave.emit(this.applicationForm.getRawValue());
   }
