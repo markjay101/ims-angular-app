@@ -1,7 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Table } from '@shared/components/table/table';
-import { EMPTY_PAGINATED_LIST, PaginatedList } from '@shared/models/paginated-list';
-import { Customer } from '@shared/models/customer';
+import {
+  Customer,
+  CustomersListWithStatusCounts,
+  EMPTY_PAGINATED_CUSTOMER_LIST,
+} from '@shared/models/customer';
 import { CustomersService } from '@services/customers-service';
 import { UpperCasePipe } from '@angular/common';
 import { CustomerStatus } from '@constants/customer-status';
@@ -28,7 +31,7 @@ export class Customers implements OnInit {
   private customersService = inject(CustomersService);
   private searchSubject = new Subject<string>();
 
-  paginatedCustomers = signal<PaginatedList<Customer>>(EMPTY_PAGINATED_LIST);
+  paginatedCustomers = signal<CustomersListWithStatusCounts>(EMPTY_PAGINATED_CUSTOMER_LIST);
 
   customerColumns = [
     { key: 'customer', label: 'customer' },
@@ -59,7 +62,7 @@ export class Customers implements OnInit {
     this.customersService.getCustomers(pageNumber, pageSize, searchTerm, status).subscribe({
       next: (res) => {
         if (res && res.succeeded) this.paginatedCustomers.set(res.data);
-        else this.paginatedCustomers.set(EMPTY_PAGINATED_LIST);
+        else this.paginatedCustomers.set(EMPTY_PAGINATED_CUSTOMER_LIST);
 
         this.isLoading.set(false);
       },
@@ -104,5 +107,18 @@ export class Customers implements OnInit {
 
   protected refreshCustomers() {
     this.loadCustomers(this.currentPage, this.pageSize, this.searchTerm, this.selectedStatus());
+  }
+
+  getStatusTotalCount(status: CustomerStatus): number {
+    switch (status) {
+      case CustomerStatus.Pending:
+        return this.paginatedCustomers().pendingTotalCount;
+      case CustomerStatus.Active:
+        return this.paginatedCustomers().activeTotalCount;
+      case CustomerStatus.Inactive:
+        return this.paginatedCustomers().inactiveTotalCount;
+      default:
+        return 0;
+    }
   }
 }

@@ -1,4 +1,5 @@
 import { Modem } from './modem';
+import { PaginatedList } from './paginated-list';
 
 export interface Customer {
   id: string;
@@ -29,4 +30,22 @@ interface CustomerPlan {
 export type AssignCustomerModem = {
   customerId: string;
   modemId: string;
+};
+
+export interface CustomersListWithStatusCounts extends PaginatedList<Customer> {
+  pendingTotalCount: number;
+  activeTotalCount: number;
+  inactiveTotalCount: number;
+}
+
+export const EMPTY_PAGINATED_CUSTOMER_LIST = {
+  pendingTotalCount: 0,
+  activeTotalCount: 0,
+  inactiveTotalCount: 0,
+  items: [],
+  totalCount: 0,
+  pageNumber: 0,
+  totalPages: 0,
+  hasPreviousPage: false,
+  hasNextPage: false,
 };

@@ -33,7 +33,7 @@
     </button>
     @for (status of statusOptions; track status) {
       <button
-        class="px-4 py-1.5 text-sm border-e border-slate-300 transition-colors"
+        class="flex items-center gap-1 px-4 py-1.5 text-sm border-e border-slate-300 transition-colors"
         [class.bg-blue-600]="selectedStatus() === status"
         [class.text-white]="selectedStatus() === status"
         [class.text-slate-500]="selectedStatus() !== status"
@@ -41,6 +41,12 @@
         (click)="handleChangeStatus(status)"
       >
         {{ status }}
+        <span
+          class="flex items-center px-1 justify-center rounded-full text-[10px] font-bold"
+          [class]="getStatusClass(status)"
+        >
+          {{ getStatusTotalCount(status) }}
+        </span>
       </button>
     }
   </div>

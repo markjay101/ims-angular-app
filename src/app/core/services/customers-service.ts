@@ -2,8 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environment.development';
 import { ApiResponse } from '@shared/models/api-response';
-import { Customer, AssignCustomerModem } from '@shared/models/customer';
-import { PaginatedList } from '@shared/models/paginated-list';
+import {
+  Customer,
+  AssignCustomerModem,
+  CustomersListWithStatusCounts,
+} from '@shared/models/customer';
 import { CustomerStatus } from '@constants/customer-status';
 
 @Injectable({
@@ -23,7 +26,7 @@ export class CustomersService {
 
     if (status !== null) url += `&status=${status}`;
 
-    return this.http.get<ApiResponse<PaginatedList<Customer>>>(url);
+    return this.http.get<ApiResponse<CustomersListWithStatusCounts>>(url);
   }
 
   getCustomerById(id: string) {
