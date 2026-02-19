@@ -93,6 +93,7 @@
         [options]="modems()"
         [isSearchable]="true"
         [isLoading]="isModemsLoading()"
+        [disabled]="disabledModemSelect()"
         (searchChanged)="handleModemSearch($event)"
         (selectedChanged)="handleModemSelect($event)"
         ><ng-template #itemTemplate let-modem>
