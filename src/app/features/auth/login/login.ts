@@ -17,7 +17,7 @@ export class Login {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
-  isLoading = signal(false);
+  isLoggingIn = signal(false);
   errorMessage = signal('');
 
   loginForm = inject(FormBuilder).nonNullable.group({
@@ -26,9 +26,9 @@ export class Login {
   });
 
   onSubmit() {
-    if (this.loginForm.invalid) return;
+    if (this.loginForm.invalid || this.isLoggingIn()) return;
 
-    this.isLoading.set(true);
+    this.isLoggingIn.set(true);
     this.errorMessage.set('');
 
     this.authService.login(this.loginForm.getRawValue()).subscribe({
@@ -39,7 +39,7 @@ export class Login {
         }
       },
       error: (err) => {
-        this.isLoading.set(false);
+        this.isLoggingIn.set(false);
         this.errorMessage.set(err);
       },
     });
