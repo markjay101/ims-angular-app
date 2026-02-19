@@ -191,7 +191,7 @@
         class="w-full flex items-center justify-center px-4 py-2 bbg-blue-600 bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-md shadow-blue-200 disabled:opacity-50"
       >
         @if (isSaving()) {
-          <lucide-icon name="loader-circle" class="animate-spin h-5 w-5 text-white"></lucide-icon>
+          <lucide-icon name="loader-circle" [size]="18" class="animate-spin"></lucide-icon>
           Submitting...
         } @else {
           Submit
