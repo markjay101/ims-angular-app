@@ -2,8 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@environments/environment.development';
 import { ApiResponse } from '@shared/models/api-response';
-import { PaginatedList } from '@shared/models/paginated-list';
-import { Application, CreateApplicationDto } from '@shared/models/application';
+import {
+  Application,
+  ApplicationListWithStatusCounts,
+  CreateApplicationDto,
+} from '@shared/models/application';
 import { ApplicationStatus } from '@constants/application-status';
 
 @Injectable({
@@ -23,7 +26,7 @@ export class ApplicationService {
 
     if (status !== null) url += `&status=${status}`;
 
-    return this.http.get<ApiResponse<PaginatedList<Application>>>(url);
+    return this.http.get<ApiResponse<ApplicationListWithStatusCounts>>(url);
   }
 
   createpplication(data: CreateApplicationDto) {

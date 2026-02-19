@@ -1,8 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ApplicationService } from '@services/application-service';
 import { Table } from '@shared/components/table/table';
-import { Application } from '@shared/models/application';
-import { EMPTY_PAGINATED_LIST, PaginatedList } from '@shared/models/paginated-list';
+import {
+  Application,
+  ApplicationListWithStatusCounts,
+  EMPTY_PAGINATED_APPLICATION_LIST,
+} from '@shared/models/application';
 import { DatePipe, UpperCasePipe } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { ApplicationStatus } from '@constants/application-status';
@@ -41,7 +44,7 @@ export class Applications implements OnInit {
     { key: 'actions', label: 'Actions' },
   ];
 
-  paginatedApplications = signal<PaginatedList<Application>>(EMPTY_PAGINATED_LIST);
+  paginatedApplications = signal<ApplicationListWithStatusCounts>(EMPTY_PAGINATED_APPLICATION_LIST);
 
   isLoading = signal<boolean>(false);
 
@@ -67,7 +70,7 @@ export class Applications implements OnInit {
     this.applicationService.getApplications(pageNumber, pageSize, searchTerm, status).subscribe({
       next: (res) => {
         if (res && res.succeeded) this.paginatedApplications.set(res.data);
-        else this.paginatedApplications.set(EMPTY_PAGINATED_LIST);
+        else this.paginatedApplications.set(EMPTY_PAGINATED_APPLICATION_LIST);
 
         this.isLoading.set(false);
       },
@@ -112,5 +115,18 @@ export class Applications implements OnInit {
 
   refreshApplications() {
     this.loadApplications(this.currentPage, this.pageSize, this.searchTerm, this.selectedStatus());
+  }
+
+  protected getStatusTotalCount(status: ApplicationStatus) {
+    switch (status) {
+      case ApplicationStatus.Pending:
+        return this.paginatedApplications().pendingTotalCount;
+      case ApplicationStatus.Approved:
+        return this.paginatedApplications().approvedTotalCount;
+      case ApplicationStatus.Rejected:
+        return this.paginatedApplications().rejectedTotalCount;
+      default:
+        return 0;
+    }
   }
 }

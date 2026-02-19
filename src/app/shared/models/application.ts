@@ -1,3 +1,5 @@
+import { PaginatedList } from './paginated-list';
+
 export interface Application {
   id: string;
   firstName: string;
@@ -16,3 +18,21 @@ export interface Application {
 }
 
 export type CreateApplicationDto = Omit<Application, 'id' | 'status'>;
+
+export interface ApplicationListWithStatusCounts extends PaginatedList<Application> {
+  pendingTotalCount: number;
+  approvedTotalCount: number;
+  rejectedTotalCount: number;
+}
+
+export const EMPTY_PAGINATED_APPLICATION_LIST = {
+  pendingTotalCount: 0,
+  approvedTotalCount: 0,
+  rejectedTotalCount: 0,
+  items: [],
+  totalCount: 0,
+  pageNumber: 0,
+  totalPages: 0,
+  hasPreviousPage: false,
+  hasNextPage: false,
+};
