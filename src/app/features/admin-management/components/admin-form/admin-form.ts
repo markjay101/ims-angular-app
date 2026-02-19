@@ -56,7 +56,9 @@ export class AdminForm {
     this.isRoleOptionsOpen.set(false);
   }
 
-  submit() {
+  handleSave() {
+    if (this.isSaving()) return;
+
     if (this.adminForm.valid) {
       this.onSave.emit(this.adminForm.getRawValue());
     } else {
