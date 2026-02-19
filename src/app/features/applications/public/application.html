@@ -14,7 +14,12 @@
   </header>
 
   <div class="flex flex-col lg:flex-row gap-4">
-    <app-application-form class="lg:w-2/3" (onSave)="handleSubmit($event)" />
+    <app-application-form
+      #applicationForm
+      class="lg:w-2/3"
+      (onSave)="handleSubmit($event)"
+      [isSaving]="isSaving()"
+    />
     <div class="lg:w-1/3 flex flex-col gap-4">
       <app-steps-guide />
     </div>

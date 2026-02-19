@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, output, signal } from '@angular/core';
+import { Component, inject, input, OnInit, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { CurrencyPipe } from '@angular/common';
@@ -31,24 +31,24 @@ export class ApplicationForm implements OnInit {
     internetPlanId: ['', Validators.required],
   });
 
-  isLoading = signal<boolean>(false);
+  isPlanLoading = signal<boolean>(false);
   internetPlans = signal<InternetPlan[]>([]);
   selectedInternetPlanId = signal<string | null>(null);
 
   onSave = output<CreateApplicationDto>();
-  isSaving = signal<boolean>(false);
+  isSaving = input<boolean>(false);
 
   loadInternetPlans() {
-    this.isLoading.set(true);
+    this.isPlanLoading.set(true);
     this.internetPlanService.getInternetPlans().subscribe({
       next: (res) => {
         if (res && res.succeeded) this.internetPlans.set(res.data.items);
 
-        this.isLoading.set(false);
+        this.isPlanLoading.set(false);
       },
       error: (err) => {
         console.error(err);
-        this.isLoading.set(false);
+        this.isPlanLoading.set(false);
       },
     });
   }
@@ -59,7 +59,12 @@ export class ApplicationForm implements OnInit {
   }
 
   handleSave() {
-    this.isSaving.set(true);
+    if (this.isSaving()) return;
+
     this.onSave.emit(this.applicationForm.getRawValue());
+  }
+
+  resetForm() {
+    this.applicationForm.reset();
   }
 }
