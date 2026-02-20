@@ -20,13 +20,15 @@
       iconName="philippine-peso"
       iconColorClass="bg-green-100 text-green-500"
     />
-    <app-dashboard-card
-      header="Admin Accounts"
-      [value]="superAdminDashboardSummary()?.adminAccounts!.toString()"
-      subHeader=""
-      iconName="shield"
-      iconColorClass="bg-[#faf5ff] text-[#9333ea]"
-    />
+    <a href="/admin-management">
+      <app-dashboard-card
+        header="Admin Accounts"
+        [value]="superAdminDashboardSummary()?.adminAccounts!.toString()"
+        subHeader=""
+        iconName="shield"
+        iconColorClass="bg-[#faf5ff] text-[#9333ea]"
+      />
+    </a>
     <app-dashboard-card
       header="Unpaid Invoice"
       [value]="'₱' + superAdminDashboardSummary()?.unpaidInvoicesTotalAmount!.toString()"
@@ -44,13 +46,15 @@
       iconColorClass="bg-red-100 text-red-500"
     />
   }
-  <app-dashboard-card
-    header="Pending Applications"
-    [value]="dashboardSummary()?.pendingApplications!.toString()"
-    subHeader="Awaiting for approval"
-    iconName="file-user"
-    iconColorClass="bg-[#fffbeb] text-[#d97706]"
-  />
+  <a href="/applications">
+    <app-dashboard-card
+      header="Pending Applications"
+      [value]="dashboardSummary()?.pendingApplications!.toString()"
+      subHeader="Awaiting for approval"
+      iconName="file-user"
+      iconColorClass="bg-[#fffbeb] text-[#d97706]"
+    />
+  </a>
 </div>
 @if (currentUser()?.role === 'SuperAdmin') {
   <app-earnings-chart [monthlyEarnings]="[21000, 36000]" />
