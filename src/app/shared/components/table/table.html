@@ -18,58 +18,65 @@
     <ng-content select="[tableActions]"></ng-content>
   </div>
 
-  <div class="w-full rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-    <table class="w-full sm:w-[150] text-left text-sm overflow-x-auto">
-      <thead class="bg-slate-50 text-slate-600 uppercase text-[11px] font-bold tracking-wider">
-        <tr>
-          @for (col of columns(); track col.key) {
-            <th class="px-6 py-4" [class.text-right]="col.key === 'actions'">{{ col.label }}</th>
-          }
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-slate-100">
-        @if (isLoading()) {
+  <div
+    class="max-w-[calc(100vw-48px)] rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden"
+  >
+    <div class="w-full overflow-auto">
+      <table class="w-full sm:w-[150] text-left text-sm overflow-x-auto">
+        <thead class="bg-slate-50 text-slate-600 uppercase text-[11px] font-bold tracking-wider">
           <tr>
-            <td [attr.colspan]="columns().length" class="px-6 py-12 text-slate-500 text-center">
-              <div class="flex flex-col items-center gap-2">
-                <lucide-icon name="loader-circle" class="animate-spin text-blue-600"></lucide-icon>
-                <span>Loading records...</span>
-              </div>
-            </td>
+            @for (col of columns(); track col.key) {
+              <th class="px-6 py-4" [class.text-right]="col.key === 'actions'">{{ col.label }}</th>
+            }
           </tr>
-        } @else {
-          @for (row of data().items; track row.id) {
-            <tr class="hover:bg-blue-100/30 transition-colors">
-              @for (col of columns(); track col.key) {
-                <td class="px-6 py-4 text-slate-700">
-                  @if (col.key === 'actions') {
-                    <div class="flex items-center justify-end gap-3">
-                      <ng-container
-                        [ngTemplateOutlet]="columnTemplates()['actions']"
-                        [ngTemplateOutletContext]="{ row: row }"
-                      ></ng-container>
-                    </div>
-                  } @else if (columnTemplates()[col.key]) {
-                    <ng-container
-                      [ngTemplateOutlet]="columnTemplates()[col.key]"
-                      [ngTemplateOutletContext]="{ $implicit: row[col.key], row: row }"
-                    ></ng-container>
-                  } @else {
-                    {{ row[col.key] }}
-                  }
-                </td>
-              }
-            </tr>
-          } @empty {
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          @if (isLoading()) {
             <tr>
-              <td [attr.colspan]="columns().length" class="p-6 text-slate-400 text-center">
-                No data found.
+              <td [attr.colspan]="columns().length" class="px-6 py-12 text-slate-500 text-center">
+                <div class="flex flex-col items-center gap-2">
+                  <lucide-icon
+                    name="loader-circle"
+                    class="animate-spin text-blue-600"
+                  ></lucide-icon>
+                  <span>Loading records...</span>
+                </div>
               </td>
             </tr>
+          } @else {
+            @for (row of data().items; track row.id) {
+              <tr class="hover:bg-blue-100/30 transition-colors">
+                @for (col of columns(); track col.key) {
+                  <td class="px-6 py-4 text-slate-700">
+                    @if (col.key === 'actions') {
+                      <div class="flex items-center justify-end gap-3">
+                        <ng-container
+                          [ngTemplateOutlet]="columnTemplates()['actions']"
+                          [ngTemplateOutletContext]="{ row: row }"
+                        ></ng-container>
+                      </div>
+                    } @else if (columnTemplates()[col.key]) {
+                      <ng-container
+                        [ngTemplateOutlet]="columnTemplates()[col.key]"
+                        [ngTemplateOutletContext]="{ $implicit: row[col.key], row: row }"
+                      ></ng-container>
+                    } @else {
+                      {{ row[col.key] }}
+                    }
+                  </td>
+                }
+              </tr>
+            } @empty {
+              <tr>
+                <td [attr.colspan]="columns().length" class="p-6 text-slate-400 text-center">
+                  No data found.
+                </td>
+              </tr>
+            }
           }
-        }
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
 
     <div
       class="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row justify-between items-center gap-4"
