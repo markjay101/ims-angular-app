@@ -57,7 +57,7 @@
   </a>
 </div>
 @if (currentUser()?.role === 'SuperAdmin') {
-  <app-earnings-chart [monthlyEarnings]="[21000, 36000]" />
+  <app-earnings-chart [monthlyEarnings]="monthlyEarnings()" />
 }
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
   <div

@@ -1,4 +1,5 @@
-import { Component, effect, input } from '@angular/core';
+import { Component, effect, input, signal } from '@angular/core';
+import { MonthlyEarning } from '@root/app/shared/models/monthly-earning';
 import { HighchartsChartComponent } from 'highcharts-angular';
 
 @Component({
@@ -8,7 +9,8 @@ import { HighchartsChartComponent } from 'highcharts-angular';
   styleUrl: './earnings-chart.css',
 })
 export class EarningsChart {
-  monthlyEarnings = input.required<number[]>();
+  monthlyEarnings = input.required<MonthlyEarning[] | []>();
+  earningsData = signal<number[]>([]);
 
   private currentYear = new Date().getFullYear();
 
@@ -93,7 +95,7 @@ export class EarningsChart {
     },
     series: [
       {
-        name: 'Monthly Earnings',
+        name: 'Earnings',
         type: 'area',
         data: [],
       },
@@ -110,16 +112,27 @@ export class EarningsChart {
 
   constructor() {
     effect(() => {
+      this.loadEarningsData();
       const data = (this.chartOptions = {
         ...this.chartOptions,
         series: [
           {
-            name: 'Monthly Earnings',
+            name: 'Earnings',
             type: 'area',
-            data: this.monthlyEarnings(),
+            data: this.earningsData(),
           },
         ],
       });
     });
+  }
+
+  loadEarningsData() {
+    const earningsArray = Array<number>(new Date().getMonth() + 1).fill(0);
+
+    this.monthlyEarnings().forEach((item) => {
+      earningsArray[item.month - 1] = item.earning;
+    });
+
+    this.earningsData.set(earningsArray);
   }
 }
