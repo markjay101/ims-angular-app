@@ -6,6 +6,7 @@ import { DashboardService } from '@services/dashboard-service';
 import { DashboardSummary, SuperAdminDashboardSummary } from '@shared/models/dashboard-summary';
 import { LucideAngularModule } from 'lucide-angular';
 import { EarningsChart } from './components/earnings-chart/earnings-chart';
+import { UserRole } from '@constants/role';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +25,8 @@ export class Dashboard implements OnInit {
 
   ngOnInit(): void {
     this.loadSummary();
-    this.loadMonthlyEarnigs();
+
+    if (this.currentUser()?.role == UserRole.SuperAdmin) this.loadMonthlyEarnigs();
   }
   loadSummary() {
     this.dashboardService.getSummary().subscribe({
