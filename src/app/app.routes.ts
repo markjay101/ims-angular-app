@@ -6,7 +6,7 @@ export const routes: Routes = [
     path: 'login',
     pathMatch: 'full',
     loadComponent: async () => {
-      const m = await import('./features/auth/login/login');
+      const m = await import('@public-page/login/login');
       return m.Login;
     },
   },
@@ -14,7 +14,7 @@ export const routes: Routes = [
     path: 'apply',
     pathMatch: 'full',
     loadComponent: async () => {
-      const m = await import('./features/applications/public/application');
+      const m = await import('@public-page/application/application');
       return m.Application;
     },
   },
@@ -30,7 +30,7 @@ export const routes: Routes = [
         path: '',
         pathMatch: 'full',
         loadComponent: async () => {
-          const m = await import('./features/dashboard/dashboard');
+          const m = await import('@dashboard/dashboard');
           return m.Dashboard;
         },
       },
@@ -38,7 +38,7 @@ export const routes: Routes = [
         path: 'admin-management',
         pathMatch: 'full',
         loadComponent: async () => {
-          const m = await import('./features/admin-management/admin-management');
+          const m = await import('@admin-management/admin-management');
           return m.AdminManagement;
         },
       },
@@ -46,7 +46,7 @@ export const routes: Routes = [
         path: 'payment-methods',
         pathMatch: 'full',
         loadComponent: async () => {
-          const m = await import('./features/payment-methods/payment-methods');
+          const m = await import('@payment-methods/payment-methods');
           return m.PaymentMethods;
         },
       },
@@ -54,7 +54,7 @@ export const routes: Routes = [
         path: 'internet-plans',
         pathMatch: 'full',
         loadComponent: async () => {
-          const m = await import('./features/internet-plans/internet-plans');
+          const m = await import('@internet-plans/internet-plans');
           return m.InternetPlans;
         },
       },
@@ -62,7 +62,7 @@ export const routes: Routes = [
         path: 'modems',
         pathMatch: 'full',
         loadComponent: async () => {
-          const m = await import('./features/modems/modems');
+          const m = await import('@modems/modems');
           return m.Modems;
         },
       },
@@ -70,7 +70,7 @@ export const routes: Routes = [
         path: 'applications',
         pathMatch: 'full',
         loadComponent: async () => {
-          const m = await import('./features/applications/private/applications');
+          const m = await import('@applications/applications');
           return m.Applications;
         },
       },
@@ -78,7 +78,7 @@ export const routes: Routes = [
         path: 'customers',
         pathMatch: 'full',
         loadComponent: async () => {
-          const m = await import('./features/customers/customers');
+          const m = await import('@customers/customers');
           return m.Customers;
         },
       },
