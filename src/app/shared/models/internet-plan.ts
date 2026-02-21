@@ -4,6 +4,7 @@ export interface InternetPlan {
   description: string;
   speedMbps: number;
   price: number;
+  subscriberCount: number;
 }
 
 export interface CreateInternetPlanDto {
