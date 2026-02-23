@@ -20,7 +20,10 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
       let errorMessage = apiResponse.message;
 
-      if (apiResponse?.errors?.length > 0) {
+      if (
+        apiResponse?.errors?.length > 0 &&
+        errorMessage.toLocaleLowerCase().includes('validation')
+      ) {
         errorMessage = apiResponse.errors[0];
       } else if (error.status === 0) {
         errorMessage = 'Cannot connect to server. Try again later.';
