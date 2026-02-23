@@ -9,6 +9,7 @@ import { FormContainer } from '@shared/components/form-container/form-container'
 import { ModemForm } from './components/modem-form/modem-form';
 import { Backdrop } from '@shared/components/backdrop/backdrop';
 import { ToastService } from '@services/toast-service';
+import { TableColumn } from '@root/app/shared/models/table-column';
 
 @Component({
   selector: 'app-modems',
@@ -30,7 +31,7 @@ export class Modems implements OnInit {
     hasNextPage: false,
   });
 
-  modemColumns = [
+  modemColumns: TableColumn[] = [
     { key: 'model', label: 'Model' },
     { key: 'serialNumber', label: 'Serial Number' },
     { key: 'macAddress', label: 'Mac Address' },

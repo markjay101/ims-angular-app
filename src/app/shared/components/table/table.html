@@ -26,7 +26,13 @@
         <thead class="bg-slate-50 text-slate-600 uppercase text-[11px] font-bold tracking-wider">
           <tr>
             @for (col of columns(); track col.key) {
-              <th class="px-6 py-4" [class.text-right]="col.key === 'actions'">{{ col.label }}</th>
+              @if (
+                col.isVisible === undefined || (col.isVisible !== undefined && col.isVisible())
+              ) {
+                <th class="px-6 py-4" [class.text-right]="col.key === 'actions'">
+                  {{ col.label }}
+                </th>
+              }
             }
           </tr>
         </thead>
@@ -47,23 +53,27 @@
             @for (row of data().items; track row.id) {
               <tr class="hover:bg-blue-100/30 transition-colors">
                 @for (col of columns(); track col.key) {
-                  <td class="px-6 py-4 text-slate-700">
-                    @if (col.key === 'actions') {
-                      <div class="flex items-center justify-end gap-3">
+                  @if (
+                    col.isVisible === undefined || (col.isVisible !== undefined && col.isVisible())
+                  ) {
+                    <td class="px-6 py-4 text-slate-700">
+                      @if (col.key === 'actions') {
+                        <div class="flex items-center justify-end gap-3">
+                          <ng-container
+                            [ngTemplateOutlet]="columnTemplates()['actions']"
+                            [ngTemplateOutletContext]="{ row: row }"
+                          ></ng-container>
+                        </div>
+                      } @else if (columnTemplates()[col.key]) {
                         <ng-container
-                          [ngTemplateOutlet]="columnTemplates()['actions']"
-                          [ngTemplateOutletContext]="{ row: row }"
+                          [ngTemplateOutlet]="columnTemplates()[col.key]"
+                          [ngTemplateOutletContext]="{ $implicit: row[col.key], row: row }"
                         ></ng-container>
-                      </div>
-                    } @else if (columnTemplates()[col.key]) {
-                      <ng-container
-                        [ngTemplateOutlet]="columnTemplates()[col.key]"
-                        [ngTemplateOutletContext]="{ $implicit: row[col.key], row: row }"
-                      ></ng-container>
-                    } @else {
-                      {{ row[col.key] }}
-                    }
-                  </td>
+                      } @else {
+                        {{ row[col.key] }}
+                      }
+                    </td>
+                  }
                 }
               </tr>
             } @empty {

@@ -6,15 +6,16 @@ import {
   EMPTY_PAGINATED_CUSTOMER_LIST,
 } from '@shared/models/customer';
 import { CustomersService } from '@services/customers-service';
-import { UpperCasePipe } from '@angular/common';
+import { DatePipe, UpperCasePipe } from '@angular/common';
 import { CustomerStatus } from '@constants/customer-status';
 import { LucideAngularModule } from 'lucide-angular';
 import { CustomerModal } from './components/customer-modal/customer-modal';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { TableColumn } from '@root/app/shared/models/table-column';
 
 @Component({
   selector: 'app-customers',
-  imports: [Table, UpperCasePipe, LucideAngularModule, CustomerModal],
+  imports: [Table, UpperCasePipe, DatePipe, LucideAngularModule, CustomerModal],
   templateUrl: './customers.html',
   styleUrl: './customers.css',
 })
@@ -33,12 +34,26 @@ export class Customers implements OnInit {
 
   paginatedCustomers = signal<CustomersListWithStatusCounts>(EMPTY_PAGINATED_CUSTOMER_LIST);
 
-  customerColumns = [
+  customerColumns: TableColumn[] = [
     { key: 'customer', label: 'customer' },
     { key: 'contact', label: 'Contact' },
     { key: 'status', label: 'Status' },
     { key: 'plan', label: 'Internet Plan' },
     { key: 'modem', label: 'Modem' },
+    {
+      key: 'startDate',
+      label: 'Start Date',
+      isVisible: () =>
+        this.selectedStatus() === CustomerStatus.Active ||
+        this.selectedStatus() === CustomerStatus.Inactive,
+    },
+    {
+      key: 'nextBillingDate',
+      label: 'Next Billing Date',
+      isVisible: () =>
+        this.selectedStatus() === CustomerStatus.Active ||
+        this.selectedStatus() === CustomerStatus.Inactive,
+    },
     { key: 'actions', label: 'Actions' },
   ];
 

@@ -11,6 +11,7 @@ import { LucideAngularModule } from 'lucide-angular';
 import { ApplicationStatus } from '@constants/application-status';
 import { ApplicantModal } from './components/applicant-modal/applicant-modal';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { TableColumn } from '@root/app/shared/models/table-column';
 
 @Component({
   selector: 'app-applications',
@@ -36,7 +37,7 @@ export class Applications implements OnInit {
   private applicationService = inject(ApplicationService);
   private searchSubject = new Subject<string>();
 
-  applicationColumns = [
+  applicationColumns: TableColumn[] = [
     { key: 'applicant', label: 'Applicant' },
     { key: 'contactNumber', label: 'Contact' },
     { key: 'status', label: 'Status' },

@@ -16,6 +16,8 @@
     actions: actionsTemplate,
     plan: internetPlanTemplate,
     modem: modemTemplate,
+    startDate: startDateTemplate,
+    nextBillingDate: nextBillingDateTemplate,
   }"
 >
   <div
@@ -101,6 +103,17 @@
   } @else {
     <span class="text-md text-slate-500 text-bold">-</span>
   }
+</ng-template>
+<ng-template #startDateTemplate let-row="row">
+  <span class="text-slate-500 font-medium text-nowrap">
+    {{ row.plan.startDate + 'Z' | date: 'mediumDate' }}
+  </span>
+</ng-template>
+
+<ng-template #nextBillingDateTemplate let-row="row">
+  <span class="text-slate-500 font-medium text-nowrap">
+    {{ row.plan.nextDueDate + 'Z' | date: 'mediumDate' }}
+  </span>
 </ng-template>
 
 <ng-template #modemTemplate let-value>

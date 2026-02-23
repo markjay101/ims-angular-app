@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, input, output, signal, TemplateRef } from '@angular/core';
 import { PaginatedList } from '@shared/models/paginated-list';
 import { LucideAngularModule } from 'lucide-angular';
+import { TableColumn } from '../../models/table-column';
 
 @Component({
   selector: 'app-table',
@@ -11,7 +12,7 @@ import { LucideAngularModule } from 'lucide-angular';
 })
 export class Table {
   data = input.required<PaginatedList<any>>();
-  columns = input<{ key: string; label: string }[]>([]);
+  columns = input<TableColumn[]>([]);
   columnTemplates = input<Record<string, TemplateRef<any>>>({});
   isLoading = input<boolean>(false);
 

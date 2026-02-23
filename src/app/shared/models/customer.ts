@@ -24,7 +24,7 @@ interface CustomerPlan {
   description: string;
   price: number;
   startDate: Date | null;
-  NextDueDate: Date | null;
+  nextDueDate: Date | null;
 }
 
 export type AssignCustomerModem = {

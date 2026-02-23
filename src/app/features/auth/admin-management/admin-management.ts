@@ -14,6 +14,7 @@ import { FormContainer } from '@shared/components/form-container/form-container'
 import { AdminStats } from '@shared/models/admin';
 import { UserRole, UserRoleNumberMap } from '@constants/role';
 import { ToastService } from '@services/toast-service';
+import { TableColumn } from '@root/app/shared/models/table-column';
 
 @Component({
   selector: 'app-admin-management',
@@ -34,7 +35,7 @@ export class AdminManagement implements OnInit {
   private searchSubject = new Subject<string>();
   private toast = inject(ToastService);
 
-  adminColumns = [
+  adminColumns: TableColumn[] = [
     { key: 'userName', label: 'Admin' },
     { key: 'role', label: 'Role' },
     { key: 'createdAt', label: 'Joined Date' },
