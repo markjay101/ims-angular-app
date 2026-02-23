@@ -37,7 +37,11 @@ export class Customers implements OnInit {
   customerColumns: TableColumn[] = [
     { key: 'customer', label: 'customer' },
     { key: 'contact', label: 'Contact' },
-    { key: 'status', label: 'Status' },
+    {
+      key: 'status',
+      label: 'Status',
+      isVisible: () => this.selectedStatus() === null,
+    },
     { key: 'plan', label: 'Internet Plan' },
     { key: 'modem', label: 'Modem' },
     {

@@ -40,7 +40,11 @@ export class Applications implements OnInit {
   applicationColumns: TableColumn[] = [
     { key: 'applicant', label: 'Applicant' },
     { key: 'contactNumber', label: 'Contact' },
-    { key: 'status', label: 'Status' },
+    {
+      key: 'status',
+      label: 'Status',
+      isVisible: () => this.selectedStatus() === null,
+    },
     { key: 'createdAt', label: 'Applied' },
     { key: 'actions', label: 'Actions' },
   ];
