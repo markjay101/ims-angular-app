@@ -11,10 +11,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        router.navigate(['/login']);
-        return throwError(() => error);
-      }
+      if (error.status === 401) return throwError(() => error);
 
       const apiResponse = error.error as ApiResponse<any>;
 

@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { AuthService } from '@services/auth-service';
 import { UserRole } from '@constants/role';
@@ -14,7 +14,6 @@ export class Sidebar {
   private authService = inject(AuthService);
   currentUser = this.authService.currentUser;
   currentUserRole = this.currentUser()?.role as UserRole;
-  private router = inject(Router);
 
   isCollapsed = signal(false);
   isMobileMenuOpen = signal(false);
@@ -76,6 +75,5 @@ export class Sidebar {
 
   clickedLogout() {
     this.authService.logout();
-    this.router.navigate(['/login']);
   }
 }

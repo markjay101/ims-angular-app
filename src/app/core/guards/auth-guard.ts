@@ -8,8 +8,6 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   if (authService.isAuthenticated()) return true;
 
-  console.warn('Unauthorized.');
-
   return router.createUrlTree(['/login'], {
     queryParams: { returnUrl: state.url },
   });
